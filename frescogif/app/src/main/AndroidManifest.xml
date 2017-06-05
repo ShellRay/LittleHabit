@@ -32,6 +32,10 @@
         <activity android:name=".activity.RecycleViewActivity">
 
         </activity>
+        <activity android:name=".activity.SlidMenuActivity"
+            android:theme="@style/AppSideTheme">
+
+        </activity>
     </application>
 
 </manifest>

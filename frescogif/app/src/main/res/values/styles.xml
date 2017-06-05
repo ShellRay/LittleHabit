@@ -7,6 +7,8 @@
         <item name="colorPrimaryDark">#39AEC2</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    <style name="AppSideTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    </style>
     <style name="giftDialog" parent="@style/gAlertDialogTheme"></style>
     <style name="gAlertDialogTheme">
         <item name="android:windowFrame">@null</item>

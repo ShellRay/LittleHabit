@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.frescogif.activity.RecycleViewActivity;
+import com.example.frescogif.activity.SlidMenuActivity;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
 import java.io.ByteArrayOutputStream;
@@ -87,15 +88,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_bg:
                 startActivity(new Intent(this,ImageBackgroundResilience.class));
                 break;
-            case R.id.btn_login:
-                startActivity(new Intent(this,LoginActivity.class));
+            case R.id.btn_login://slidmenue界面
+                startActivity(new Intent(this,SlidMenuActivity.class));
                 break;
             case R.id.btn_recycle:
                 startActivity(new Intent(this,RecycleViewActivity.class));
                 break;
             case R.id.btn_gif:
 //                startActivity(new Intent(this,RecycleViewActivity.class));
-                
+
                 break;
         }
     }
