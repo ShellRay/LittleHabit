@@ -1,5 +1,6 @@
 package com.example.frescogif.activity;
 
+import android.graphics.Rect;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -32,6 +33,13 @@ public class RecycleViewActivity extends AppCompatActivity {
         //(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));//
         RecyclerView rcl_style = (RecyclerView)findViewById(R.id.rcl_style);
         rcl_style.setLayoutManager(new SignLayoutManager(3, 20));
+        // 添加分割线
+        rcl_style.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(Rect outRect, int itemPosition, RecyclerView parent) {
+                outRect.set(0, 0, 0, 25);
+            }
+        });
         rcl_style.setAdapter(new SignAdapter(this,list));
     }
 }

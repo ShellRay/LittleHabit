@@ -1,10 +1,21 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff" >
 
+    <ImageView
+        android:id="@+id/iv_login_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/deadgold"
+        android:scaleType="fitXY" />
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="90dp"
+        >
 
     <EditText
         android:id="@+id/et_username"
@@ -27,7 +38,7 @@
         android:layout_height="34dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="50dp"
         android:gravity="center_vertical"
         android:text="输入账号"
         android:textColor="#cccccc"
@@ -65,7 +76,7 @@
         android:layout_below="@id/et_username"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="18dp"
         android:gravity="center_vertical"
         android:text="输入密码"
         android:textColor="#cccccc"
@@ -91,7 +102,7 @@
         android:layout_marginTop="13dp"
         android:background="@color/colorAccent"
         android:text="login"
-        android:textColor="#ff0" />
+        android:textColor="#fff" />
+    </RelativeLayout>
 
-
-</RelativeLayout>
+</FrameLayout>

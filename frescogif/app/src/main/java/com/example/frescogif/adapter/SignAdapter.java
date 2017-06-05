@@ -5,8 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.frescogif.R;
 
 import java.util.List;
@@ -26,17 +28,23 @@ public class SignAdapter extends RecyclerView.Adapter <RecyclerView.ViewHolder>{
     private class StyleViewHolder extends RecyclerView.ViewHolder{
 
         private final TextView tv_item;
+        private final ImageView iv_gif;
 
         public StyleViewHolder(View itemView) {
             super(itemView);
             tv_item = (TextView) itemView.findViewById(R.id.tv_item);
+            iv_gif = (ImageView) itemView.findViewById(R.id.iv_gif);
 
         }
 
         public void bindData(int postion) {
             String text = (String) mData.get(postion);
             tv_item.setText(text);
-
+            String url = "https://res.guagua.cn/pic//6897_9.gif";
+            Glide.with(context)
+                    .load(url.toString())
+                    .asGif()
+                    .into(iv_gif);
         }
     }
 

@@ -24,34 +24,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btn_bg;
     private Button btn_login;
     private Button btn_recycle;
+    private Button iv_gif;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fresco.initialize(this);
+
         setContentView(R.layout.activity_main);
         btn_bg = (Button) findViewById(R.id.btn_bg);
         btn_login = (Button) findViewById(R.id.btn_login);
         btn_recycle = (Button) findViewById(R.id.btn_recycle);
+        iv_gif = (Button) findViewById(R.id.btn_gif);
+
 
         btn_bg.setOnClickListener(this);
         btn_login.setOnClickListener(this);
         btn_recycle.setOnClickListener(this);
+        iv_gif.setOnClickListener(this);
+
         ArrayList<String> list = new ArrayList<>();
-//        第一种方法：
-//        InputStream abpath = getClass().getResourceAsStream("/assets/a.gif");
-//        String path = new String(InputStreamToByte(abpath ));
-            String path = "asset:///a.gif";
-//
+        String path = "asset:///a.gif";
+        String path1 = "asset:///b.gif";
         AssetManager assets = getAssets();
-        for (int x = 0;x<10;x++){
+        for (int x = 0;x<8;x++){
                 list.add(x,path);
             }
+        for (int x = 0;x<8;x++){
+            list.add(x,path1);
+        }
             giftDialog = new GiftDialog(this, list);
-        ImageView iv_gif = (ImageView) findViewById(R.id.iv_gif);
+      /*
+       这个是可以使用的
        String url = "https://res.guagua.cn/pic//6897_9.gif";
-        String url1 = "https://res.guagua.cn/pic//6897_7.png";
-        Glide.with(this).load(url).asBitmap().into(iv_gif);
+        Glide.with(MainActivity.this)
+                .load(url.toString())
+                .asGif()
+                .into(iv_gif);*/
     }
 
     public void click(View view){
@@ -84,6 +92,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_recycle:
                 startActivity(new Intent(this,RecycleViewActivity.class));
+                break;
+            case R.id.btn_gif:
+//                startActivity(new Intent(this,RecycleViewActivity.class));
+                
                 break;
         }
     }

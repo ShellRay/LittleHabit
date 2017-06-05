@@ -3,7 +3,7 @@
               xmlns:library="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:background="#90000000"
+              android:background="#9039AEC2"
               android:clickable="true"
               android:orientation="vertical">
 
@@ -23,6 +23,7 @@
                 android:layout_height="200dp"
                 android:clipChildren="false"
                 android:clipToPadding="false"
+                android:background="@color/colorPrimary"
                 android:paddingTop="12dp"
                 library:gridColNumber="4"
                 library:gridRowNumber="2"
@@ -34,8 +35,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:layout_gravity="center_horizontal"
-                library:pageImageNormal="@mipmap/ic_launcher"
-                library:pageImageSelect="@mipmap/ic_launcher"
+                library:pageImageNormal="@drawable/red_point"
+                library:pageImageSelect="@drawable/red_point"
                 library:pageImageSize="12dp"
                 library:pageSpaceSize="5dp"/>
 

@@ -17,4 +17,6 @@
         <attr name="zoomId" format="reference|integer" />
         <attr name="maxZoom" format="dimension" />
     </declare-styleable>
+
+
 </resources>

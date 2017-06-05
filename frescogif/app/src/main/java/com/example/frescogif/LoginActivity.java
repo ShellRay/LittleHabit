@@ -1,5 +1,6 @@
 package com.example.frescogif;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -7,16 +8,20 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.Window;
 import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
  * Created by GG on 2017/5/16.
  */
-public class LoginActivity extends AppCompatActivity{
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText etUserName;
     private EditText etPassword;
@@ -25,6 +30,8 @@ public class LoginActivity extends AppCompatActivity{
     private TextView tvAnimPsw;
     private boolean tagPhone = true;
     private boolean tagPsw = true;
+    private ImageView ivLoginBg;
+    private ScaleAnimation scaleAnimation1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,7 +42,19 @@ public class LoginActivity extends AppCompatActivity{
         btLogin = (Button) findViewById(R.id.btn_login);
         tvAnimUsername = (TextView) findViewById(R.id.tv_anim_username);
         tvAnimPsw = (TextView) findViewById(R.id.tv_anim_pwd);
+        ivLoginBg = (ImageView) findViewById(R.id.iv_login_bg);
         initView();
+        initAnim();
+    }
+
+    private void initAnim() {
+        if(ivLoginBg.getVisibility() == View.VISIBLE){
+            scaleAnimation1 = new ScaleAnimation(1.0f, 1.3f, 1.0f, 1.3f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+            scaleAnimation1.setRepeatMode(Animation.REVERSE);
+            scaleAnimation1.setRepeatCount(-1);
+            scaleAnimation1.setDuration(5000);
+            ivLoginBg.startAnimation(scaleAnimation1);
+        }
     }
 
     private void initView() {
@@ -117,5 +136,13 @@ public class LoginActivity extends AppCompatActivity{
                 }
             }
         });
+
+        btLogin.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        startActivity(new Intent(this,MainActivity.class));
+        finish();
     }
 }

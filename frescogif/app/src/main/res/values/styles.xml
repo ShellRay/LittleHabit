@@ -17,9 +17,38 @@
         <item name="android:padding">0dip</item>
         <item name="android:windowIsTranslucent">true</item>
     </style>
+    <style name="MyStyle" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowActionBar">false</item>
+
+    </style>
+    <style name="SimpleStyle" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowActionBar">false</item>
+
+    </style>
     <!-- 礼物面板弹出动画 -->
     <style name="dialogAnim" parent="android:Animation">
         <item name="@android:windowEnterAnimation">@anim/qiqi_push_down_in_half</item>
         <item name="@android:windowExitAnimation">@anim/qiqi_push_down_out</item>
+    </style>
+
+    <style name="button_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/gradient_left</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:layout_marginTop">10dp</item>
+    </style>
+
+    <style name="weightLinear">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center|top</item>
+        <item name="android:orientation">vertical</item>
     </style>
 </resources>
