@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:library="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="#90000000"
+              android:clickable="true"
+              android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.example.frescogif.PageGridView
+                android:id="@+id/pageGridView"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:paddingTop="12dp"
+                library:gridColNumber="4"
+                library:gridRowNumber="2"
+                library:gridSpaceX="0dp"
+                library:gridSpceY="0dp"/>
+
+            <com.example.frescogif.PageMarkView
+                android:id="@+id/pageMarkView"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_gravity="center_horizontal"
+                library:pageImageNormal="@mipmap/ic_launcher"
+                library:pageImageSelect="@mipmap/ic_launcher"
+                library:pageImageSize="12dp"
+                library:pageSpaceSize="5dp"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/loadingText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:text="loading..."/>
+    </FrameLayout>
+
+    <!-- 余额,充值区域 -->
+
+    <RelativeLayout
+        android:id="@+id/layout_gift_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_has_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:textColor="#FFF"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:id="@+id/userCoinText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/tv_has_money"
+            android:text=""
+            android:textColor="#FFF"
+            android:textSize="14sp"/>
+
+        <Button
+            android:id="@+id/rechargeBttn"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="6dp"
+            android:layout_toRightOf="@+id/userCoinText"
+            android:background="#00ffffff"
+            android:clickable="false"
+            android:drawablePadding="5dp"
+            android:text="充值"
+            android:textColor="#ffc332"
+            android:textSize="14sp"/>
+
+        <Button
+            android:id="@+id/sendGiftBttn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="6dp"
+            android:gravity="center"
+            android:minWidth="62dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="赠送"
+            android:textColor="#ffffff"
+            android:textSize="14sp"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

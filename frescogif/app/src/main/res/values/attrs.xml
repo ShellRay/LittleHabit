@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PageGridView">
+        <attr name="gridSpaceX" format="dimension"></attr>
+        <attr name="gridSpceY" format="dimension"></attr>
+        <attr name="gridRowNumber" format="integer"></attr>
+        <attr name="gridColNumber" format="integer"></attr>
+    </declare-styleable>
+    <declare-styleable name="PageMarkView">
+        <attr name="pageSpaceSize" format="dimension"></attr>
+        <attr name="pageImageSize" format="dimension"></attr>
+        <attr name="pageImageNormal" format="reference"></attr>
+        <attr name="pageImageSelect" format="reference"></attr>
+    </declare-styleable>
+
+    <declare-styleable name="ObservableScrollView">
+        <attr name="zoomId" format="reference|integer" />
+        <attr name="maxZoom" format="dimension" />
+    </declare-styleable>
+</resources>

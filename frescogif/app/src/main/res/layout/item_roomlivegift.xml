@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:clipChildren="false">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/livegift_bg"/>
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/giftImage"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:contentDescription="@string/app_name"
+        android:scaleType="fitXY"/>
+
+    <TextView
+        android:id="@+id/giftPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:singleLine="true"
+        android:textColor="#000"
+        android:textSize="12sp"/>
+
+    <TextView
+        android:id="@+id/giftLable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="2dp"
+        android:gravity="center"
+        android:singleLine="true"
+        android:textColor="#ffffff"
+        android:textSize="12sp"/>
+
+    <TextView
+        android:id="@+id/giftCount"
+        android:background="#000"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginLeft="-8dp"
+        android:layout_marginRight="-8dp"
+        android:layout_marginTop="-8dp"
+        android:gravity="center"
+        android:textColor="#663500"
+        android:textStyle="bold"
+        android:textSize="10sp"/>
+
+</FrameLayout>

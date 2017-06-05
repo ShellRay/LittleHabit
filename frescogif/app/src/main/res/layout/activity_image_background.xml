@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.frescogif.view.ZoomScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:zoomId="@+id/iv_zoom"
+    android:background="@color/colorAccent"
+    app:maxZoom="150dp">
+    <LinearLayout
+        android:id="@+id/ll_viewArea"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="2200dp">
+    <ImageView
+        android:id="@+id/iv_zoom"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/sky"
+        android:scaleType="centerCrop"
+        />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="what do you meaning?"
+            android:gravity="center"
+            />
+    </LinearLayout>
+
+</com.example.frescogif.view.ZoomScrollView>
