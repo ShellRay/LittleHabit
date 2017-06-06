@@ -20,6 +20,8 @@ import java.util.List;
 
 /**
  * Created by Konstantin on 12.01.2015.
+ *
+ * 动画
  */
 public class ViewAnimator<T extends Resourceble> {
     private final int ANIMATION_DURATION = 175;

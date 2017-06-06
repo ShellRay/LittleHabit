@@ -36,6 +36,14 @@
             android:theme="@style/AppSideTheme">
 
         </activity>
+        <activity android:name=".activity.PullToRefreshActivity"
+            android:theme="@style/AppSideTheme">
+
+        </activity>
+        <activity android:name=".activity.PullToRefreshPlantActivity"
+            android:theme="@style/AppSideTheme">
+
+        </activity>
     </application>
 
 </manifest>

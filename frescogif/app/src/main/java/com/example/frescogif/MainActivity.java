@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.example.frescogif.activity.PullToRefreshActivity;
+import com.example.frescogif.activity.PullToRefreshPlantActivity;
 import com.example.frescogif.activity.RecycleViewActivity;
 import com.example.frescogif.activity.SlidMenuActivity;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btn_login;
     private Button btn_recycle;
     private Button iv_gif;
+    private Button btn_refresh_plant;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,28 +39,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_login = (Button) findViewById(R.id.btn_login);
         btn_recycle = (Button) findViewById(R.id.btn_recycle);
         iv_gif = (Button) findViewById(R.id.btn_gif);
+        btn_refresh_plant = (Button) findViewById(R.id.btn_refresh_plant);
+
 
 
         btn_bg.setOnClickListener(this);
         btn_login.setOnClickListener(this);
         btn_recycle.setOnClickListener(this);
         iv_gif.setOnClickListener(this);
+        btn_refresh_plant.setOnClickListener(this);
 
         ArrayList<String> list = new ArrayList<>();
         String path = "asset:///a.gif";
         String path1 = "asset:///b.gif";
-        AssetManager assets = getAssets();
-        for (int x = 0;x<8;x++){
-                list.add(x,path);
-            }
-        for (int x = 0;x<8;x++){
+        String path2 = "asset:///c.gif";
+        for (int x = 0;x<2;x++){
+            list.add(x,path);
+        }
+        for (int x = 0;x<2;x++){
             list.add(x,path1);
         }
-            giftDialog = new GiftDialog(this, list);
+        for (int x = 0;x<2;x++){
+            list.add(x,path2);
+        }
+        giftDialog = new GiftDialog(this, list);
       /*
        这个是可以使用的
        String url = "https://res.guagua.cn/pic//6897_9.gif";
-        Glide.with(MainActivity.this)
+            Glide.with(MainActivity.this)
                 .load(url.toString())
                 .asGif()
                 .into(iv_gif);*/
@@ -95,9 +104,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(this,RecycleViewActivity.class));
                 break;
             case R.id.btn_gif:
-//                startActivity(new Intent(this,RecycleViewActivity.class));
-
+                startActivity(new Intent(this,PullToRefreshActivity.class));
                 break;
+            case R.id.btn_refresh_plant:
+                startActivity(new Intent(this, PullToRefreshPlantActivity.class));
+                break;
+
         }
     }
 }
