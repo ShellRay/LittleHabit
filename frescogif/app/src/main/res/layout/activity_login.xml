@@ -8,7 +8,7 @@
         android:id="@+id/iv_login_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/deadgold"
+        android:background="@drawable/ulquionna"
         android:scaleType="fitXY" />
 
     <RelativeLayout
@@ -49,8 +49,8 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:layout_below="@id/et_username"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
         android:background="#cccccc" />
 
 
@@ -87,8 +87,8 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:layout_below="@id/et_pwd"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
         android:background="#cccccc" />
 
         <LinearLayout

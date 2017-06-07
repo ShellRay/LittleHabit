@@ -27,6 +27,10 @@
 
     </style>
     <style name="SimpleStyle" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">#39AEC2</item>
+        <item name="colorPrimaryDark">#39AEC2</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
         <item name="android:windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="android:windowActionBar">false</item>

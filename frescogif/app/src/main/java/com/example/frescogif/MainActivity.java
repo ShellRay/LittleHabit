@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.example.frescogif.activity.LoadingActivity;
 import com.example.frescogif.activity.PullToRefreshActivity;
 import com.example.frescogif.activity.PullToRefreshPlantActivity;
 import com.example.frescogif.activity.RecycleViewActivity;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btn_recycle;
     private Button iv_gif;
     private Button btn_refresh_plant;
+    private Button btn_loading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_recycle = (Button) findViewById(R.id.btn_recycle);
         iv_gif = (Button) findViewById(R.id.btn_gif);
         btn_refresh_plant = (Button) findViewById(R.id.btn_refresh_plant);
+        btn_loading = (Button) findViewById(R.id.btn_loading);
 
 
 
@@ -48,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_recycle.setOnClickListener(this);
         iv_gif.setOnClickListener(this);
         btn_refresh_plant.setOnClickListener(this);
+        btn_loading.setOnClickListener(this);
 
         ArrayList<String> list = new ArrayList<>();
         String path = "asset:///a.gif";
@@ -109,6 +113,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_refresh_plant:
                 startActivity(new Intent(this, PullToRefreshPlantActivity.class));
                 break;
+            case R.id.btn_loading:
+                startActivity(new Intent(this, LoadingActivity.class));
+                break;
+
 
         }
     }

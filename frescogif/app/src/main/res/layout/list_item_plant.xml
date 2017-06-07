@@ -10,6 +10,6 @@
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:textColor="@android:color/white"
-        android:textSize="32sp" />
+        android:textSize="40sp" />
 
 </FrameLayout>

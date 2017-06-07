@@ -1,6 +1,7 @@
 package com.example.frescogif.activity;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.frescogif.R;
+import com.example.frescogif.view.loadingview.Typefaces;
 import com.example.frescogif.view.pullRefreshPlant.PullToRefreshView;
 
 import java.util.ArrayList;
@@ -98,6 +100,7 @@ public class PullToRefreshPlantActivity extends AppCompatActivity {
             }
 
             viewHolder.textViewName.setText(mData.get(position).get(KEY_NAME));
+            viewHolder.textViewName.setTypeface( Typefaces.get(PullToRefreshPlantActivity.this, "Satisfy-Regular.ttf"));
             convertView.setBackgroundResource(mData.get(position).get(KEY_COLOR));
 
             return convertView;

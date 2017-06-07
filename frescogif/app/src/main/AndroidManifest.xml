@@ -44,6 +44,12 @@
             android:theme="@style/AppSideTheme">
 
         </activity>
+
+        <activity android:name=".activity.LoadingActivity"
+            android:theme="@style/SimpleStyle">
+
+        </activity>
+
     </application>
 
 </manifest>

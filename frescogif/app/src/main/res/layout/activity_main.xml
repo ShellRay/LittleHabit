@@ -42,6 +42,12 @@
             style="@style/button_style"
             android:text="plant"
             />
+
+        <Button
+            android:id="@+id/btn_loading"
+            style="@style/button_style"
+            android:text="loading"
+            />
     </LinearLayout>
 
     <LinearLayout
@@ -75,26 +81,48 @@
         style="@style/weightLinear">
 
         <Button
-            android:text="1"
-            style="@style/button_style2" />
+            style="@style/button_style2"
+            android:background="@mipmap/dead1"/>
 
         <Button
             style="@style/button_style2"
-            android:text="2"
             android:layout_centerHorizontal="true"
+            android:background="@mipmap/dead2"
             />
 
         <Button
             style="@style/button_style2"
-            android:text="3"
+            android:background="@mipmap/dead3"
             android:layout_centerHorizontal="true"/>
         <Button
             style="@style/button_style2"
-            android:text="4"
+            android:background="@mipmap/dead4"
             android:layout_centerHorizontal="true"/>
         <Button
             style="@style/button_style2"
-            android:text="5"
+            android:background="@mipmap/dead5"
+            />
+        <Button
+            style="@style/button_style2"
+            android:background="@mipmap/dead6"
+            android:layout_height="50dp"
+            android:layout_width="90dp"
+            />
+        <Button
+            style="@style/button_style2"
+            android:background="@mipmap/dead7"
+            />
+        <Button
+            style="@style/button_style2"
+            android:background="@mipmap/dead8"
+            android:layout_height="50dp"
+            android:layout_width="90dp"
+            />
+        <Button
+            style="@style/button_style2"
+            android:background="@mipmap/dead9"
+            android:layout_height="50dp"
+            android:layout_width="90dp"
             />
     </LinearLayout>
 </LinearLayout>
