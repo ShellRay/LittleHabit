@@ -48,6 +48,17 @@
             style="@style/button_style"
             android:text="loading"
             />
+
+        <Button
+            android:id="@+id/btn_edit"
+            style="@style/button_style"
+            android:text="design5.0"
+            />
+        <Button
+            android:id="@+id/btn_layoutmanager"
+            style="@style/button_style"
+            android:text="laymana"
+            />
     </LinearLayout>
 
     <LinearLayout

@@ -2,6 +2,7 @@ package com.example.frescogif.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.frescogif.R;
+import com.example.frescogif.activity.LayoutMangerActivity;
 
 import java.util.List;
 
@@ -17,12 +19,17 @@ import java.util.List;
  * Created by GG on 2017/5/26.
  */
 public class SignAdapter extends RecyclerView.Adapter <RecyclerView.ViewHolder>{
+    private  int allHeight;
     private  List mData;
     private  Context context;
 
     public SignAdapter(Context p0, List list) {
         this.context = p0;
         this.mData = list;
+    }
+
+    public void setAllHeight(int allHeight1){
+        allHeight = allHeight1;
     }
 
     private class StyleViewHolder extends RecyclerView.ViewHolder{
@@ -41,10 +48,10 @@ public class SignAdapter extends RecyclerView.Adapter <RecyclerView.ViewHolder>{
             String text = (String) mData.get(postion);
             tv_item.setText(text);
             String url = "https://res.guagua.cn/pic//6897_9.gif";
-            Glide.with(context)
+            /*Glide.with(context)
                     .load(url.toString())
                     .asGif()
-                    .into(iv_gif);
+                    .into(iv_gif);*/
         }
     }
 
@@ -56,6 +63,12 @@ public class SignAdapter extends RecyclerView.Adapter <RecyclerView.ViewHolder>{
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+
+        if(allHeight != 0){
+            ViewGroup.LayoutParams params = holder.itemView.getLayoutParams();
+            params.height = allHeight;
+            params.width = allHeight;
+        }
         ((StyleViewHolder)holder).bindData(position);
     }
 

@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.example.frescogif.activity.DesignActivity;
+import com.example.frescogif.activity.LayoutMangerActivity;
 import com.example.frescogif.activity.LoadingActivity;
 import com.example.frescogif.activity.PullToRefreshActivity;
 import com.example.frescogif.activity.PullToRefreshPlantActivity;
@@ -31,6 +33,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button iv_gif;
     private Button btn_refresh_plant;
     private Button btn_loading;
+    private Button btn_edit;
+    private Button btn_layoutmanager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +47,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         iv_gif = (Button) findViewById(R.id.btn_gif);
         btn_refresh_plant = (Button) findViewById(R.id.btn_refresh_plant);
         btn_loading = (Button) findViewById(R.id.btn_loading);
+        btn_edit = (Button) findViewById(R.id.btn_edit);
+        btn_layoutmanager = (Button) findViewById(R.id.btn_layoutmanager);
 
 
 
@@ -52,6 +58,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         iv_gif.setOnClickListener(this);
         btn_refresh_plant.setOnClickListener(this);
         btn_loading.setOnClickListener(this);
+        btn_edit.setOnClickListener(this);
+        btn_layoutmanager.setOnClickListener(this);
 
         ArrayList<String> list = new ArrayList<>();
         String path = "asset:///a.gif";
@@ -116,7 +124,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_loading:
                 startActivity(new Intent(this, LoadingActivity.class));
                 break;
-
+            case R.id.btn_edit:
+                startActivity(new Intent(this, DesignActivity.class));
+                break;
+            case R.id.btn_layoutmanager:
+                startActivity(new Intent(this, LayoutMangerActivity.class));
+                break;
 
         }
     }

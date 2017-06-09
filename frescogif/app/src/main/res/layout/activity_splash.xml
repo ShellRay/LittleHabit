@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <com.facebook.drawee.view.SimpleDraweeView
@@ -13,4 +13,16 @@
         fresco:fadeDuration="0"
         fresco:roundAsCircle="false"
         fresco:placeholderImageScaleType="center"/>
-</LinearLayout>
+
+    <com.example.frescogif.view.loadingview.TitanicTextView
+        android:id="@+id/my_text"
+        android:text="darkness angle"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/main_color"
+        android:textSize="58sp"
+        android:layout_marginTop="30dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"/>
+</FrameLayout>

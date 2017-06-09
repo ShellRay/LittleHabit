@@ -49,7 +49,14 @@
             android:theme="@style/SimpleStyle">
 
         </activity>
+        <activity android:name=".activity.DesignActivity"
+            android:theme="@style/AppTheme">
 
+        </activity>
+        <activity android:name=".activity.LayoutMangerActivity"
+            android:theme="@style/AppTheme">
+
+        </activity>
     </application>
 
 </manifest>

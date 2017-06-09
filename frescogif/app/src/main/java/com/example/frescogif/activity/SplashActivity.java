@@ -10,6 +10,9 @@ import android.view.View;
 import com.example.frescogif.LoginActivity;
 import com.example.frescogif.MainActivity;
 import com.example.frescogif.R;
+import com.example.frescogif.view.loadingview.Titanic;
+import com.example.frescogif.view.loadingview.TitanicTextView;
+import com.example.frescogif.view.loadingview.Typefaces;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -21,6 +24,7 @@ public class SplashActivity extends AppCompatActivity {
 
     private SimpleDraweeView splashImage;
     private Handler handler;
+    private TitanicTextView my_text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +32,14 @@ public class SplashActivity extends AppCompatActivity {
         Fresco.initialize(this);
         setContentView(R.layout.activity_splash);
         splashImage = (SimpleDraweeView) findViewById(R.id.splash_Image);
+        my_text = (TitanicTextView) findViewById(R.id.my_text);
+
+        // set fancy typeface
+        my_text.setTypeface(Typefaces.get(this, "Satisfy-Regular.ttf"));
+
+        // start animation
+        new Titanic().start(my_text);
+
         String path1 = "asset:///b.gif";
         DraweeController controller = Fresco.newDraweeControllerBuilder()
                 .setAutoPlayAnimations(true)
@@ -43,7 +55,7 @@ public class SplashActivity extends AppCompatActivity {
                 startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                 finish();
             }
-        },5000);
+        },8000);
     }
 
 
