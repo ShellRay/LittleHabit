@@ -34,6 +34,13 @@ public class SplashActivity extends AppCompatActivity {
         splashImage = (SimpleDraweeView) findViewById(R.id.splash_Image);
         my_text = (TitanicTextView) findViewById(R.id.my_text);
 
+        splashImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                finish();
+            }
+        });
         // set fancy typeface
         my_text.setTypeface(Typefaces.get(this, "Satisfy-Regular.ttf"));
 
