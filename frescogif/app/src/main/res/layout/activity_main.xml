@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
+    android:layout_marginTop="25dp"
     tools:context="com.example.frescogif.MainActivity">
 
     <LinearLayout style="@style/weightLinear">
@@ -65,12 +66,14 @@
         style="@style/weightLinear">
 
         <Button
-            android:text="1"
+            android:id="@+id/btn_photo"
+            android:text="photo-cus"
             style="@style/button_style1" />
 
         <Button
+            android:id="@+id/btn_app_bar"
             style="@style/button_style1"
-            android:text="2"
+            android:text="appbarlay"
             android:layout_centerHorizontal="true"
             />
 
@@ -84,6 +87,8 @@
             android:layout_centerHorizontal="true"/>
         <Button
             style="@style/button_style1"
+            android:layout_height="200dp"
+            android:background="@drawable/ripple_drawable"
             android:text="5"
             />
     </LinearLayout>

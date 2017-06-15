@@ -5,10 +5,13 @@ import android.content.res.AssetManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.example.frescogif.activity.AppBarActivity;
+import com.example.frescogif.activity.CustomPhotoActivity;
 import com.example.frescogif.activity.DesignActivity;
 import com.example.frescogif.activity.LayoutMangerActivity;
 import com.example.frescogif.activity.LoadingActivity;
@@ -16,6 +19,7 @@ import com.example.frescogif.activity.PullToRefreshActivity;
 import com.example.frescogif.activity.PullToRefreshPlantActivity;
 import com.example.frescogif.activity.RecycleViewActivity;
 import com.example.frescogif.activity.SlidMenuActivity;
+import com.example.frescogif.baseActvity.BaseActivity;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
 import java.io.ByteArrayOutputStream;
@@ -24,7 +28,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private GiftDialog giftDialog;
     private Button btn_bg;
@@ -35,6 +39,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btn_loading;
     private Button btn_edit;
     private Button btn_layoutmanager;
+    private Button btn_photo;
+    private Button btn_app_bar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +55,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_loading = (Button) findViewById(R.id.btn_loading);
         btn_edit = (Button) findViewById(R.id.btn_edit);
         btn_layoutmanager = (Button) findViewById(R.id.btn_layoutmanager);
-
+        btn_photo = (Button) findViewById(R.id.btn_photo);
+        btn_app_bar = (Button) findViewById(R.id.btn_app_bar);
 
 
         btn_bg.setOnClickListener(this);
@@ -60,6 +67,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_loading.setOnClickListener(this);
         btn_edit.setOnClickListener(this);
         btn_layoutmanager.setOnClickListener(this);
+        btn_photo.setOnClickListener(this);
+        btn_app_bar.setOnClickListener(this);
 
         ArrayList<String> list = new ArrayList<>();
         String path = "asset:///a.gif";
@@ -129,6 +138,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_layoutmanager:
                 startActivity(new Intent(this, LayoutMangerActivity.class));
+                break;
+            case R.id.btn_photo:
+                startActivity(new Intent(this, CustomPhotoActivity.class));
+                break;
+            case R.id.btn_app_bar:
+                startActivity(new Intent(this, AppBarActivity.class));
                 break;
 
         }

@@ -128,7 +128,7 @@ public class RefreshView extends Drawable implements Drawable.Callback, Animatab
         mLeftClouds = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.clouds_left);
         mRightClouds = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.clouds_right);
         mFrontClouds = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.clouds_center);
-        mJet = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.airplane);
+        mJet = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.airplane);//airplane
 
         mJetWidthCenter = mJet.getWidth() / 2;
         mJetHeightCenter = mJet.getHeight() / 2;

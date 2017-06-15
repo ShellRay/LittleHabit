@@ -7,9 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.example.frescogif.R;
 import com.example.frescogif.adapter.DesignAdapter;
+import com.example.frescogif.baseActvity.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +20,7 @@ import java.util.List;
 /**
  * Created by GG on 2017/6/8.
  */
-public class DesignActivity extends Activity{
+public class DesignActivity extends BaseActivity {
 
     private RecyclerView rcv_staff;
     private List<String> list;
@@ -26,6 +29,7 @@ public class DesignActivity extends Activity{
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_design);
+
         list = new ArrayList<>();
         for (int x=0;x<12;x++){
             list.add("兰若"+ x);

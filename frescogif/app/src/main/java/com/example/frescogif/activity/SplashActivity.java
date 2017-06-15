@@ -16,6 +16,7 @@ import com.example.frescogif.view.loadingview.Typefaces;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.gyf.barlibrary.ImmersionBar;
 
 /**
  * Created by GG on 2017/6/5.
@@ -38,6 +39,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                handler.removeCallbacksAndMessages(null);
                 finish();
             }
         });
@@ -66,6 +68,9 @@ public class SplashActivity extends AppCompatActivity {
     }
 
 
-
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        handler.removeCallbacksAndMessages(null);
+    }
 }

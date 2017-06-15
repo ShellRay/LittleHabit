@@ -4,6 +4,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:zoomId="@+id/iv_zoom"
+    android:layout_marginTop="20dp"
     android:background="@color/colorAccent"
     app:maxZoom="150dp">
     <LinearLayout

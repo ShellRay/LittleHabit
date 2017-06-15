@@ -1,7 +1,13 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#39AEC2</item>
+        <item name="colorPrimaryDark">#39AEC2</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    <style name="TransAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">#39AEC2</item>
         <item name="colorPrimaryDark">#39AEC2</item>
@@ -74,5 +80,14 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:gravity">center|top</item>
         <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="FullScreenStyle" parent="Theme.AppCompat.NoActionBar">
+
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowActionBar">false</item>
+
     </style>
 </resources>

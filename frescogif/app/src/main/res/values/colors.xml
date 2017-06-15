@@ -14,4 +14,7 @@
     <color name="sienna">#EB6460</color>
 
     <color name="sky_background">#228FC1</color>
+    <color name="translate">#00000000</color>
+    <color name="white">#ffffff</color>
+
 </resources>

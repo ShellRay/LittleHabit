@@ -12,6 +12,7 @@ import android.view.View;
 
 import com.example.frescogif.R;
 import com.example.frescogif.adapter.CustomAdapter;
+import com.example.frescogif.baseActvity.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.List;
 /**
  * Created by GG on 2017/5/26.
  */
-public class RecycleViewActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
+public class RecycleViewActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener {
 
 
     private SwipeRefreshLayout mySwipeRefreshLayout;

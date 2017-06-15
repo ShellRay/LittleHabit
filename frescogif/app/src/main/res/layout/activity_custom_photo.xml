@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <Button
+        android:layout_marginTop="130dp"
+        android:layout_marginLeft="50dp"
+        android:id="@+id/btn_take_photo"
+        android:text="take-pic"
+        style="@style/button_style" />
+
+    <Button
+        android:layout_marginTop="130dp"
+        android:layout_marginLeft="80dp"
+        android:id="@+id/btn_pick_gallery"
+        android:text="pick—gall"
+        style="@style/button_style" />
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:background="@drawable/ripple_drawable_white"/>
+
+</LinearLayout>
