@@ -54,7 +54,6 @@ public class PhotoHeadCropActivity extends BaseActivity implements View.OnClickL
         tv_complete = (TextView) findViewById(R.id.tv_complete);
         tv_cancel.setOnClickListener(this);
         tv_complete.setOnClickListener(this);
-
         cropImageView.setIsHeaderCrop(true);
 
         showBitmap();
@@ -119,8 +118,8 @@ public class PhotoHeadCropActivity extends BaseActivity implements View.OnClickL
     public void onClick(View v) {
         if(v.getId() == R.id.tv_complete){
             Bitmap clip = cropImageView.clip();
-           String fileName =  System.currentTimeMillis() + ".png";
-           String mPicPath = MediaUtils.KELE_PHOTOS_DIR + File.separator + fileName;
+            String fileName =  System.currentTimeMillis() + ".png";
+            String mPicPath = MediaUtils.KELE_PHOTOS_DIR + File.separator + fileName;
             boolean b = MediaUtils.saveBitmap(clip, mPicPath);//将剪切的图片保存
             if(b){
                 Toast.makeText(this,"成功",Toast.LENGTH_LONG).show();
