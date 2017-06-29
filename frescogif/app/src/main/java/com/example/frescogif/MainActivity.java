@@ -15,9 +15,11 @@ import com.example.frescogif.activity.CustomPhotoActivity;
 import com.example.frescogif.activity.DesignActivity;
 import com.example.frescogif.activity.LayoutMangerActivity;
 import com.example.frescogif.activity.LoadingActivity;
+import com.example.frescogif.activity.PullScaleActivity;
 import com.example.frescogif.activity.PullToRefreshActivity;
 import com.example.frescogif.activity.PullToRefreshPlantActivity;
 import com.example.frescogif.activity.RecycleViewActivity;
+import com.example.frescogif.activity.ShapeActivity;
 import com.example.frescogif.activity.SlidMenuActivity;
 import com.example.frescogif.baseActvity.BaseActivity;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -41,6 +43,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private Button btn_layoutmanager;
     private Button btn_photo;
     private Button btn_app_bar;
+    private Button btn_shape;
+    private Button btn_pull;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +61,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         btn_layoutmanager = (Button) findViewById(R.id.btn_layoutmanager);
         btn_photo = (Button) findViewById(R.id.btn_photo);
         btn_app_bar = (Button) findViewById(R.id.btn_app_bar);
+        btn_shape = (Button) findViewById(R.id.btn_shape);
+        btn_pull = (Button)  findViewById(R.id.btn_pull);
 
 
         btn_bg.setOnClickListener(this);
@@ -69,6 +75,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         btn_layoutmanager.setOnClickListener(this);
         btn_photo.setOnClickListener(this);
         btn_app_bar.setOnClickListener(this);
+        btn_shape.setOnClickListener(this);
+        btn_pull.setOnClickListener(this);
 
         ArrayList<String> list = new ArrayList<>();
         String path = "asset:///a.gif";
@@ -145,6 +153,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.btn_app_bar:
                 startActivity(new Intent(this, AppBarActivity.class));
                 break;
+            case R.id.btn_shape:
+                startActivity(new Intent(this, ShapeActivity.class));
+                break;
+            case R.id.btn_pull:
+                startActivity(new Intent(this, PullScaleActivity.class));
+                break;
+
 
         }
     }

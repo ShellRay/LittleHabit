@@ -78,12 +78,14 @@
             />
 
         <Button
+            android:id="@+id/btn_shape"
             style="@style/button_style1"
-            android:text="3"
+            android:text="shape-cus"
             android:layout_centerHorizontal="true"/>
         <Button
+            android:id="@+id/btn_pull"
             style="@style/button_style1"
-            android:text="4"
+            android:text="pull-scale"
             android:layout_centerHorizontal="true"/>
         <Button
             style="@style/button_style1"
@@ -92,53 +94,62 @@
             android:text="5"
             />
     </LinearLayout>
-
+<ScrollView
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:scrollbars="none"
+    android:scrollbarSize="30dp"
+    >
     <LinearLayout
-        style="@style/weightLinear">
+        style="@style/weightLinear"
+        android:layout_width="match_parent"
+        >
 
         <Button
             style="@style/button_style2"
-            android:background="@mipmap/dead1"/>
+            android:background="@drawable/cirle_shape"
+            android:text="I"/>
 
         <Button
             style="@style/button_style2"
             android:layout_centerHorizontal="true"
-            android:background="@mipmap/dead2"
+            android:text="have"
+            android:background="@drawable/cirle_shape"
             />
 
         <Button
             style="@style/button_style2"
-            android:background="@mipmap/dead3"
+            android:background="@drawable/cirle_shape"
+            android:text="save"
             android:layout_centerHorizontal="true"/>
         <Button
             style="@style/button_style2"
-            android:background="@mipmap/dead4"
+            android:background="@drawable/cirle_shape"
+            android:text="your"
             android:layout_centerHorizontal="true"/>
         <Button
             style="@style/button_style2"
-            android:background="@mipmap/dead5"
+            android:background="@drawable/cirle_shape"
+            android:text="ass"
             />
         <Button
             style="@style/button_style2"
-            android:background="@mipmap/dead6"
-            android:layout_height="50dp"
-            android:layout_width="90dp"
+            android:background="@drawable/cirle_shape"
+            android:text="!"
             />
         <Button
             style="@style/button_style2"
-            android:background="@mipmap/dead7"
+            android:background="@drawable/cirle_shape"
             />
         <Button
             style="@style/button_style2"
-            android:background="@mipmap/dead8"
-            android:layout_height="50dp"
-            android:layout_width="90dp"
+            android:background="@drawable/cirle_shape"
             />
         <Button
             style="@style/button_style2"
-            android:background="@mipmap/dead9"
-            android:layout_height="50dp"
-            android:layout_width="90dp"
+            android:background="@drawable/cirle_shape"
             />
     </LinearLayout>
+</ScrollView>
 </LinearLayout>

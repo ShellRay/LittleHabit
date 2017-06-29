@@ -6,6 +6,7 @@
         <item name="colorPrimary">#39AEC2</item>
         <item name="colorPrimaryDark">#39AEC2</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@color/white</item>
     </style>
     <style name="TransAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
@@ -68,11 +69,11 @@
 
     <style name="button_style2">
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@drawable/gradient_left_sienna</item>
+        <item name="android:layout_height"> wrap_content</item>
         <item name="android:textColor">#fff</item>
         <item name="android:layout_marginTop">10dp</item>
     </style>
+    <!--<item name="android:background">@drawable/gradient_left_sienna</item>-->
 
     <style name="weightLinear">
         <item name="android:layout_width">0dp</item>
@@ -89,5 +90,9 @@
         <item name="windowActionBar">false</item>
         <item name="android:windowActionBar">false</item>
 
+    </style>
+
+    <style name="ToolBarTheme" parent="Widget.AppCompat.Toolbar">
+        <item name="android:textColorPrimary">@color/white</item>
     </style>
 </resources>

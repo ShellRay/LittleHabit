@@ -79,7 +79,14 @@
             android:theme="@style/AppTheme">
 
         </activity>
+        <activity android:name=".activity.ShapeActivity"
+            android:theme="@style/AppTheme">
 
+        </activity>
+        <activity android:name=".activity.PullScaleActivity"
+            android:theme="@style/AppTheme">
+
+        </activity>
 
     </application>
 
