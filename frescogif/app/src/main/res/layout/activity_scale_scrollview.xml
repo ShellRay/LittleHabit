@@ -9,12 +9,19 @@
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="2200dp">
-    <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="200dp"
-        android:src="@drawable/sky"
-        android:scaleType="centerCrop"
-        />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/sky"
+            android:scaleType="centerCrop"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="what do you meaning?"
+            android:gravity="center"
+            />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"

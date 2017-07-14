@@ -82,6 +82,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         String path = "asset:///a.gif";
         String path1 = "asset:///b.gif";
         String path2 = "asset:///c.gif";
+        String path3 = "asset:///d.gif";
+        String path4 = "asset:///e.gif";
         for (int x = 0;x<2;x++){
             list.add(x,path);
         }
@@ -90,6 +92,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
         for (int x = 0;x<2;x++){
             list.add(x,path2);
+        }
+        for (int x = 0;x<2;x++){
+            list.add(x,path3);
+        }
+        for (int x = 0;x<2;x++){
+            list.add(x,path4);
         }
         giftDialog = new GiftDialog(this, list);
       /*
