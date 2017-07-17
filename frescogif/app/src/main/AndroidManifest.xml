@@ -73,6 +73,10 @@
             android:theme="@style/AppTheme">
 
         </activity>
+        <activity android:name=".activity.PhotoCropPerfectActivity"
+            android:theme="@style/AppTheme">
+
+        </activity>
         <activity android:name=".activity.PhotoVierticCropActivity"
         android:theme="@style/AppTheme">
 

@@ -3,19 +3,26 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/iv_img"
+        android:layout_marginTop="20dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
     <Button
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="30dp"
         android:layout_marginLeft="50dp"
         android:id="@+id/btn_take_photo"
         android:text="take-pic"
         style="@style/button_style" />
 
     <Button
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="30dp"
         android:layout_marginLeft="80dp"
         android:id="@+id/btn_pick_gallery"
         android:text="pick—gall"
@@ -23,6 +30,7 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/btn_one"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp"

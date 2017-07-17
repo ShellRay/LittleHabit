@@ -10,14 +10,17 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.frescogif.R;
 import com.example.frescogif.baseActvity.BaseActivity;
 import com.example.frescogif.utils.MediaUtils;
 import com.example.frescogif.utils.Utils;
+import com.example.frescogif.view.NbPhotoCropView.UCrop;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -30,14 +33,23 @@ public class CustomPhotoActivity extends BaseActivity implements View.OnClickLis
     private String fileName;
     private String mCropPath;
     private Button btn_pick_gallery;
+    // 剪切后图像文件
+    private Uri mDestinationUri;
+    private Button btn_one;
+    private ImageView iv_img;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_photo);
 
+        mDestinationUri = Uri.fromFile(new File(getCacheDir(), "cropImage.jpeg"));
         btn_take_photo = (Button) findViewById(R.id.btn_take_photo);
         btn_pick_gallery = (Button) findViewById(R.id.btn_pick_gallery);
+        btn_one = (Button) findViewById(R.id.btn_one);
+        iv_img = (ImageView) findViewById(R.id.iv_img);
+
+
 
         btn_take_photo.setOnClickListener(this);
         btn_pick_gallery.setOnClickListener(this);
@@ -136,7 +148,23 @@ public class CustomPhotoActivity extends BaseActivity implements View.OnClickLis
         }
         if (resultCode == MediaUtils.RESULTCODE_CROP)
         {
-
+//            deleteTempPhotoFile();
+            final Uri resultUri = UCrop.getOutput(data);
+            if (null != resultUri ) {//&& null != mOnPictureSelectedListener
+                Bitmap bitmap = null;
+                try {
+                    bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), resultUri);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                iv_img.setImageBitmap(bitmap);
+                MediaUtils.saveBitmap(bitmap,mCropPath);
+//                mOnPictureSelectedListener.onPictureSelected(resultUri, bitmap);
+            } else {
+                Toast.makeText(this, "无法剪切选择图片", Toast.LENGTH_SHORT).show();
+            }
         }
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -145,10 +173,21 @@ public class CustomPhotoActivity extends BaseActivity implements View.OnClickLis
 
     public void startCustomPhotoCrop(Uri uri, String filePath, boolean isGallery) throws IOException
     {
-        Intent intent = new Intent(this, PhotoHeadCropActivity.class);
+//        Intent intent = new Intent(this, PhotoHeadCropActivity.class);
+       /* Intent intent = new Intent(this, PhotoCropPerfectActivity.class);
         intent.putExtra("uri", uri.toString());
         intent.putExtra("cropPath", filePath);
         intent.putExtra("isGallery", isGallery);
-        startActivityForResult(intent, MediaUtils.REQUESTCODE_CROP);
+        startActivityForResult(intent, MediaUtils.REQUESTCODE_CROP);*/
+
+        UCrop.of(uri, mDestinationUri)
+                .withTargetActivity(PhotoCropPerfectActivity.class)
+               /* .withAspectRatio(18, 13)
+                .withMaxResultSize(1080, 780)*/
+               /* .withAspectRatio(1, 1)
+                .withMaxResultSize(1080, 1080)*/
+                .withAspectRatio(3, 4)
+                .withMaxResultSize(864, 1080)
+                .start(this);
     }
 }
