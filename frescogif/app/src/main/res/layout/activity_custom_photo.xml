@@ -5,9 +5,11 @@
 
     <ImageView
         android:id="@+id/iv_img"
-        android:layout_marginTop="20dp"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="@color/colorPrimary"
+        android:scaleType="centerCrop"
         android:layout_gravity="center"/>
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,6 +36,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp"
+        android:text="水波纹"
+        android:textColor="@color/colorPrimaryDark"
         android:background="@drawable/ripple_drawable_white"/>
 
 </LinearLayout>

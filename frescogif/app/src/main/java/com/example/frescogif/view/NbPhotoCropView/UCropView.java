@@ -57,4 +57,9 @@ public class UCropView extends FrameLayout {
         return mViewOverlay;
     }
 
+    public void setPostInvite() {
+        mGestureCropImageView.postInvalidate();
+        mViewOverlay.postInvalidate();
+        this.postInvalidate();
+    }
 }

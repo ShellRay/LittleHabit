@@ -43,7 +43,6 @@ public class CustomPhotoActivity extends BaseActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_photo);
 
-        mDestinationUri = Uri.fromFile(new File(getCacheDir(), "cropImage.jpeg"));
         btn_take_photo = (Button) findViewById(R.id.btn_take_photo);
         btn_pick_gallery = (Button) findViewById(R.id.btn_pick_gallery);
         btn_one = (Button) findViewById(R.id.btn_one);
@@ -160,7 +159,7 @@ public class CustomPhotoActivity extends BaseActivity implements View.OnClickLis
                     e.printStackTrace();
                 }
                 iv_img.setImageBitmap(bitmap);
-                MediaUtils.saveBitmap(bitmap,mCropPath);
+//                MediaUtils.saveBitmap(bitmap,mCropPath);
 //                mOnPictureSelectedListener.onPictureSelected(resultUri, bitmap);
             } else {
                 Toast.makeText(this, "无法剪切选择图片", Toast.LENGTH_SHORT).show();
@@ -180,14 +179,19 @@ public class CustomPhotoActivity extends BaseActivity implements View.OnClickLis
         intent.putExtra("isGallery", isGallery);
         startActivityForResult(intent, MediaUtils.REQUESTCODE_CROP);*/
 
+        mDestinationUri = Uri.fromFile(new File(mCropPath));
+        UCrop.Options options = new UCrop.Options();
+        options.setCropPath(mCropPath);
+        options.setIsBackgroundImg(true);
         UCrop.of(uri, mDestinationUri)
                 .withTargetActivity(PhotoCropPerfectActivity.class)
                /* .withAspectRatio(18, 13)
                 .withMaxResultSize(1080, 780)*/
-               /* .withAspectRatio(1, 1)
-                .withMaxResultSize(1080, 1080)*/
-                .withAspectRatio(3, 4)
-                .withMaxResultSize(864, 1080)
-                .start(this);
+                .withAspectRatio(1, 1)
+                .withMaxResultSize(1080, 1080)
+                .withOptions(options)
+               /* .withAspectRatio(3, 4)
+            .withMaxResultSize(864, 1080)*/
+        .start(this);
     }
 }

@@ -260,6 +260,8 @@ public class UCrop {
         public static final String EXTRA_CROP_GRID_COLUMN_COUNT = EXTRA_PREFIX + ".CropGridColumnCount";
         public static final String EXTRA_CROP_GRID_COLOR = EXTRA_PREFIX + ".CropGridColor";
         public static final String EXTRA_CROP_GRID_STROKE_WIDTH = EXTRA_PREFIX + ".CropGridStrokeWidth";
+        public static final String EXTRA_CROP_PATH = EXTRA_PREFIX + ".CropPath";
+        public static final String EXTRA_CROP_IS_BACK_GROUND_IMG = EXTRA_PREFIX + ".IsBackgroundImg";
 
         private final Bundle mOptionBundle;
 
@@ -390,6 +392,21 @@ public class UCrop {
          */
         public void setCropGridStrokeWidth(@IntRange(from = 0) int width) {
             mOptionBundle.putInt(EXTRA_CROP_GRID_STROKE_WIDTH, width);
+        }
+
+        /**
+         * @param mCropPath - 要保存图片的路径
+         */
+        public void setCropPath( String mCropPath) {
+            mOptionBundle.putString(EXTRA_CROP_PATH, mCropPath);
+        }
+
+
+        /**
+         * @param isBackgroundImg - 是否是上传背景图片
+         */
+        public void setIsBackgroundImg( boolean isBackgroundImg) {
+            mOptionBundle.putBoolean(EXTRA_CROP_IS_BACK_GROUND_IMG, isBackgroundImg);
         }
 
     }

@@ -55,6 +55,8 @@ public class PhotoCropPerfectActivity extends BaseActivity implements View.OnCli
     GestureCropImageView mGestureCropImageView;
     OverlayView mOverlayView;
     private Uri mOutputUri;
+    private boolean first =false;
+    private Uri inputUri;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -94,13 +96,12 @@ public class PhotoCropPerfectActivity extends BaseActivity implements View.OnCli
         mOverlayView.setShowCropFrame(true);
         // 设置不显示裁剪网格
         mOverlayView.setShowCropGrid(false);
-
         mGestureCropImageView.setTransformImageListener(mImageListener);
     }
 
     @SuppressLint("LongLogTag")
     private void setImageData(Intent intent) {
-        Uri inputUri = intent.getParcelableExtra(UCrop.EXTRA_INPUT_URI);
+        inputUri = intent.getParcelableExtra(UCrop.EXTRA_INPUT_URI);
         mOutputUri = intent.getParcelableExtra(UCrop.EXTRA_OUTPUT_URI);
 
         if (inputUri != null && mOutputUri != null) {
@@ -166,11 +167,20 @@ public class PhotoCropPerfectActivity extends BaseActivity implements View.OnCli
             final Bitmap croppedBitmap = mGestureCropImageView.cropImage();
             if (croppedBitmap != null) {
                 outputStream = getContentResolver().openOutputStream(mOutputUri);
-                croppedBitmap.compress(Bitmap.CompressFormat.JPEG, 85, outputStream);
-                croppedBitmap.recycle();
+                boolean compress = croppedBitmap.compress(Bitmap.CompressFormat.JPEG, 85, outputStream);
+//                croppedBitmap.recycle();
+                if(compress && !first){
+                    first =true;
+                    mGestureCropImageView.setTargetAspectRatio(3 / 4);
+                    mGestureCropImageView.setMaxResultImageSizeX(864);
+                    mGestureCropImageView.setMaxResultImageSizeY(1080);
+                    mGestureCropImageView.setImageUri(inputUri);
+                    tv_complete.setText("完成");
+                    mUCropView.setPostInvite();
 
-                setResultUri(mOutputUri, mGestureCropImageView.getTargetAspectRatio());
-                finish();
+                }
+//                setResultUri(mOutputUri, mGestureCropImageView.getTargetAspectRatio());
+//                finish();
             } else {
                 setResultException(new NullPointerException("CropImageView.cropImage() returned null."));
             }
