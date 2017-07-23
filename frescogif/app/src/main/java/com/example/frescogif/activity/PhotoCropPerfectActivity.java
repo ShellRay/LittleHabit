@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,7 +43,7 @@ public class PhotoCropPerfectActivity extends BaseActivity implements View.OnCli
 
     private static final String TAG = "PhotoCropPerfectActivity" ;
     private TextView tv_cancel;
-    private TextView tv_complete;
+    private Button tv_complete;
     private String mCropPath;
     private String uri;
     private boolean isGallery;
@@ -55,8 +56,16 @@ public class PhotoCropPerfectActivity extends BaseActivity implements View.OnCli
     GestureCropImageView mGestureCropImageView;
     OverlayView mOverlayView;
     private Uri mOutputUri;
-    private boolean first =false;
+    private boolean first =true;
     private Uri inputUri;
+    private float aspectRatioX;
+    private float aspectRatioY;
+    private int maxSizeX;
+    private int maxSizeY;
+    private boolean isBackGroundImg;
+    private String bigCropPath;
+    private Bitmap bigBitmap;
+    private Uri bigUri;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,7 +73,14 @@ public class PhotoCropPerfectActivity extends BaseActivity implements View.OnCli
         setContentView(R.layout.activity_photo_crop_perfect);
 
         initView();
-        final Intent intent = getIntent();
+         Intent intent = getIntent();
+        aspectRatioX = intent.getFloatExtra(UCrop.EXTRA_ASPECT_RATIO_X, 0);
+        aspectRatioY = intent.getFloatExtra(UCrop.EXTRA_ASPECT_RATIO_Y, 0);
+        maxSizeX = intent.getIntExtra(UCrop.EXTRA_MAX_SIZE_X, 0);
+        maxSizeY = intent.getIntExtra(UCrop.EXTRA_MAX_SIZE_Y, 0);
+        isBackGroundImg = intent.getBooleanExtra(UCrop.Options.EXTRA_CROP_IS_BACK_GROUND_IMG, true);
+        mCropPath = intent.getStringExtra(UCrop.Options.EXTRA_CROP_PATH);
+
         setImageData(intent);
 
        /* Intent intent = getIntent();
@@ -77,7 +93,7 @@ public class PhotoCropPerfectActivity extends BaseActivity implements View.OnCli
     private void initView() {
         mUCropView = (UCropView) findViewById(R.id.CropImageView);
         tv_cancel = (TextView) findViewById(R.id.tv_cancel);
-        tv_complete = (TextView) findViewById(R.id.tv_complete);
+        tv_complete = (Button) findViewById(R.id.tv_complete);
         tv_cancel.setOnClickListener(this);
         tv_complete.setOnClickListener(this);
         mGestureCropImageView = mUCropView.getCropImageView();
@@ -103,7 +119,6 @@ public class PhotoCropPerfectActivity extends BaseActivity implements View.OnCli
     private void setImageData(Intent intent) {
         inputUri = intent.getParcelableExtra(UCrop.EXTRA_INPUT_URI);
         mOutputUri = intent.getParcelableExtra(UCrop.EXTRA_OUTPUT_URI);
-
         if (inputUri != null && mOutputUri != null) {
             try {
                 mGestureCropImageView.setImageUri(inputUri);
@@ -118,8 +133,6 @@ public class PhotoCropPerfectActivity extends BaseActivity implements View.OnCli
 
         // 设置裁剪宽高比
         if (intent.getBooleanExtra(UCrop.EXTRA_ASPECT_RATIO_SET, false)) {
-            float aspectRatioX = intent.getFloatExtra(UCrop.EXTRA_ASPECT_RATIO_X, 0);
-            float aspectRatioY = intent.getFloatExtra(UCrop.EXTRA_ASPECT_RATIO_Y, 0);
 
             if (aspectRatioX > 0 && aspectRatioY > 0) {
                 mGestureCropImageView.setTargetAspectRatio(aspectRatioX / aspectRatioY);
@@ -130,8 +143,6 @@ public class PhotoCropPerfectActivity extends BaseActivity implements View.OnCli
 
         // 设置裁剪的最大宽高
         if (intent.getBooleanExtra(UCrop.EXTRA_MAX_SIZE_SET, false)) {
-            int maxSizeX = intent.getIntExtra(UCrop.EXTRA_MAX_SIZE_X, 0);
-            int maxSizeY = intent.getIntExtra(UCrop.EXTRA_MAX_SIZE_Y, 0);
 
             if (maxSizeX > 0 && maxSizeY > 0) {
                 mGestureCropImageView.setMaxResultImageSizeX(maxSizeX);
@@ -142,10 +153,10 @@ public class PhotoCropPerfectActivity extends BaseActivity implements View.OnCli
         }
 
     }
-    private void setResultUri(Uri uri, float resultAspectRatio) {
+    private void setResultUri(Uri uri, Uri longUri) {
         setResult(MediaUtils.RESULTCODE_CROP, new Intent()
                 .putExtra(UCrop.EXTRA_OUTPUT_URI, uri)
-                .putExtra(UCrop.EXTRA_OUTPUT_CROP_ASPECT_RATIO, resultAspectRatio));
+                .putExtra(UCrop.EXTRA_INPUT_URI, longUri));
     }
 
     private void setResultException(Throwable throwable) {
@@ -164,23 +175,55 @@ public class PhotoCropPerfectActivity extends BaseActivity implements View.OnCli
     private void cropAndSaveImage() {
         OutputStream outputStream = null;
         try {
-            final Bitmap croppedBitmap = mGestureCropImageView.cropImage();
+            Bitmap croppedBitmap = mGestureCropImageView.cropImage();
             if (croppedBitmap != null) {
-                outputStream = getContentResolver().openOutputStream(mOutputUri);
-                boolean compress = croppedBitmap.compress(Bitmap.CompressFormat.JPEG, 85, outputStream);
-//                croppedBitmap.recycle();
-                if(compress && !first){
-                    first =true;
-                    mGestureCropImageView.setTargetAspectRatio(3 / 4);
-                    mGestureCropImageView.setMaxResultImageSizeX(864);
-                    mGestureCropImageView.setMaxResultImageSizeY(1080);
-                    mGestureCropImageView.setImageUri(inputUri);
-                    tv_complete.setText("完成");
-                    mUCropView.setPostInvite();
-
+//                outputStream = getContentResolver().openOutputStream(mOutputUri);
+//                boolean compress = croppedBitmap.compress(Bitmap.CompressFormat.JPEG, 85, outputStream);
+                if(isBackGroundImg ) {
+                    croppedBitmap = MediaUtils.compressImage(croppedBitmap);
+                    boolean saveBitmap = MediaUtils.saveBitmap(croppedBitmap, mCropPath);
+                    if(saveBitmap){
+                        finish();
+                    }
+//                    setResult(MediaUtils.RESULTCODE_CROP);
+                }else {
+                    if (first) {
+                        String fileName = System.currentTimeMillis() + ".png";
+                        bigCropPath = MediaUtils.KELE_PHOTOS_DIR + File.separator + fileName;
+                        bigUri = Uri.fromFile(new File(bigCropPath));
+//                        croppedBitmap = MediaUtils.compressImage(croppedBitmap);
+                        outputStream = getContentResolver().openOutputStream(bigUri);
+                        boolean compress = croppedBitmap.compress(Bitmap.CompressFormat.JPEG, 85, outputStream);
+                       /* String fileName = System.currentTimeMillis() + ".png";
+                        bigCropPath = MediaUtils.KELE_PHOTOS_DIR + File.separator + fileName;
+                        boolean savebigBitmap = MediaUtils.saveBitmap(croppedBitmap, bigCropPath);
+                        */if(compress){
+                            setContentView(R.layout.activity_photo_crop_perfect);
+                            first = false;
+                            initView();
+                            final Intent intent = getIntent();
+                            aspectRatioX = 3;
+                            aspectRatioY = 4;
+                            maxSizeX = 800;
+                            maxSizeY = 1080;
+                            setImageData(intent);
+                            tv_complete.setText("完成");
+                        }
+                    }else {
+//                        boolean savebigBitmap = MediaUtils.saveBitmap(bigBitmap, bigCropPath);
+//                        croppedBitmap = MediaUtils.compressImage(croppedBitmap);
+                        outputStream = getContentResolver().openOutputStream(mOutputUri);
+                        boolean compress = croppedBitmap.compress(Bitmap.CompressFormat.JPEG, 85, outputStream);
+                        if(compress){
+                            Intent intent = new Intent();
+                            /*intent.putExtra("bigPath",bigUri);
+                            intent.putExtra("Path",mOutputUri);*/
+                            intent.putExtra("longPath",bigCropPath);
+                            setResult(MediaUtils.RESULTCODE_CROP, intent);
+                            finish();
+                        }
+                    }
                 }
-//                setResultUri(mOutputUri, mGestureCropImageView.getTargetAspectRatio());
-//                finish();
             } else {
                 setResultException(new NullPointerException("CropImageView.cropImage() returned null."));
             }

@@ -6,6 +6,8 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
@@ -35,12 +37,13 @@ public class RecycleViewActivity extends BaseActivity implements SwipeRefreshLay
         mySwipeRefreshLayout.setOnRefreshListener(this);
         mySwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark, R.color.colorAccent,R.color.saffron, R.color.main_color);
         List list = new ArrayList();
-        for(int x =0;x < 10;x++){
+        for(int x =0;x < 2;x++){
             list.add("五彩缤纷" + x);
         }
-        rcl_style.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        SpacesItemDecoration spacesItemDecoration = new SpacesItemDecoration(16);
-//        rcl_style.addItemDecoration(spacesItemDecoration);
+//        rcl_style.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        rcl_style.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        SpacesItemDecoration spacesItemDecoration = new SpacesItemDecoration(24);
+        rcl_style.addItemDecoration(spacesItemDecoration);
         CustomAdapter adapter = new CustomAdapter(this, list);
         rcl_style.setAdapter(adapter);
     }
@@ -55,11 +58,11 @@ public class RecycleViewActivity extends BaseActivity implements SwipeRefreshLay
 
         @Override
         public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-            outRect.left=space;
-            outRect.right=space;
-            outRect.bottom=space;
+            outRect.left=0;
+            outRect.bottom=0;
+            outRect.top=0;
             if(parent.getChildAdapterPosition(view)==0){
-                outRect.top=space;
+                outRect.right=space;
             }
         }
     }
@@ -70,7 +73,7 @@ public class RecycleViewActivity extends BaseActivity implements SwipeRefreshLay
                 new Runnable() {
                     @Override
                     public void run() {
-
+                        mySwipeRefreshLayout.setRefreshing(false);
                     }
                 }
         ).start();

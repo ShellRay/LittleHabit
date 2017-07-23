@@ -144,12 +144,45 @@ public class CustomPhotoActivity extends BaseActivity implements View.OnClickLis
                     e.printStackTrace();
                 }
                 break;
+            case MediaUtils.REQUESTCODE_CROP:
+//                final Uri resultUri = UCrop.getOutput(data);
+               /* Uri bigPath = data.getParcelableExtra("bigPath");
+                Uri path = data.getParcelableExtra("Path");*/
+                String longPath = data.getStringExtra("longPath");
+                if (null != longPath ) {//&& null != mOnPictureSelectedListener
+                    Bitmap smallBitmap = MediaUtils.getSmallBitmap(mCropPath, 800, 800);
+                    iv_img.setImageBitmap(smallBitmap);
+                   /*  Bitmap bitmap = null;
+                    try {
+                        bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), bigPath);
+                        Bitmap pathbitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), path);
+                       if(bitmap != null && pathbitmap != null){
+                            boolean b = MediaUtils.saveBitmap(bitmap, mCropPath);
+                            boolean b1 = MediaUtils.saveBitmap(pathbitmap, longPath);
+                            if(b && b1){
+                                iv_img.setImageBitmap(bitmap);
+                                Toast.makeText(this, "开始上传", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }*/
+//                mOnPictureSelectedListener.onPictureSelected(resultUri, bitmap);
+                } else {
+                    Toast.makeText(this, "无法剪切选择图片", Toast.LENGTH_SHORT).show();
+                }
+                break;
         }
-        if (resultCode == MediaUtils.RESULTCODE_CROP)
+       /* if (resultCode == MediaUtils.RESULTCODE_CROP)
         {
+
+            Uri bigBitmap = data.getParcelableExtra("bigPath");
+
 //            deleteTempPhotoFile();
             final Uri resultUri = UCrop.getOutput(data);
-            if (null != resultUri ) {//&& null != mOnPictureSelectedListener
+            if (null != bigBitmap ) {//&& null != mOnPictureSelectedListener
                 Bitmap bitmap = null;
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), resultUri);
@@ -164,10 +197,8 @@ public class CustomPhotoActivity extends BaseActivity implements View.OnClickLis
             } else {
                 Toast.makeText(this, "无法剪切选择图片", Toast.LENGTH_SHORT).show();
             }
-        }
+        }*/
         super.onActivityResult(requestCode, resultCode, data);
-
-
     }
 
     public void startCustomPhotoCrop(Uri uri, String filePath, boolean isGallery) throws IOException
@@ -182,7 +213,7 @@ public class CustomPhotoActivity extends BaseActivity implements View.OnClickLis
         mDestinationUri = Uri.fromFile(new File(mCropPath));
         UCrop.Options options = new UCrop.Options();
         options.setCropPath(mCropPath);
-        options.setIsBackgroundImg(true);
+        options.setIsBackgroundImg(false);
         UCrop.of(uri, mDestinationUri)
                 .withTargetActivity(PhotoCropPerfectActivity.class)
                /* .withAspectRatio(18, 13)
@@ -192,6 +223,6 @@ public class CustomPhotoActivity extends BaseActivity implements View.OnClickLis
                 .withOptions(options)
                /* .withAspectRatio(3, 4)
             .withMaxResultSize(864, 1080)*/
-        .start(this);
+        .start(this,MediaUtils.REQUESTCODE_CROP);
     }
 }

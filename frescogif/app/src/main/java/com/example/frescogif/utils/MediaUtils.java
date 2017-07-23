@@ -50,7 +50,7 @@ public class MediaUtils {
 	private static final String TAG = "MediaUtils";
 	private static final String QIQI_VIDEO = "video/";
 	private static final String QIQI_DIRECTOTY = "/KeLe/";
-	public final static String KELE_PHOTOS_DIR = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "guagua/KeLe/photos";
+	public final static String KELE_PHOTOS_DIR = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "Atest/photos";
 	public final static int REQUESTCODE_GALLERY = 101;
 	public final static int REQUESTCODE_CAPTURE = 102;
 	public final static int REQUESTCODE_CROP = 103;
