@@ -230,8 +230,12 @@ public class GiftDialog extends Dialog implements PageGridView.OnPageChangeListe
         switch (v.getId()){
             case R.id.sendGiftBttn:
                 int positon = giftAdapter.getSelected();
+                if(positon == -1){
+                    return;
+                }
                 --list.get(positon).giftNum ;
-                if(list.get(positon).giftNum == 0){
+                boolean b = list.get(positon).giftNum == 0;
+                if(b){
                     list.remove(list.get(positon));
                 }
 
@@ -243,11 +247,18 @@ public class GiftDialog extends Dialog implements PageGridView.OnPageChangeListe
                         }
                     }                }*/
                 giftAdapter.notifyDataSetChanged();
-                giftAdapter.cancleSelect(pageGridView.getItemView(positon));
+//                giftAdapter.cancleSelect(pageGridView.getItemView(positon));
                 int pageCount = pageGridView.getPageCount();
                 int visibility = pageCount > 1 ? View.VISIBLE : View.GONE;
                 pageMarkView.setVisibility(visibility);
                 pageMarkView.setPageInfo(pageCount, 0);
+
+                if(b){
+                    giftAdapter.cancleSelect(pageGridView.getItemView(positon));
+                }else {
+                    View child = pageGridView.getItemView(positon);
+                    giftAdapter.updateSelect(child, positon, 1);
+                }
                 break;
         }
     }

@@ -29,6 +29,7 @@ public class SomeAnimationActivity extends BaseActivity implements View.OnClickL
 
     int count;
     private boolean started;
+    private boolean imgStarted;
     private ImageView imageView;
     private RelativeLayout rl_root;
     private int measuredHeight;
@@ -92,7 +93,29 @@ public class SomeAnimationActivity extends BaseActivity implements View.OnClickL
         //第二个参数toAlpha为 动画结束时候透明度
         animation_alpha.setRepeatCount(0);//设置循环
         animation_alpha.setDuration(1000);//设置时间持续时间为 5000毫秒
-        animation_alpha.setAnimationListener(this);
+        animation_alpha.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                imgStarted = true;
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                rl_root.removeView(imageView1);
+
+                if (count >0){
+                    setImageAniamtion();
+                }
+                if(count == 0) {
+                    imgStarted = false;
+                }
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
     }
 
     @Override
@@ -102,16 +125,15 @@ public class SomeAnimationActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        ++count;
-//        count = 100;
-        if(!started && count >0){
-
+//        ++count;
+        count = 50;
+        if(!started && count >0 && !imgStarted){
             setAniamtion();
+            setImageAniamtion();
         }
     }
 
-    private void setAniamtion() {
-        iv_super_man.startAnimation(animation_rotate);
+    private void setImageAniamtion() {
         imageView1 = new ImageView(this);
         imageView1.setImageResource(R.drawable.heart);
         float v = (float)(Math.random() * 360);
@@ -127,15 +149,16 @@ public class SomeAnimationActivity extends BaseActivity implements View.OnClickL
         int leftMargin = (int)(Math.random() * (measuredWidth - width));
         params.leftMargin = leftMargin;
         params.topMargin = topMargin;
-
-
         Log.e("SomeAnimationActivity","leftMargin =" +leftMargin +"----topMargin=" +
                 "" +topMargin  + "+++++++width" +width + "----height" + height);
-
         rl_root.addView(imageView1,params);
         imageView1.startAnimation(animation_alpha);
         --count;
-//            Toast.makeText(this,count + "",Toast.LENGTH_SHORT).show();
+    }
+
+    private void setAniamtion() {
+        iv_super_man.startAnimation(animation_rotate);
+
     }
 
     @Override
@@ -145,7 +168,6 @@ public class SomeAnimationActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void onAnimationEnd(Animation animation) {
-        rl_root.removeView(imageView1);
         if (count >0){
             setAniamtion();
         }
