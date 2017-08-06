@@ -93,6 +93,10 @@
             android:theme="@style/AppTheme">
 
         </activity>
+        <activity android:name=".activity.SomeAnimationActivity"
+            android:theme="@style/AppTheme">
+
+        </activity>
 
     </application>
 

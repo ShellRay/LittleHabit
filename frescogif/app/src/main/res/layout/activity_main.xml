@@ -107,6 +107,7 @@
         >
 
         <Button
+            android:id="@+id/btn_I"
             style="@style/button_style2"
             android:background="@drawable/cirle_shape"
             android:text="I"/>

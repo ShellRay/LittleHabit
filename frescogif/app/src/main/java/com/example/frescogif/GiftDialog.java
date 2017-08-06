@@ -15,15 +15,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.frescogif.bean.GiftDialogBean;
+
 import java.util.List;
 
 
-public class GiftDialog extends Dialog implements PageGridView.OnPageChangeListener, AdapterView.OnItemClickListener
-{
+public class GiftDialog extends Dialog implements PageGridView.OnPageChangeListener, AdapterView.OnItemClickListener, View.OnClickListener {
 
     public static final String TAG = "GiftDialog";
     private  Context context;
-    private  List list;
+    private  List<GiftDialogBean> list;
 
     //控件定义
     private Button       sendGiftBttn; //发礼物按钮
@@ -38,7 +39,7 @@ public class GiftDialog extends Dialog implements PageGridView.OnPageChangeListe
     private LiveGiftAdapter giftAdapter;
 
 
-    public GiftDialog(Activity context,List list)
+    public GiftDialog(Activity context,List<GiftDialogBean> list)
     {
         super(context, R.style.giftDialog);
         this.list  = list;
@@ -69,6 +70,8 @@ public class GiftDialog extends Dialog implements PageGridView.OnPageChangeListe
         pageMarkView = (PageMarkView) findViewById(R.id.pageMarkView);
         userCoinText = (TextView) findViewById(R.id.userCoinText);
         rechargeBttn = (Button) findViewById(R.id.rechargeBttn);
+
+        sendGiftBttn.setOnClickListener(this);
 
         giftAdapter = new LiveGiftAdapter(context,list, inflater);
         pageGridView.setAdapter(giftAdapter);
@@ -222,5 +225,30 @@ public class GiftDialog extends Dialog implements PageGridView.OnPageChangeListe
     }
 
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.sendGiftBttn:
+                int positon = giftAdapter.getSelected();
+                --list.get(positon).giftNum ;
+                if(list.get(positon).giftNum == 0){
+                    list.remove(list.get(positon));
+                }
 
+               /* for(int i = 0; i <list.size() ; i ++){
+                    if(i == positon){
+                        --list.get(i).giftNum ;
+                        if(list.get(i).giftNum == 0){
+                            list.remove(list.get(i));
+                        }
+                    }                }*/
+                giftAdapter.notifyDataSetChanged();
+                giftAdapter.cancleSelect(pageGridView.getItemView(positon));
+                int pageCount = pageGridView.getPageCount();
+                int visibility = pageCount > 1 ? View.VISIBLE : View.GONE;
+                pageMarkView.setVisibility(visibility);
+                pageMarkView.setPageInfo(pageCount, 0);
+                break;
+        }
+    }
 }

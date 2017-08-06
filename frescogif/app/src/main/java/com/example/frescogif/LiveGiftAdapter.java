@@ -13,8 +13,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.frescogif.bean.GiftDialogBean;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.controller.BaseControllerListener;
 import com.facebook.drawee.interfaces.DraweeController;
@@ -38,10 +38,10 @@ public class LiveGiftAdapter extends BaseAdapter {
     private static final String GIFT_IMG_TYPE_PNG = "_7.png";
     //private static final String Tag_no_gif_res
 
-    List<String> datalist;
+    List<GiftDialogBean> datalist;
     LayoutInflater inflater;
 
-    public LiveGiftAdapter(Context context, List<String> datalist, LayoutInflater inflater) {
+    public LiveGiftAdapter(Context context, List<GiftDialogBean> datalist, LayoutInflater inflater) {
         this.selected = -1;
         this.clicknum = -1;
         this.datalist = datalist;
@@ -197,7 +197,7 @@ public class LiveGiftAdapter extends BaseAdapter {
             vieHolder = (ViewHolder) convertView.getTag();
         }
 
-        String giftUrl = datalist.get(position);
+        String giftUrl = datalist.get(position).path;
 
         // 已知道 该礼物无 gif 资源  直接加载 png
 //        if (vieHolder.noGifRes) {
@@ -226,7 +226,7 @@ public class LiveGiftAdapter extends BaseAdapter {
 //        }
 
 
-        vieHolder.giftPrice.setText( "0");
+        vieHolder.giftPrice.setText( "" +datalist.get(position).giftNum);
         vieHolder.giftLable.setText("gif");
 
         FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) vieHolder.giftCount.getLayoutParams();

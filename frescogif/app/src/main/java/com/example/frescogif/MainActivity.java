@@ -21,7 +21,9 @@ import com.example.frescogif.activity.PullToRefreshPlantActivity;
 import com.example.frescogif.activity.RecycleViewActivity;
 import com.example.frescogif.activity.ShapeActivity;
 import com.example.frescogif.activity.SlidMenuActivity;
+import com.example.frescogif.activity.SomeAnimationActivity;
 import com.example.frescogif.baseActvity.BaseActivity;
+import com.example.frescogif.bean.GiftDialogBean;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
 import java.io.ByteArrayOutputStream;
@@ -45,6 +47,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private Button btn_app_bar;
     private Button btn_shape;
     private Button btn_pull;
+    private Button btn_I;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         btn_app_bar = (Button) findViewById(R.id.btn_app_bar);
         btn_shape = (Button) findViewById(R.id.btn_shape);
         btn_pull = (Button)  findViewById(R.id.btn_pull);
+        btn_I = (Button)  findViewById(R.id.btn_I);
 
 
         btn_bg.setOnClickListener(this);
@@ -77,17 +81,25 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         btn_app_bar.setOnClickListener(this);
         btn_shape.setOnClickListener(this);
         btn_pull.setOnClickListener(this);
+        btn_I.setOnClickListener(this);
 
-        ArrayList<String> list = new ArrayList<>();
+        ArrayList<GiftDialogBean> list = new ArrayList<GiftDialogBean>();
         String path = "asset:///a.gif";
         String path1 = "asset:///b.gif";
         String path2 = "asset:///c.gif";
         String path3 = "asset:///d.gif";
         String path4 = "asset:///e.gif";
-        for (int x = 0;x<2;x++){
-            list.add(x,path);
+        list.add(new GiftDialogBean(path,10));
+        list.add(new GiftDialogBean(path1,20));
+        list.add(new GiftDialogBean(path2,30));
+        list.add(new GiftDialogBean(path3,15));
+        list.add(new GiftDialogBean(path4,5));
+        list.add(new GiftDialogBean(path1,7));
+      /*  for (int x = 0;x<2;x++){
+            list.add(x,new GiftDialogBean(path,10));
         }
         for (int x = 0;x<2;x++){
+
             list.add(x,path1);
         }
         for (int x = 0;x<2;x++){
@@ -98,7 +110,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
         for (int x = 0;x<2;x++){
             list.add(x,path4);
-        }
+        }*/
         giftDialog = new GiftDialog(this, list);
       /*
        这个是可以使用的
@@ -166,6 +178,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.btn_pull:
                 startActivity(new Intent(this, PullScaleActivity.class));
+                break;
+            case R.id.btn_I:
+                startActivity(new Intent(this, SomeAnimationActivity.class));
                 break;
 
 
