@@ -11,6 +11,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.frescogif.activity.AppBarActivity;
+import com.example.frescogif.activity.CircleSolidActivity;
 import com.example.frescogif.activity.CustomPhotoActivity;
 import com.example.frescogif.activity.DesignActivity;
 import com.example.frescogif.activity.LayoutMangerActivity;
@@ -48,6 +49,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private Button btn_shape;
     private Button btn_pull;
     private Button btn_I;
+    private Button btn_solid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +68,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         btn_app_bar = (Button) findViewById(R.id.btn_app_bar);
         btn_shape = (Button) findViewById(R.id.btn_shape);
         btn_pull = (Button)  findViewById(R.id.btn_pull);
+        btn_solid = (Button)  findViewById(R.id.btn_solid);
         btn_I = (Button)  findViewById(R.id.btn_I);
 
 
@@ -81,6 +84,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         btn_app_bar.setOnClickListener(this);
         btn_shape.setOnClickListener(this);
         btn_pull.setOnClickListener(this);
+        btn_solid.setOnClickListener(this);
         btn_I.setOnClickListener(this);
 
         ArrayList<GiftDialogBean> list = new ArrayList<GiftDialogBean>();
@@ -178,6 +182,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.btn_pull:
                 startActivity(new Intent(this, PullScaleActivity.class));
+                break;
+            case R.id.btn_solid:
+                startActivity(new Intent(this, CircleSolidActivity.class));
                 break;
             case R.id.btn_I:
                 startActivity(new Intent(this, SomeAnimationActivity.class));

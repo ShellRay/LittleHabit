@@ -45,12 +45,6 @@ public class PhotoCropPerfectActivity extends BaseActivity implements View.OnCli
     private TextView tv_cancel;
     private Button tv_complete;
     private String mCropPath;
-    private String uri;
-    private boolean isGallery;
-    private Uri uri1;
-    private Bitmap bitmap;
-    private InputStream inputStream;
-    private Cursor cursor;
 
     UCropView mUCropView;
     GestureCropImageView mGestureCropImageView;
@@ -82,12 +76,6 @@ public class PhotoCropPerfectActivity extends BaseActivity implements View.OnCli
         mCropPath = intent.getStringExtra(UCrop.Options.EXTRA_CROP_PATH);
 
         setImageData(intent);
-
-       /* Intent intent = getIntent();
-        mCropPath = intent.getStringExtra("cropPath");
-        uri = intent.getStringExtra("uri");
-        isGallery = intent.getBooleanExtra("isGallery", false);
-        uri1 = Uri.parse(uri);*/
 
     }
     private void initView() {
@@ -183,6 +171,7 @@ public class PhotoCropPerfectActivity extends BaseActivity implements View.OnCli
                     croppedBitmap = MediaUtils.compressImage(croppedBitmap);
                     boolean saveBitmap = MediaUtils.saveBitmap(croppedBitmap, mCropPath);
                     if(saveBitmap){
+                        setResult(MediaUtils.RESULTCODE_CROP);
                         finish();
                     }
 //                    setResult(MediaUtils.RESULTCODE_CROP);
@@ -191,13 +180,9 @@ public class PhotoCropPerfectActivity extends BaseActivity implements View.OnCli
                         String fileName = System.currentTimeMillis() + ".png";
                         bigCropPath = MediaUtils.KELE_PHOTOS_DIR + File.separator + fileName;
                         bigUri = Uri.fromFile(new File(bigCropPath));
-//                        croppedBitmap = MediaUtils.compressImage(croppedBitmap);
                         outputStream = getContentResolver().openOutputStream(bigUri);
                         boolean compress = croppedBitmap.compress(Bitmap.CompressFormat.JPEG, 85, outputStream);
-                       /* String fileName = System.currentTimeMillis() + ".png";
-                        bigCropPath = MediaUtils.KELE_PHOTOS_DIR + File.separator + fileName;
-                        boolean savebigBitmap = MediaUtils.saveBitmap(croppedBitmap, bigCropPath);
-                        */if(compress){
+                        if(compress){
                             setContentView(R.layout.activity_photo_crop_perfect);
                             first = false;
                             initView();
@@ -210,14 +195,10 @@ public class PhotoCropPerfectActivity extends BaseActivity implements View.OnCli
                             tv_complete.setText("完成");
                         }
                     }else {
-//                        boolean savebigBitmap = MediaUtils.saveBitmap(bigBitmap, bigCropPath);
-//                        croppedBitmap = MediaUtils.compressImage(croppedBitmap);
                         outputStream = getContentResolver().openOutputStream(mOutputUri);
                         boolean compress = croppedBitmap.compress(Bitmap.CompressFormat.JPEG, 85, outputStream);
                         if(compress){
                             Intent intent = new Intent();
-                            /*intent.putExtra("bigPath",bigUri);
-                            intent.putExtra("Path",mOutputUri);*/
                             intent.putExtra("longPath",bigCropPath);
                             setResult(MediaUtils.RESULTCODE_CROP, intent);
                             finish();
@@ -249,6 +230,7 @@ public class PhotoCropPerfectActivity extends BaseActivity implements View.OnCli
         @Override
         public void onLoadComplete() {
             Animation fadeInAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.ucrop_fade_in);
+            Toast.makeText(PhotoCropPerfectActivity.this,"onLoadComplete",Toast.LENGTH_SHORT).show();
             fadeInAnimation.setAnimationListener(new Animation.AnimationListener() {
                 @Override
                 public void onAnimationStart(Animation animation) {

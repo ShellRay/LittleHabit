@@ -93,6 +93,11 @@
             android:theme="@style/AppTheme">
 
         </activity>
+        <activity android:name=".activity.CircleSolidActivity"
+            android:theme="@style/AppTheme">
+
+        </activity>
+
         <activity android:name=".activity.SomeAnimationActivity"
             android:theme="@style/AppTheme">
 

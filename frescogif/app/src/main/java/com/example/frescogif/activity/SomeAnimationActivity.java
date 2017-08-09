@@ -1,5 +1,6 @@
 package com.example.frescogif.activity;
 
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -93,6 +94,8 @@ public class SomeAnimationActivity extends BaseActivity implements View.OnClickL
         //第二个参数toAlpha为 动画结束时候透明度
         animation_alpha.setRepeatCount(0);//设置循环
         animation_alpha.setDuration(1000);//设置时间持续时间为 5000毫秒
+
+
         animation_alpha.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -102,13 +105,23 @@ public class SomeAnimationActivity extends BaseActivity implements View.OnClickL
             @Override
             public void onAnimationEnd(Animation animation) {
                 rl_root.removeView(imageView1);
+                imageView1.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
+                    @Override
+                    public void onViewAttachedToWindow(View v) {
+                        Log.e("someAnimation","onViewAttachedToWindow");
+                    }
 
-                if (count >0){
-                    setImageAniamtion();
-                }
-                if(count == 0) {
-                    imgStarted = false;
-                }
+                    @Override
+                    public void onViewDetachedFromWindow(View v) {
+                        if (count > 0) {
+                            setImageAniamtion();
+                        }
+                        if (count == 0) {
+                            imgStarted = false;
+                        }
+                        Log.e("someAnimation","onViewDetachedFromWindow");
+                    }
+                });
             }
 
             @Override
@@ -125,8 +138,8 @@ public class SomeAnimationActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-//        ++count;
-        count = 50;
+        ++count;
+//        count = 50;
         if(!started && count >0 && !imgStarted){
             setAniamtion();
             setImageAniamtion();
@@ -135,13 +148,13 @@ public class SomeAnimationActivity extends BaseActivity implements View.OnClickL
 
     private void setImageAniamtion() {
         imageView1 = new ImageView(this);
-        imageView1.setImageResource(R.drawable.heart);
+        imageView1.setImageResource(R.drawable.heart_full);
         float v = (float)(Math.random() * 360);
         imageView1.setRotation(v);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT
                 , ViewGroup.LayoutParams.WRAP_CONTENT);
-        int intrinsicHeight = getResources().getDrawable(R.drawable.heart).getIntrinsicHeight();
-        int intrinsicWidth = getResources().getDrawable(R.drawable.heart).getIntrinsicWidth();
+        int intrinsicHeight = getResources().getDrawable(R.drawable.heart_full).getIntrinsicHeight();
+        int intrinsicWidth = getResources().getDrawable(R.drawable.heart_full).getIntrinsicWidth();
         imageView1.measure(intrinsicWidth,intrinsicHeight);
         int width = imageView1.getMeasuredWidth();
         int height = imageView1.getMeasuredHeight();

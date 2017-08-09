@@ -87,7 +87,7 @@ public class CropImageView extends TransformImageView {
         }
 
         cancelAllAnimations();
-        setImageToWrapCropBounds(false);
+        setImageToWrapCropBounds(true);
 
         RectF currentImageRect = RectUtils.trapToRect(mCurrentImageCorners);
         if (currentImageRect.isEmpty()) {
