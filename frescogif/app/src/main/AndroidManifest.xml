@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.frescogif">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -15,7 +16,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.SplashActivity"
+        <activity
+            android:name=".activity.SplashActivity"
             android:theme="@style/MyStyle">
 
             <intent-filter>
@@ -25,80 +27,101 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"
-            android:launchMode="singleTask"
-            >
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTask">
 
         </activity>
         <activity android:name=".ImageBackgroundResilience">
 
         </activity>
-        <activity android:name=".LoginActivity"
+        <activity
+            android:name=".LoginActivity"
             android:theme="@style/MyStyle">
 
         </activity>
         <activity android:name=".activity.RecycleViewActivity">
 
         </activity>
-        <activity android:name=".activity.SlidMenuActivity"
+        <activity
+            android:name=".activity.SlidMenuActivity"
             android:theme="@style/AppSideTheme">
 
         </activity>
-        <activity android:name=".activity.PullToRefreshActivity"
+        <activity
+            android:name=".activity.PullToRefreshActivity"
             android:theme="@style/AppSideTheme">
 
         </activity>
-        <activity android:name=".activity.PullToRefreshPlantActivity"
+        <activity
+            android:name=".activity.PullToRefreshPlantActivity"
             android:theme="@style/AppSideTheme">
 
         </activity>
 
-        <activity android:name=".activity.LoadingActivity"
+        <activity
+            android:name=".activity.LoadingActivity"
             android:theme="@style/SimpleStyle">
 
         </activity>
-        <activity android:name=".activity.DesignActivity"
+        <activity
+            android:name=".activity.DesignActivity"
             android:theme="@style/AppTheme">
 
         </activity>
-        <activity android:name=".activity.LayoutMangerActivity"
+        <activity
+            android:name=".activity.LayoutMangerActivity"
             android:theme="@style/AppTheme">
 
         </activity>
-        <activity android:name=".activity.CustomPhotoActivity"
-        android:theme="@style/AppTheme">
-
-    </activity>
-        <activity android:name=".activity.PhotoHeadCropActivity"
+        <activity
+            android:name=".activity.CustomPhotoActivity"
             android:theme="@style/AppTheme">
 
         </activity>
-        <activity android:name=".activity.PhotoCropPerfectActivity"
+        <activity
+            android:name=".activity.PhotoHeadCropActivity"
             android:theme="@style/AppTheme">
 
         </activity>
-        <activity android:name=".activity.PhotoVierticCropActivity"
-        android:theme="@style/AppTheme">
-
-    </activity>
-        <activity android:name=".activity.AppBarActivity"
+        <activity
+            android:name=".activity.PhotoCropPerfectActivity"
             android:theme="@style/AppTheme">
 
         </activity>
-        <activity android:name=".activity.ShapeActivity"
+        <activity
+            android:name=".activity.PhotoVierticCropActivity"
             android:theme="@style/AppTheme">
 
         </activity>
-        <activity android:name=".activity.PullScaleActivity"
+        <activity
+            android:name=".activity.AppBarActivity"
             android:theme="@style/AppTheme">
 
         </activity>
-        <activity android:name=".activity.CircleSolidActivity"
+        <activity
+            android:name=".activity.ShapeActivity"
+            android:theme="@style/AppTheme">
+
+        </activity>
+        <activity
+            android:name=".activity.PullScaleActivity"
+            android:theme="@style/AppTheme">
+
+        </activity>
+        <activity
+            android:name=".activity.CircleSolidActivity"
             android:theme="@style/AppTheme">
 
         </activity>
 
-        <activity android:name=".activity.SomeAnimationActivity"
+        <activity
+            android:name=".activity.SomeAnimationActivity"
+            android:theme="@style/AppTheme">
+
+        </activity>
+        <activity
+            android:name=".activity.EmojiActivity"
             android:theme="@style/AppTheme">
 
         </activity>
