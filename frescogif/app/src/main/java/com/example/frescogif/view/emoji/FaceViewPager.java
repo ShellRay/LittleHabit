@@ -88,7 +88,8 @@ public class FaceViewPager extends ViewPager {
 			pageCount++;
 		}
 
-		this.setAdapter(new ViewPageAdapter(gridViews));
+		ViewPageAdapter adapter = new ViewPageAdapter(gridViews);
+		this.setAdapter(adapter);
 
 		new FaceLoadTask().execute();//加载本地表情
 		return pageCount;

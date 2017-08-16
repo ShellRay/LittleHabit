@@ -3,6 +3,7 @@ package com.example.frescogif.adapter;
 import android.content.Context;
 import android.text.Editable;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -113,7 +114,9 @@ public class FaceAdapter extends ArrayListAdapter<String> {
 				edit.onKeyDown(KeyEvent.KEYCODE_DEL, keyEventDown);
 			}
 			else {
-				Toast.makeText(mContext,FaceViewPager.replaceEmotionStrToImg(imageName),Toast.LENGTH_SHORT).show();
+				Toast toast = Toast.makeText(mContext, FaceViewPager.replaceEmotionStrToImg(imageName), Toast.LENGTH_SHORT);
+				toast.setGravity(Gravity.CENTER,0,0);
+				toast.show();
 			}
 			return true;
 		}
