@@ -55,7 +55,7 @@ public class SomeAnimationActivity extends BaseActivity implements View.OnClickL
 
         btn_click.setOnClickListener(this);
 
-        initAnimation();
+//        initAnimation();
     }
 
 
