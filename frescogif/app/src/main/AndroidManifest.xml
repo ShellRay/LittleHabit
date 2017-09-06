@@ -125,6 +125,11 @@
             android:theme="@style/AppTheme">
 
         </activity>
+        <activity
+            android:name=".activity.ChatGatherActivity"
+            android:theme="@style/AppTheme">
+
+        </activity>
 
     </application>
 
