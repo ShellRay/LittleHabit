@@ -5,18 +5,18 @@
     <scale
         android:duration="700"
         android:fillAfter="false"
-        android:fromXScale="0.8f"
-        android:fromYScale="0.8f"
+        android:fromXScale="0.8"
+        android:fromYScale="0.8"
         android:pivotX="50%"
         android:pivotY="50%"
-        android:toXScale="2.0f"
-        android:toYScale="2.0f"
+        android:toXScale="2.0"
+        android:toYScale="2.0"
         android:repeatCount="0"/>
 
     <alpha
         android:duration="700"
-        android:fromAlpha="1.0f"
-        android:toAlpha="0.0f"
+        android:fromAlpha="1.0"
+        android:toAlpha="0.0"
         android:repeatCount="0"
         android:repeatMode="reverse"
          >
