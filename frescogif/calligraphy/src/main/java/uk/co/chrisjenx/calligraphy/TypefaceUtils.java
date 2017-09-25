@@ -33,8 +33,8 @@ public final class TypefaceUtils {
         synchronized (sCachedFonts) {
             try {
                 if (!sCachedFonts.containsKey(filePath)) {
-//                    final Typeface typeface = Typeface.createFromAsset(assetManager, filePath);
-                    final Typeface typeface = Typeface.createFromFile(filePath);
+//                    final Typeface typeface = Typeface.createFromAsset(assetManager, filePath);//将字体文件打包到apk中获取typeface的方法
+                    final Typeface typeface = Typeface.createFromFile(filePath);//从手机存储中的文件路径获取到字体文件并获取typeface的方法
                     sCachedFonts.put(filePath, typeface);
                     return typeface;
                 }
