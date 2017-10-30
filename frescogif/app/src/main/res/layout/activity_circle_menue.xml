@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:circle="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.example.frescogif.view.rotateMenu.CircleLayout
+        android:id="@+id/main_circle_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark"
+        circle:firstChildPosition="North"
+        circle:circleBackground="@color/colorPrimaryDark"
+        circle:rotateToCenter="true"
+        circle:isRotating="true" >
+
+
+        <com.example.frescogif.view.rotateMenu.CircleImageView
+            android:id="@+id/main_facebook_image"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@mipmap/icon_facebook"
+            circle:name="facebook" />
+
+        <com.example.frescogif.view.rotateMenu.CircleImageView
+            android:id="@+id/main_myspace_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_myspace"
+            circle:name="myspace" />
+
+        <com.example.frescogif.view.rotateMenu.CircleImageView
+            android:id="@+id/main_google_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_google"
+            circle:name="google" />
+
+        <com.example.frescogif.view.rotateMenu.CircleImageView
+            android:id="@+id/main_linkedin_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_linkedin"
+            circle:name="linkedin" />
+
+        <com.example.frescogif.view.rotateMenu.CircleImageView
+            android:id="@+id/main_twitter_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_twitter"
+            circle:name="twitter" />
+
+        <com.example.frescogif.view.rotateMenu.CircleImageView
+            android:id="@+id/main_wordpress_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_wordpress"
+            circle:name="wordpress" />
+        <com.example.frescogif.view.rotateMenu.CircleImageView
+            android:id="@+id/main_myspace_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_myspace"
+            circle:name="wordpress" />
+
+        <com.example.frescogif.view.rotateMenu.CircleImageView
+            android:id="@+id/main_myspace_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_linkedin"
+            circle:name="wordpress" />
+
+    </com.example.frescogif.view.rotateMenu.CircleLayout>
+
+    <TextView
+        android:id="@+id/main_selected_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"
+        android:gravity="center"
+        android:textColor="@color/sienna"
+        android:background="@mipmap/item_up"
+         />
+
+    <Button
+        android:id="@+id/btn_close"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dp"
+        android:background="@mipmap/icn_close"/>
+
+</RelativeLayout>

@@ -131,7 +131,11 @@
             android:theme="@style/AppTheme">
 
         </activity>
+        <activity
+            android:name=".activity.RotateMenuActivity"
+            android:theme="@style/AppTheme">
 
+        </activity>
     </application>
 
 </manifest>

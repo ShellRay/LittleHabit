@@ -18,6 +18,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.frescogif.activity.RotateMenuActivity;
+
 /**
  * Created by GG on 2017/5/16.
  */
@@ -32,6 +34,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private boolean tagPsw = true;
     private ImageView ivLoginBg;
     private ScaleAnimation scaleAnimation1;
+    private Button btnRegister;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,6 +43,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         etUserName = (EditText) findViewById(R.id.et_username);
         etPassword = (EditText) findViewById(R.id.et_pwd);
         btLogin = (Button) findViewById(R.id.btn_login);
+        btnRegister = (Button) findViewById(R.id.btn_register);
         tvAnimUsername = (TextView) findViewById(R.id.tv_anim_username);
         tvAnimPsw = (TextView) findViewById(R.id.tv_anim_pwd);
         ivLoginBg = (ImageView) findViewById(R.id.iv_login_bg);
@@ -138,11 +142,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         });
 
         btLogin.setOnClickListener(this);
+        btnRegister.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        startActivity(new Intent(this,MainActivity.class));
-        finish();
+        switch (v.getId()){
+            case R.id.btn_login:
+                startActivity(new Intent(this,MainActivity.class));
+                finish();
+                break;
+            case R.id.btn_register:
+                startActivity(new Intent(this,RotateMenuActivity.class));
+                break;
+        }
+
     }
 }
