@@ -17,7 +17,7 @@
     <style name="AppSideTheme" parent="Theme.AppCompat.Light.NoActionBar">
     </style>
     <style name="giftDialog" parent="@style/gAlertDialogTheme"></style>
-    <style name="gAlertDialogTheme">
+    <style name="gAlertDialogTheme" parent="android:Animation.Dialog">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsFloating">true</item>
@@ -44,9 +44,9 @@
 
     </style>
     <!-- 礼物面板弹出动画 -->
-    <style name="dialogAnim" parent="android:Animation">
-        <item name="@android:windowEnterAnimation">@anim/qiqi_push_down_in_half</item>
-        <item name="@android:windowExitAnimation">@anim/qiqi_push_down_out</item>
+    <style name="dialogAnim" parent="android:Animation.Activity">
+        <item name="android:windowEnterAnimation">@anim/qiqi_push_down_in_half</item>
+        <item name="android:windowExitAnimation">@anim/qiqi_push_down_out</item>
     </style>
 
     <style name="button_style">

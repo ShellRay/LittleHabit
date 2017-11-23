@@ -1,5 +1,6 @@
 package com.example.frescogif.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -45,9 +46,10 @@ public class RotateMenuActivity extends BaseActivity implements CircleLayout.OnI
     public void onItemClick(View view, int position, long id, String name) {
         Toast.makeText(getApplicationContext(), getResources().getString(R.string.drawer_open) + " " + name, Toast.LENGTH_SHORT).show();
         switch ((int) id){
-            case R.id.main_facebook_image:
-
-            break;
+            case R.id.main_facebook_image://snapHelper
+                Intent intent = new Intent(this, SnapHelperLayoutActivity.class);
+                startActivity(intent);
+                break;
             case R.id.main_myspace_image:
 
                 break;

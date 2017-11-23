@@ -20,7 +20,7 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:src="@mipmap/icon_facebook"
-            circle:name="facebook" />
+            circle:name="snapHelper" />
 
         <com.example.frescogif.view.rotateMenu.CircleImageView
             android:id="@+id/main_myspace_image"

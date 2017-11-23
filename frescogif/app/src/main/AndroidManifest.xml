@@ -136,6 +136,13 @@
             android:theme="@style/AppTheme">
 
         </activity>
+
+        <activity
+            android:name=".activity.SnapHelperLayoutActivity"
+            android:theme="@style/AppTheme">
+        </activity>
+
+
     </application>
 
 </manifest>
