@@ -51,7 +51,7 @@ public class SnapHelperAdapter extends RecyclerView.Adapter <RecyclerView.ViewHo
                     .asGif()
                     .into(iv_gif);
 
-            if(postion%2 == 0){
+            if(postion % 2 == 0){
                 ObjectAnimator animator = ObjectAnimator.ofFloat(image_card_view,"rotation",0f,10f);
                 animator.setDuration(10);
                 animator.start();

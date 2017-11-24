@@ -61,4 +61,18 @@
         <attr name="rotateToCenter" format="boolean" />
         <attr name="isRotating" format="boolean" />
     </declare-styleable>
+
+    <declare-styleable name="CircleIndicatorView">
+        <attr format="dimension" name="indicatorRadius"/>
+        <attr format="dimension" name="indicatorBorderWidth"/>
+        <attr format="dimension" name="indicatorSpace"/>
+        <attr format="color" name="indicatorTextColor"/>
+        <attr format="color" name="indicatorColor"/>
+        <attr format="color" name="indicatorSelectColor"/>
+        <attr format="boolean" name="enableIndicatorSwitch"/>
+        <attr name="fill_mode">
+        <enum name="letter" value="0"/>
+        <enum name="number" value="1"/>
+        <enum name="none" value="2"/>
+    </attr></declare-styleable>
 </resources>

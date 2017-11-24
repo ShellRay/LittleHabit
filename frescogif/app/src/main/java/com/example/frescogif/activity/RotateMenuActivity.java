@@ -51,7 +51,8 @@ public class RotateMenuActivity extends BaseActivity implements CircleLayout.OnI
                 startActivity(intent);
                 break;
             case R.id.main_myspace_image:
-
+                Intent intent1 = new Intent(this, ViewPagerTransformerActivity.class);
+                startActivity(intent1);
                 break;
             case R.id.main_google_image:
 
