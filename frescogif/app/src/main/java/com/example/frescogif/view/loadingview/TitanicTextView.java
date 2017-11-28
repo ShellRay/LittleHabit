@@ -18,7 +18,7 @@ import com.example.frescogif.R;
  * romainpiel
  * 13/03/2014
  */
-public class TitanicTextView extends TextView {
+public class TitanicTextView extends android.support.v7.widget.AppCompatTextView {
 
     public interface AnimationSetupCallback {
         public void onSetupAnimation(TitanicTextView titanicTextView);

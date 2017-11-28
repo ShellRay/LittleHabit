@@ -27,21 +27,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/icon_myspace"
-            circle:name="myspace" />
+            circle:name="ViewPagerTransformer" />
 
         <com.example.frescogif.view.rotateMenu.CircleImageView
             android:id="@+id/main_google_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/icon_google"
-            circle:name="google" />
+            circle:name="WaterLevelView" />
 
         <com.example.frescogif.view.rotateMenu.CircleImageView
             android:id="@+id/main_linkedin_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/icon_linkedin"
-            circle:name="linkedin" />
+            circle:name="WaveView" />
 
         <com.example.frescogif.view.rotateMenu.CircleImageView
             android:id="@+id/main_twitter_image"

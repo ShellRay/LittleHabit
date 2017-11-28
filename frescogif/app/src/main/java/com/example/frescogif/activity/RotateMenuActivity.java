@@ -45,20 +45,19 @@ public class RotateMenuActivity extends BaseActivity implements CircleLayout.OnI
     @Override
     public void onItemClick(View view, int position, long id, String name) {
         Toast.makeText(getApplicationContext(), getResources().getString(R.string.drawer_open) + " " + name, Toast.LENGTH_SHORT).show();
+        Intent intent = null;
         switch ((int) id){
             case R.id.main_facebook_image://snapHelper
-                Intent intent = new Intent(this, SnapHelperLayoutActivity.class);
-                startActivity(intent);
+                intent = new Intent(this, SnapHelperLayoutActivity.class);
                 break;
             case R.id.main_myspace_image:
-                Intent intent1 = new Intent(this, ViewPagerTransformerActivity.class);
-                startActivity(intent1);
+                intent = new Intent(this, ViewPagerTransformerActivity.class);
                 break;
             case R.id.main_google_image:
-
+                intent = new Intent(this, WaterLevelViewActivity.class);
                 break;
             case R.id.main_linkedin_image:
-
+                intent = new Intent(this, WaveViewActivity.class);
                 break;
             case R.id.main_twitter_image:
 
@@ -72,6 +71,9 @@ public class RotateMenuActivity extends BaseActivity implements CircleLayout.OnI
             case R.id.main_myspace_2:
 
                 break;
+        }
+        if(intent != null){
+            startActivity(intent);
         }
 
     }
