@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:background="@color/colorPrimaryDark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+            <com.example.frescogif.view.anyshape.AnyshapeImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="30dp"
+                android:src="@mipmap/dead1"
+                app:anyshapeMask="@mipmap/water_level_icon"/>
+            <com.example.frescogif.view.anyshape.AnyshapeImageView
+                android:layout_width="300dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="-15dp"
+                android:src="@drawable/scene"
+                app:anyshapeMask="@drawable/text"/>
+            <com.example.frescogif.view.anyshape.AnyshapeImageView
+                android:id="@+id/iv_rings"
+                android:layout_width="210dp"
+                android:layout_height="140dp"
+                android:layout_marginTop="-15dp"
+                app:anyshapeBackColor="@android:color/holo_red_light"
+                app:anyshapeMask="@drawable/rings"/>
+        </LinearLayout>
+    </ScrollView>
+    <Button
+        android:id="@+id/btn_change"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:layout_centerHorizontal="true"
+        android:textAllCaps="false"
+        android:text="change rings color"
+        android:textSize="18sp"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

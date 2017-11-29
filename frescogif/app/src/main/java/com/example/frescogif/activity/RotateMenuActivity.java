@@ -60,7 +60,7 @@ public class RotateMenuActivity extends BaseActivity implements CircleLayout.OnI
                 intent = new Intent(this, WaveViewActivity.class);
                 break;
             case R.id.main_twitter_image:
-
+                intent = new Intent(this, AnyShapeActivity.class);
                 break;
             case R.id.main_wordpress_image:
 
