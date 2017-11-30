@@ -21,7 +21,7 @@ public class WaterLevelView extends View {
     // 波纹颜色
     private static final int WAVE_PAINT_COLOR = 0x88FF4081;
     // y = Asin(wx+b)+h
-    private static final float STRETCH_FACTOR_A = 20;
+    private static final float STRETCH_FACTOR_A = 40;
     private static final int OFFSET_Y = 0;
     // 第一条水波移动速度
     private static final int TRANSLATE_X_SPEED_ONE = 7;
@@ -68,12 +68,12 @@ public class WaterLevelView extends View {
 
             // 减400只是为了控制波纹绘制的y的在屏幕的位置，大家可以改成一个变量，然后动态改变这个变量，从而形成波纹上升下降效果
             // 绘制第一条水波纹
-            canvas.drawLine(i, (mTotalHeight- mResetOneYPositions[i]) * 0.8f ,i,// - 200, i,
+            canvas.drawLine(i, (mTotalHeight- mResetOneYPositions[i]) * 0.4f ,i,// - 200, i,
                     mTotalHeight,
                     mWavePaint);
 
             // 绘制第二条水波纹
-            canvas.drawLine(i, (mTotalHeight - mResetTwoYPositions[i]) * 0.8f ,i,// - 200, i,
+            canvas.drawLine(i, (mTotalHeight - mResetTwoYPositions[i]) * 0.4f ,i,// - 200, i,
                     mTotalHeight,
                     mWavePaint);
         }

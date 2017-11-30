@@ -149,17 +149,20 @@
 
         <activity
             android:name=".activity.WaterLevelViewActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
         </activity>
 
         <activity
             android:name=".activity.WaveViewActivity"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait">
         </activity>
 
         <activity
             android:name=".activity.AnyShapeActivity"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait">
         </activity>
 
     </application>

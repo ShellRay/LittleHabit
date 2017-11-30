@@ -4,28 +4,38 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:background="@color/colorPrimaryDark"
-    android:gravity="center"
+    android:gravity="center_horizontal"
     android:layout_height="match_parent">
 
     <com.example.frescogif.view.WaterLevel.WaterLevelView
         android:id="@+id/water_level"
         android:text="@string/tips"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:background="@mipmap/water_level_icon"
         android:paddingLeft="5dp"
+        android:layout_marginTop="50dp"
         android:paddingRight="5dp"/>
 
     <com.example.frescogif.view.WaterLevel.RealWaveLevelView
         android:id="@+id/realWaterLevel"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_gravity="center"
         app:anyshapeMask="@mipmap/water_level_icon"
-        android:src="@mipmap/dead1"
-        android:layout_marginTop="10dp"
+        app:anyshapeBackColor ="#88FF4081"
+        android:layout_marginTop="30dp"
+        android:background="@mipmap/water_level_icon"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"/>
+    <!--android:src="@mipmap/dead1"-->
     <!--android:src="@mipmap/dead10"-->
+
+    <Button
+        android:id="@+id/addDepth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="addDepth"
+        android:layout_marginTop="140dp"
+        />
 </LinearLayout>
