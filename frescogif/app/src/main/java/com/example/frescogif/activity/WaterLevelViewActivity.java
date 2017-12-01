@@ -22,26 +22,46 @@ import org.w3c.dom.Text;
 public class WaterLevelViewActivity extends BaseActivity implements View.OnClickListener {
 
     private RealWaveLevelView realWaterLevel;
+    private WaterLevelView water_level;
+
     private float depthFloat = 0.1f;
+    private float depthFloat1 = 0.1f;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_water_level_view);
 
         realWaterLevel = (RealWaveLevelView) findViewById(R.id.realWaterLevel);
+        water_level = (WaterLevelView) findViewById(R.id.water_level);
+
         Button addDepth = (Button) findViewById(R.id.addDepth);
         addDepth.setOnClickListener(this);
+        water_level.setOnClickListener(this);
     }
 
 
     @Override
     public void onClick(View v) {
-        if(depthFloat >= 1){
-            depthFloat = 0.1f;
-        }else {
-            depthFloat = depthFloat + 0.1f;
+        switch (v.getId()){
+            case R.id.addDepth:
+                if(depthFloat >= 1){
+                    depthFloat = 0.1f;
+                }else {
+                    depthFloat = depthFloat + 0.1f;
+                }
+                realWaterLevel.setDepthOfWater(depthFloat);
+                break;
+
+            case R.id.water_level:
+                if(depthFloat1 >= 1){
+                    depthFloat1 = 0.1f;
+                }else {
+                    depthFloat1 = depthFloat1 + 0.1f;
+                }
+                water_level.setAddWaveHeight(depthFloat1);
+                break;
         }
-        realWaterLevel.setDepthOfWater(depthFloat);
+
 
     }
 }

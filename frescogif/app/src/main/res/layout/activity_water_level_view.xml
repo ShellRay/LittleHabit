@@ -12,21 +12,21 @@
         android:text="@string/tips"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:background="@mipmap/water_level_icon"
+        android:background="@color/bg_normal_btn_color"
         android:paddingLeft="5dp"
         android:layout_marginTop="50dp"
         android:paddingRight="5dp"/>
 
     <com.example.frescogif.view.WaterLevel.RealWaveLevelView
         android:id="@+id/realWaterLevel"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_gravity="center"
         app:anyshapeMask="@mipmap/water_level_icon"
-        app:anyshapeBackColor ="#88FF4081"
+        app:anyshapeBackColor ="#ff000000"
         android:layout_marginTop="30dp"
-        android:background="@mipmap/water_level_icon"
         android:paddingLeft="5dp"
+        android:background="@mipmap/water_level_icon"
         android:paddingRight="5dp"/>
     <!--android:src="@mipmap/dead1"-->
     <!--android:src="@mipmap/dead10"-->

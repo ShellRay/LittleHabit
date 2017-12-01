@@ -15,18 +15,16 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Path;
-import android.graphics.PathMeasure;
+import android.graphics.Rect;
 import android.graphics.Shader;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.frescogif.R;
 import com.example.frescogif.utils.MediaUtils;
 import com.example.frescogif.view.anyshape.PathInfo;
 import com.example.frescogif.view.anyshape.PathManager;
-import com.facebook.common.util.Hex;
 
 /**
  * Created by GG on 2017/11/29.
@@ -46,9 +44,9 @@ public class RealWaveLevelView extends android.support.v7.widget.AppCompatImageV
 /////////////////////////////////////////////////////////
 
     // 波纹颜色
-    private static final int WAVE_PAINT_COLOR = 0x88FF4081;
+    private static final int WAVE_PAINT_COLOR = 0xff663D4E;
     // y = Asin(wx+b)+h
-    private static final float STRETCH_FACTOR_A = 70;
+    private static final float STRETCH_FACTOR_A = 20;
     private static final int OFFSET_Y = 0;
     // 第一条水波移动速度
     private static final int TRANSLATE_X_SPEED_ONE = 3;
@@ -80,7 +78,7 @@ public class RealWaveLevelView extends android.support.v7.widget.AppCompatImageV
     int vWidth = 0;
     int vHeight = 0;
     private Canvas canvas1;
-    private float depthOfWater = 0;
+    private float depthOfWater = 0.9f;
 
     public RealWaveLevelView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
@@ -97,7 +95,7 @@ public class RealWaveLevelView extends android.support.v7.widget.AppCompatImageV
         // 设置风格为实线
         mWavePaint.setStyle(Paint.Style.FILL);
         // 设置画笔颜色
-        mWavePaint.setColor(WAVE_PAINT_COLOR);
+//        mWavePaint.setColor(WAVE_PAINT_COLOR);
         mDrawFilter = new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG);
         //////////////////////////////////////////////////////
         this.context = context;
@@ -142,7 +140,7 @@ public class RealWaveLevelView extends android.support.v7.widget.AppCompatImageV
 
         // 记录下view的宽高
         mTotalWidth = vWidth;
-        mTotalHeight = vHeight;
+        mTotalHeight = vHeight;//MediaUtils.dip2px(context,20);
         // 用于保存原始波纹的y值
         mYPositions = new float[mTotalWidth];
         // 用于保存波纹一的y值
@@ -155,10 +153,10 @@ public class RealWaveLevelView extends android.support.v7.widget.AppCompatImageV
         // 将周期定为view总宽度
         mCycleFactorW = (float) (2 * Math.PI / mTotalWidth);
 
-       /* // 根据view总宽度得出所有对应的y值
+        // 根据view总宽度得出所有对应的y值
         for (int i = 0; i < mTotalWidth; i++) {
             mYPositions[i] = (float) (STRETCH_FACTOR_A * Math.sin(mCycleFactorW * i) + OFFSET_Y);
-        }*/
+        }
 
         Log.d(TAG,"onSizeChanged");
     }
@@ -208,16 +206,8 @@ public class RealWaveLevelView extends android.support.v7.widget.AppCompatImageV
         Log.d(TAG,"onMeasure");
     }
 
-    private int curValue;
-
     @Override
     protected void onDraw(Canvas canvas) {
-//        Log.d(TAG,"onDraw");
-
-        // 根据view总宽度得出所有对应的y值
-        for (int i = 0; i < mTotalWidth; i++) {
-            mYPositions[i] = (float) (depthOfWater * STRETCH_FACTOR_A * Math.sin(mCycleFactorW * i) + OFFSET_Y);
-        }
 
         if (null == originMaskPath) {
             // if the mask is null, the view will work as a normal ImageView
@@ -234,39 +224,21 @@ public class RealWaveLevelView extends android.support.v7.widget.AppCompatImageV
         canvas1.setDrawFilter(mDrawFilter);
         resetPositonY();
 
-        int parse = parse("0x88FF00ff");
-        int parse1 = parse("0x88FF0000");
+//        mWavePaint.setColor(0xff00ffff);
+        int top = (int) (mTotalHeight * (1 - depthOfWater) + MediaUtils.dip2px(context,10));
+//        canvas1.drawRect(new Rect(0,top,mTotalWidth,mTotalHeight),mWavePaint);//绘制矩形，并设置矩形框显示的位置
+        /* 设置渐变色 颜色是改变的 */
+        Shader mShader = new LinearGradient(mTotalWidth/2, 0, mTotalWidth/2,  mTotalHeight,
+                 Color.GREEN, Color.BLUE,  Shader.TileMode.MIRROR);
+        mWavePaint.setShader(mShader);
 
-        int colorInt = parse - parse1;
-
-        int preCurrent = 0;
+//        mWavePaint.setColor(0xff0000ff);
+        int top1 = 100;
         for (int i = 0; i < mTotalWidth; i++) {
-
-            int current = parse - colorInt * ( i/mTotalWidth);
-            if(current != preCurrent) {
-                Log.d(TAG, current + " 颜色");
-            }
-            preCurrent = current;
-            String hex = Integer.toHexString(current);
-            int anInt = new java.math.BigInteger (hex, 16).intValue ();
-
-            if( i <10){
-                mWavePaint.setColor(0x88FF00ff);
-            }else if(i <20){
-                mWavePaint.setColor(0x88FFffff);
-            }else if(i <30){
-                mWavePaint.setColor(0x88000000);
-            }else if(i <40){
-                mWavePaint.setColor(0x880000ff);
-            }else if(i <50){
-                mWavePaint.setColor(0x88FF24ff);
-            }
-            // 设置画笔颜色
-
 
             // 减400只是为了控制波纹绘制的y的在屏幕的位置，大家可以改成一个变量，然后动态改变这个变量，从而形成波纹上升下降效果
             // 绘制第一条水波纹
-            canvas1.drawLine(i , (mTotalHeight - mResetOneYPositions[i]) * (1 - depthOfWater) ,i ,
+            canvas1.drawLine(i , (mTotalHeight - mResetOneYPositions[i] ) * (1 - depthOfWater)  ,i ,
                     mTotalHeight,
                     mWavePaint);
 
@@ -275,11 +247,6 @@ public class RealWaveLevelView extends android.support.v7.widget.AppCompatImageV
             canvas1.drawLine(i  , (mTotalHeight - mResetTwoYPositions[i]) * (1 - depthOfWater) ,i ,
                     mTotalHeight,
                     mWavePaint);
-
-           /* canvas1.drawLine(i  , (mTotalHeight - mResetThreeYPositions[i]) * (1 - depthOfWater) ,i ,
-                    mTotalHeight,
-                    mWavePaint);*/
-
         }
 
         // 改变两条波纹的移动点
@@ -342,6 +309,7 @@ public class RealWaveLevelView extends android.support.v7.widget.AppCompatImageV
      */
     public void setDepthOfWater(float depthOfWater) {
         this.depthOfWater = depthOfWater;
+        Toast.makeText(context,depthOfWater + "百分比",Toast.LENGTH_SHORT).show();
         postInvalidate();
     }
 

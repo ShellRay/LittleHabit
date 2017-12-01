@@ -40,6 +40,7 @@ public class WaterLevelView extends View {
 
     private Paint mWavePaint;
     private DrawFilter mDrawFilter;
+    private float addWaveHeight;
 
     public WaterLevelView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -68,12 +69,12 @@ public class WaterLevelView extends View {
 
             // 减400只是为了控制波纹绘制的y的在屏幕的位置，大家可以改成一个变量，然后动态改变这个变量，从而形成波纹上升下降效果
             // 绘制第一条水波纹
-            canvas.drawLine(i, (mTotalHeight- mResetOneYPositions[i]) * 0.4f ,i,// - 200, i,
+            canvas.drawLine(i, (mTotalHeight- mResetOneYPositions[i]) * (1-addWaveHeight) ,i,// - 200, i,
                     mTotalHeight,
                     mWavePaint);
 
             // 绘制第二条水波纹
-            canvas.drawLine(i, (mTotalHeight - mResetTwoYPositions[i]) * 0.4f ,i,// - 200, i,
+            canvas.drawLine(i, (mTotalHeight - mResetTwoYPositions[i]) * (1-addWaveHeight) ,i,// - 200, i,
                     mTotalHeight,
                     mWavePaint);
         }
@@ -128,4 +129,10 @@ public class WaterLevelView extends View {
         for (int i = 0; i < mTotalWidth; i++) {
             mYPositions[i] = (float) (STRETCH_FACTOR_A * Math.sin(mCycleFactorW * i) + OFFSET_Y);
         }
-    }  }
+    }
+
+    public void setAddWaveHeight(float addWaveHeight) {
+        this.addWaveHeight = addWaveHeight;
+        postInvalidate();
+    }
+}
