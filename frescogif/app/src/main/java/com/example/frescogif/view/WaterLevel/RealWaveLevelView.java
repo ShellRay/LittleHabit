@@ -16,9 +16,12 @@ import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Path;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.Shader;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.View;
+import android.view.animation.LinearInterpolator;
 import android.widget.Toast;
 
 import com.example.frescogif.R;
@@ -30,7 +33,7 @@ import com.example.frescogif.view.anyshape.PathManager;
  * Created by GG on 2017/11/29.
  */
 
-public class RealWaveLevelView extends android.support.v7.widget.AppCompatImageView{
+public class RealWaveLevelView extends android.support.v7.widget.AppCompatImageView implements View.OnClickListener {
 
     private static final String TAG = "RealWaveLevelView";
     Context context;
@@ -42,35 +45,30 @@ public class RealWaveLevelView extends android.support.v7.widget.AppCompatImageV
     int maskResId = 0;
 
 /////////////////////////////////////////////////////////
+//波浪画笔
+private Paint mPaint;
+    //测试红点画笔
+    private Paint mCyclePaint;
 
-    // 波纹颜色
-    private static final int WAVE_PAINT_COLOR = 0xff663D4E;
-    // y = Asin(wx+b)+h
-    private static final float STRETCH_FACTOR_A = 20;
-    private static final int OFFSET_Y = 0;
-    // 第一条水波移动速度
-    private static final int TRANSLATE_X_SPEED_ONE = 3;
-    // 第二条水波移动速度
-    private static final int TRANSLATE_X_SPEED_TWO = 1;
+    //波浪Path类
+    private Path mPath;
+    private Path mPathA;
+    //一个波浪长度
+    private int mWaveLength = 100;
+    //波纹个数
+    private int mWaveCount;
+    //平移偏移量
+    private int mOffset;
+    private int mOffset1;
+    //波纹的中间轴
+    private int mCenterY;
 
-    private static final int TRANSLATE_X_SPEED_THREE = 3;
+    //屏幕高度
+    private int mScreenHeight;
+    //屏幕宽度
+    private int mScreenWidth;
 
-    private float mCycleFactorW;
-
-    private int mTotalWidth, mTotalHeight;
-    private float[] mYPositions;
-    private float[] mResetOneYPositions;
-    private float[] mResetTwoYPositions;
-    private float[] mResetThreeYPositions;
-    private int mXOffsetSpeedOne;
-    private int mXOffsetSpeedTwo;
-    private int mXOffsetSpeedThree;
-    private int mXOneOffset;
-    private int mXTwoOffset;
-    private int mXThreeOffset;
-
-    private Paint mWavePaint;
-    private DrawFilter mDrawFilter;
+    private static final int WAVE_HIGHT = 15;
 
 //////////////////////////////////////////////////////////
 
@@ -83,20 +81,17 @@ public class RealWaveLevelView extends android.support.v7.widget.AppCompatImageV
     public RealWaveLevelView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         /////////////////////////////////////////////////////////////////////////
-        // 将dp转化为px，用于控制不同分辨率上移动速度基本一致
-        mXOffsetSpeedOne = MediaUtils.dip2px(context, TRANSLATE_X_SPEED_ONE);
-        mXOffsetSpeedTwo = MediaUtils.dip2px(context, TRANSLATE_X_SPEED_TWO);
-        mXOffsetSpeedThree = MediaUtils.dip2px(context, TRANSLATE_X_SPEED_THREE);
 
-        // 初始绘制波纹的画笔
-        mWavePaint = new Paint();
-        // 去除画笔锯齿
-        mWavePaint.setAntiAlias(true);
-        // 设置风格为实线
-        mWavePaint.setStyle(Paint.Style.FILL);
-        // 设置画笔颜色
-//        mWavePaint.setColor(WAVE_PAINT_COLOR);
-        mDrawFilter = new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG);
+        mPath = new Path();
+        mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mPaint.setColor(0x88FF4081);
+        mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        setOnClickListener(this);
+
+        mPathA = new Path();
+        mCyclePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mCyclePaint.setColor(0x88FF4081);
+        mCyclePaint.setStyle(Paint.Style.FILL_AND_STROKE);
         //////////////////////////////////////////////////////
         this.context = context;
         TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.AnyShapeImageView, defStyleAttr, 0);
@@ -131,6 +126,11 @@ public class RealWaveLevelView extends android.support.v7.widget.AppCompatImageV
         super.onSizeChanged(w, h, oldw, oldh);
         vHeight = getHeight();
         vWidth = getWidth();
+        mScreenHeight = h;
+        mScreenWidth = w;
+        //加1.5：至少保证波纹有2个，至少2个才能实现平移效果
+        mWaveCount = (int) Math.round(mScreenWidth / mWaveLength + 1.5);
+
         if (originMaskPath != null) {
             //scale the size of the path to fit the one of this View
             Matrix matrix = new Matrix();
@@ -138,25 +138,7 @@ public class RealWaveLevelView extends android.support.v7.widget.AppCompatImageV
             originMaskPath.transform(matrix, realMaskPath);
         }
 
-        // 记录下view的宽高
-        mTotalWidth = vWidth;
-        mTotalHeight = vHeight;//MediaUtils.dip2px(context,20);
-        // 用于保存原始波纹的y值
-        mYPositions = new float[mTotalWidth];
-        // 用于保存波纹一的y值
-        mResetOneYPositions = new float[mTotalWidth];
-        // 用于保存波纹二的y值
-        mResetTwoYPositions = new float[mTotalWidth];
-        //用于保存波纹三的y值
-        mResetThreeYPositions = new float[mTotalWidth];
 
-        // 将周期定为view总宽度
-        mCycleFactorW = (float) (2 * Math.PI / mTotalWidth);
-
-        // 根据view总宽度得出所有对应的y值
-        for (int i = 0; i < mTotalWidth; i++) {
-            mYPositions[i] = (float) (STRETCH_FACTOR_A * Math.sin(mCycleFactorW * i) + OFFSET_Y);
-        }
 
         Log.d(TAG,"onSizeChanged");
     }
@@ -217,54 +199,45 @@ public class RealWaveLevelView extends android.support.v7.widget.AppCompatImageV
         if (vWidth == 0 || vHeight == 0) {
             return;
         }
+        mCenterY = (int) (mScreenHeight *(1-depthOfWater)+WAVE_HIGHT);
+
         Bitmap bitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
         canvas1 = new Canvas(bitmap);
 
-        // 从canvas层面去除绘制时锯齿
-        canvas1.setDrawFilter(mDrawFilter);
-        resetPositonY();
+        mPath.reset();
+        mPathA.reset();
+        //移到屏幕外最左边
+        mPath.moveTo(-mWaveLength + mOffset, mCenterY);
+        mPathA.moveTo(-mWaveLength + mOffset , mCenterY );
 
-//        mWavePaint.setColor(0xff00ffff);
-        int top = (int) (mTotalHeight * (1 - depthOfWater) + MediaUtils.dip2px(context,10));
-//        canvas1.drawRect(new Rect(0,top,mTotalWidth,mTotalHeight),mWavePaint);//绘制矩形，并设置矩形框显示的位置
-        /* 设置渐变色 颜色是改变的 */
-        Shader mShader = new LinearGradient(mTotalWidth/2, 0, mTotalWidth/2,  mTotalHeight,
-                 Color.GREEN, Color.BLUE,  Shader.TileMode.MIRROR);
-        mWavePaint.setShader(mShader);
+        if(depthOfWater > 0){
+        for (int i = 0; i < mWaveCount; i++) {
+            //正弦曲线
+            mPath.quadTo((-mWaveLength * 3 / 4) + (i * mWaveLength) + mOffset, mCenterY + WAVE_HIGHT, (-mWaveLength / 2) + (i * mWaveLength) + mOffset, mCenterY);
+            mPath.quadTo((-mWaveLength / 4) + (i * mWaveLength) + mOffset, mCenterY - WAVE_HIGHT, i * mWaveLength + mOffset, mCenterY);
 
-//        mWavePaint.setColor(0xff0000ff);
-        int top1 = 100;
-        for (int i = 0; i < mTotalWidth; i++) {
+            mPathA.quadTo((-mWaveLength * 3 / 4) + (i * mWaveLength) + mOffset1, mCenterY+WAVE_HIGHT , (-mWaveLength / 2) + (i * mWaveLength) + mOffset1, mCenterY);
+            mPathA.quadTo((-mWaveLength / 4) + (i * mWaveLength) + mOffset1, mCenterY-WAVE_HIGHT , i * mWaveLength + mOffset1, mCenterY);
 
-            // 减400只是为了控制波纹绘制的y的在屏幕的位置，大家可以改成一个变量，然后动态改变这个变量，从而形成波纹上升下降效果
-            // 绘制第一条水波纹
-            canvas1.drawLine(i , (mTotalHeight - mResetOneYPositions[i] ) * (1 - depthOfWater)  ,i ,
-                    mTotalHeight,
-                    mWavePaint);
-
-
-            // 绘制第二条水波纹
-            canvas1.drawLine(i  , (mTotalHeight - mResetTwoYPositions[i]) * (1 - depthOfWater) ,i ,
-                    mTotalHeight,
-                    mWavePaint);
+        }
+            //填充矩形
+            mPath.lineTo(mScreenWidth, mScreenHeight);
+            mPathA.lineTo(mScreenWidth, mScreenHeight);
+            mPath.lineTo(0, mScreenHeight);
+            mPathA.lineTo(0, mScreenHeight);
+        }else {
+            mPath.addRect(new RectF(0,0,mScreenWidth,mScreenHeight), Path.Direction.CW);
+            mPathA.addRect(new RectF(0,0,mScreenWidth,mScreenHeight), Path.Direction.CW);
         }
 
-        // 改变两条波纹的移动点
-        mXOneOffset += mXOffsetSpeedOne;
-        mXTwoOffset += mXOffsetSpeedTwo;
-        mXThreeOffset += mXOffsetSpeedThree;
-
-        // 如果已经移动到结尾处，则重头记录
-        if (mXOneOffset >= mTotalWidth) {
-            mXOneOffset = 0;
-        }
-        if (mXTwoOffset > mTotalWidth) {
-            mXTwoOffset = 0;
-        }
-        if (mXThreeOffset > mTotalWidth) {
-            mXThreeOffset = 0;
-        }
-        // 引发view重绘，一般可以考虑延迟20-30ms重绘，空出时间片
+        mPath.close();
+        mPathA.close();
+        Shader mShader = new LinearGradient(mScreenWidth/2, mCenterY, mScreenWidth/2,  mScreenHeight,
+                Color.GREEN, Color.BLUE,  Shader.TileMode.MIRROR);
+        mCyclePaint.setShader(mShader);
+        mPaint.setShader(mShader);
+            canvas1.drawPath(mPathA, mCyclePaint);
+            canvas1.drawPath(mPath, mPaint);
         ///////////////////////////////////////////////////////////////////
 
         paint.reset();
@@ -290,8 +263,6 @@ public class RealWaveLevelView extends android.support.v7.widget.AppCompatImageV
 
         /////////////////////////////////////////////////////////////////
 
-        postInvalidate();
-
     }
 
     /**
@@ -314,23 +285,7 @@ public class RealWaveLevelView extends android.support.v7.widget.AppCompatImageV
     }
 
 
-    private void resetPositonY() {
-        // mXOneOffset代表当前第一条水波纹要移动的距离
-        int yOneInterval = mYPositions.length - mXOneOffset;
-        // 使用System.arraycopy方式重新填充第一条波纹的数据
-        System.arraycopy(mYPositions, mXOneOffset, mResetOneYPositions, 0, yOneInterval);
-        System.arraycopy(mYPositions, 0, mResetOneYPositions, yOneInterval, mXOneOffset);
 
-        int yTwoInterval = mYPositions.length - mXTwoOffset;
-        System.arraycopy(mYPositions, mXTwoOffset, mResetTwoYPositions, 0,
-                yTwoInterval);
-        System.arraycopy(mYPositions, 0, mResetTwoYPositions, yTwoInterval, mXTwoOffset);
-
-        int yThreeInterval = mYPositions.length - mXThreeOffset;
-        System.arraycopy(mYPositions, mXThreeOffset, mResetThreeYPositions, 0,
-                yThreeInterval);
-        System.arraycopy(mYPositions, 0, mResetThreeYPositions, yThreeInterval, mXThreeOffset);
-    }
 
 
     public static int parse(String s) throws NumberFormatException
@@ -387,6 +342,35 @@ public class RealWaveLevelView extends android.support.v7.widget.AppCompatImageV
             number=number*16+n;
         }
         return number;
+    }
+
+    @Override
+    public void onClick(View v) {
+        ValueAnimator animator = ValueAnimator.ofInt(0, mWaveLength);
+        animator.setDuration(500);
+        animator.setRepeatCount(ValueAnimator.INFINITE);
+        animator.setInterpolator(new LinearInterpolator());
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                mOffset = (int) animation.getAnimatedValue();
+                postInvalidate();
+            }
+        });
+        animator.start();
+        ValueAnimator animator1 = ValueAnimator.ofInt(0, mWaveLength);
+        animator1.setDuration(1000);
+        animator1.setRepeatCount(ValueAnimator.INFINITE);
+        animator1.setInterpolator(new LinearInterpolator());
+        animator1.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                mOffset1 = (int) animation.getAnimatedValue();
+                postInvalidate();
+            }
+        });
+        animator1.start();
     }
 }
 

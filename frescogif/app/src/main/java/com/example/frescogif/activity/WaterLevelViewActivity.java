@@ -45,7 +45,7 @@ public class WaterLevelViewActivity extends BaseActivity implements View.OnClick
         switch (v.getId()){
             case R.id.addDepth:
                 if(depthFloat >= 1){
-                    depthFloat = 0.1f;
+                    depthFloat = 0.0f;
                 }else {
                     depthFloat = depthFloat + 0.1f;
                 }
