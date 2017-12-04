@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.example.frescogif.R;
 import com.example.frescogif.baseActvity.BaseActivity;
+import com.example.frescogif.view.BeatingWaveView;
 import com.example.frescogif.view.WaterLevel.RealWaveLevelView;
 import com.example.frescogif.view.WaterLevel.WaterLevelView;
 import com.example.frescogif.view.loadingview.Titanic;
@@ -24,7 +25,7 @@ public class WaterLevelViewActivity extends BaseActivity implements View.OnClick
     private RealWaveLevelView realWaterLevel;
     private WaterLevelView water_level;
 
-    private float depthFloat = 0.1f;
+    private long depthFloat ;
     private float depthFloat1 = 0.1f;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,12 +45,18 @@ public class WaterLevelViewActivity extends BaseActivity implements View.OnClick
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.addDepth:
-                if(depthFloat >= 1){
+                /*if(depthFloat >= 1){
                     depthFloat = 0.0f;
                 }else {
                     depthFloat = depthFloat + 0.1f;
                 }
-                realWaterLevel.setDepthOfWater(depthFloat);
+                realWaterLevel.setDepthOfWater(depthFloat);*/
+
+                realWaterLevel.playBeating(depthFloat);
+                depthFloat = 50+depthFloat;
+                if(depthFloat > 8000){
+                    depthFloat = 0;
+                }
                 break;
 
             case R.id.water_level:

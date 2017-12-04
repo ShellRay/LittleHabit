@@ -1,41 +1,123 @@
 package com.example.frescogif.view.WaterLevel;
 
+import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.DrawFilter;
 import android.graphics.LinearGradient;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Path;
-import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.widget.Toast;
 
 import com.example.frescogif.R;
 import com.example.frescogif.utils.MediaUtils;
+import com.example.frescogif.view.BeatingWaveView;
 import com.example.frescogif.view.anyshape.PathInfo;
 import com.example.frescogif.view.anyshape.PathManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by GG on 2017/11/29.
  */
 
-public class RealWaveLevelView extends android.support.v7.widget.AppCompatImageView implements View.OnClickListener {
+public class RealWaveLevelView extends android.support.v7.widget.AppCompatImageView  {
 
     private static final String TAG = "RealWaveLevelView";
+
+
+    public static class Beating
+    {
+        private long       position;
+        private long       playLoop;
+        private float      progress;
+        private long       fromtime;
+        private long       duration;
+        private boolean    loopmode;
+
+        public Beating(long fromtime, long duration, boolean loopmode)
+        {
+            this.position = 0;
+            this.playLoop = 1;
+            this.progress = 0;
+            this.fromtime = fromtime;
+            this.duration = duration;
+            this.loopmode = loopmode;
+        }
+
+        public RealWaveLevelView.Beating setPlayLoop(long playLoop)
+        {
+            this.playLoop = playLoop;
+            return this;
+        }
+
+        public void cancleLoop()
+        {
+            if (loopmode)
+            {
+                long time = AnimationUtils.currentAnimationTimeMillis();
+                fromtime = (long) (time - progress * duration);
+                loopmode = false;
+            }
+        }
+
+        public void updateProgess()
+        {
+            long time = AnimationUtils.currentAnimationTimeMillis();
+            long pass = time - fromtime;
+
+            if (loopmode)
+            {
+                if (pass > duration)
+                {
+                    pass = pass % duration;
+                    fromtime = time - pass;
+                }
+            }
+            else
+            {
+                position = pass / duration;
+
+                if (pass > duration)
+                {
+                    pass = pass % duration;
+                }
+            }
+
+            progress = pass / (float) (duration);
+            progress = Math.min(progress, 1);
+            progress = Math.max(progress, 0);
+
+
+        }
+
+        public long finishTime()
+        {
+            return fromtime + duration * playLoop;
+        }
+
+        public boolean finished()
+        {
+            return !loopmode && position >= playLoop;
+        }
+
+    }
+
     Context context;
     Path originMaskPath = null;
     int originMaskWidth = 0;
@@ -44,9 +126,9 @@ public class RealWaveLevelView extends android.support.v7.widget.AppCompatImageV
     Paint paint = new Paint();
     int maskResId = 0;
 
-/////////////////////////////////////////////////////////
-//波浪画笔
-private Paint mPaint;
+    /////////////////////////////////////////////////////////
+    //波浪画笔
+    private Paint mPaint;
     //测试红点画笔
     private Paint mCyclePaint;
 
@@ -54,21 +136,16 @@ private Paint mPaint;
     private Path mPath;
     private Path mPathA;
     //一个波浪长度
-    private int mWaveLength = 100;
+    private int mWaveLength = 180;
     //波纹个数
     private int mWaveCount;
     //平移偏移量
     private int mOffset;
-    private int mOffset1;
     //波纹的中间轴
-    private int mCenterY;
+    private float mCenterY;
 
-    //屏幕高度
-    private int mScreenHeight;
-    //屏幕宽度
-    private int mScreenWidth;
-
-    private static final int WAVE_HIGHT = 15;
+    //波纹的高度
+    private static final int WAVE_HIGHT = 20;
 
 //////////////////////////////////////////////////////////
 
@@ -76,24 +153,27 @@ private Paint mPaint;
     int vWidth = 0;
     int vHeight = 0;
     private Canvas canvas1;
-    private float depthOfWater = 0.9f;
+    private double depthOfWater = 0f;
+    private ValueAnimator animator;
+    private List<RealWaveLevelView.Beating> beatings;
+
+    private long duration = 0;
 
     public RealWaveLevelView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        this.context = context;
+        beatings = new ArrayList<>();
         /////////////////////////////////////////////////////////////////////////
-
         mPath = new Path();
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mPaint.setColor(0x88FF4081);
+        mPaint.setColor(context.getResources().getColor(R.color.white));
         mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        setOnClickListener(this);
-
         mPathA = new Path();
         mCyclePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mCyclePaint.setColor(0x88FF4081);
+        mCyclePaint.setColor(context.getResources().getColor(R.color.white));
         mCyclePaint.setStyle(Paint.Style.FILL_AND_STROKE);
         //////////////////////////////////////////////////////
-        this.context = context;
+
         TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.AnyShapeImageView, defStyleAttr, 0);
         int n = a.getIndexCount();
         for (int i = 0; i < n; i++)
@@ -111,6 +191,8 @@ private Paint mPaint;
             }
         }
         a.recycle();
+
+
     }
 
     public RealWaveLevelView(Context context) {
@@ -121,15 +203,92 @@ private Paint mPaint;
         this(context, attrs, 0);
     }
 
+
+    public RealWaveLevelView clearBeating()
+    {
+        beatings.clear();
+        return this;
+    }
+
+    public long playBeaintg(long loop_count, long heartCount)
+    {
+        depthOfWater = ((double )heartCount)/8000;
+        if(depthOfWater > 1){
+            depthOfWater = 0;
+        }
+        Log.e(TAG,"depthOfWater====" +depthOfWater );
+        if (heartCount >= 8000)
+        {
+            beatings.clear();
+        }
+
+        int size = beatings.size();
+
+        // 如果有新的心跳任务，先取消循环模式
+        if(size > 0){
+            beatings.get(size-1).cancleLoop();
+        }
+
+        long fromtime = size > 0 ? beatings.get(size - 1).finishTime() : AnimationUtils.currentAnimationTimeMillis();
+
+        int length = 1000;//resource.length;
+
+        if (heartCount < 2000)
+        {
+            duration = 1000;
+        }
+        else if (heartCount < 4000)
+        {
+            duration = 1000 * length / (length + 15);
+        }
+        else if (heartCount < 6000)
+        {
+            duration = 1000 * length / (length + 30);
+        }
+        else if (heartCount < 8000)
+        {
+            duration = 1000 * length / (length + 45);
+        }
+        else if (heartCount < 10000)
+        {
+            duration = 1000 * length / (length + 60);
+        }
+        else
+        {
+            duration = 1000 * length / (length + 75);
+        }
+
+        animator = ValueAnimator.ofInt(0, mWaveLength);
+        animator.setDuration(duration);
+        animator.setRepeatCount(ValueAnimator.INFINITE);
+        animator.setInterpolator(new LinearInterpolator());
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                mOffset = (int) animation.getAnimatedValue();
+                postInvalidate();
+            }
+        });
+
+        RealWaveLevelView.Beating beating = new RealWaveLevelView.Beating(fromtime, duration, heartCount >= 8000).setPlayLoop(heartCount < 8000 ? loop_count : 1);
+        beatings.add(beating);
+        invalidate();
+        return fromtime;
+    }
+
+    public long playBeating(long heartCount)
+    {
+        return playBeaintg(1, heartCount);
+    }
+
+
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         vHeight = getHeight();
         vWidth = getWidth();
-        mScreenHeight = h;
-        mScreenWidth = w;
         //加1.5：至少保证波纹有2个，至少2个才能实现平移效果
-        mWaveCount = (int) Math.round(mScreenWidth / mWaveLength + 1.5);
+        mWaveCount = (int) Math.round(vWidth / mWaveLength + 1.5);
 
         if (originMaskPath != null) {
             //scale the size of the path to fit the one of this View
@@ -137,8 +296,6 @@ private Paint mPaint;
             matrix.setScale(vWidth * 1f / originMaskWidth, vHeight * 1f / originMaskHeight);
             originMaskPath.transform(matrix, realMaskPath);
         }
-
-
 
         Log.d(TAG,"onSizeChanged");
     }
@@ -199,10 +356,12 @@ private Paint mPaint;
         if (vWidth == 0 || vHeight == 0) {
             return;
         }
-        mCenterY = (int) (mScreenHeight *(1-depthOfWater)+WAVE_HIGHT);
+        mCenterY = (float) (vHeight *(1 - depthOfWater));
 
         Bitmap bitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
         canvas1 = new Canvas(bitmap);
+        mPaint.reset();
+        mCyclePaint.reset();
 
         mPath.reset();
         mPathA.reset();
@@ -210,41 +369,35 @@ private Paint mPaint;
         mPath.moveTo(-mWaveLength + mOffset, mCenterY);
         mPathA.moveTo(-mWaveLength + mOffset , mCenterY );
 
-        if(depthOfWater > 0){
         for (int i = 0; i < mWaveCount; i++) {
             //正弦曲线
             mPath.quadTo((-mWaveLength * 3 / 4) + (i * mWaveLength) + mOffset, mCenterY + WAVE_HIGHT, (-mWaveLength / 2) + (i * mWaveLength) + mOffset, mCenterY);
             mPath.quadTo((-mWaveLength / 4) + (i * mWaveLength) + mOffset, mCenterY - WAVE_HIGHT, i * mWaveLength + mOffset, mCenterY);
 
-            mPathA.quadTo((-mWaveLength * 3 / 4) + (i * mWaveLength) + mOffset1, mCenterY+WAVE_HIGHT , (-mWaveLength / 2) + (i * mWaveLength) + mOffset1, mCenterY);
-            mPathA.quadTo((-mWaveLength / 4) + (i * mWaveLength) + mOffset1, mCenterY-WAVE_HIGHT , i * mWaveLength + mOffset1, mCenterY);
+            mPathA.quadTo((-mWaveLength * 3 / 4) + (i * mWaveLength) + mOffset, mCenterY-WAVE_HIGHT , (-mWaveLength / 2) + (i * mWaveLength) + mOffset, mCenterY);
+            mPathA.quadTo((-mWaveLength / 4) + (i * mWaveLength) + mOffset, mCenterY+WAVE_HIGHT , i * mWaveLength + mOffset, mCenterY);
 
         }
             //填充矩形
-            mPath.lineTo(mScreenWidth, mScreenHeight);
-            mPathA.lineTo(mScreenWidth, mScreenHeight);
-            mPath.lineTo(0, mScreenHeight);
-            mPathA.lineTo(0, mScreenHeight);
-        }else {
-            mPath.addRect(new RectF(0,0,mScreenWidth,mScreenHeight), Path.Direction.CW);
-            mPathA.addRect(new RectF(0,0,mScreenWidth,mScreenHeight), Path.Direction.CW);
-        }
-
+            mPath.lineTo(vWidth, vHeight);
+            mPathA.lineTo(vWidth, vHeight);
+            mPath.lineTo(0, vHeight);
+            mPathA.lineTo(0, vHeight);
         mPath.close();
         mPathA.close();
-        Shader mShader = new LinearGradient(mScreenWidth/2, mCenterY, mScreenWidth/2,  mScreenHeight,
-                Color.GREEN, Color.BLUE,  Shader.TileMode.MIRROR);
+        Shader mShader = new LinearGradient(vWidth /2, mCenterY, vWidth /2, vHeight,
+//        Shader mShader = new LinearGradient(vWidth /2, 0, vWidth /2, vHeight,
+                context.getResources().getColor(R.color.colorWaveLow), context.getResources().getColor(R.color.colorWaveDeep),  Shader.TileMode.MIRROR);
         mCyclePaint.setShader(mShader);
         mPaint.setShader(mShader);
-            canvas1.drawPath(mPathA, mCyclePaint);
-            canvas1.drawPath(mPath, mPaint);
+        canvas1.drawPath(mPathA, mCyclePaint);
+        canvas1.drawPath(mPath, mPaint);
         ///////////////////////////////////////////////////////////////////
 
         paint.reset();
         paint.setStyle(Paint.Style.STROKE);
         //get the drawable to show. if not set the src, will use  backColor
-
-//        Drawable showDrawable = getDrawable();
+        //Drawable showDrawable = getDrawable();
 
         if (null != bitmap) {//这里就是水波纹的背景颜色
             Bitmap showBitmap = bitmap;//((BitmapDrawable) showDrawable).getBitmap();
@@ -274,103 +427,27 @@ private Paint mPaint;
         postInvalidate();
     }
 
-    /**
-     *
-     * @param depthOfWater
-     */
-    public void setDepthOfWater(float depthOfWater) {
-        this.depthOfWater = depthOfWater;
-        Toast.makeText(context,depthOfWater + "百分比",Toast.LENGTH_SHORT).show();
-        postInvalidate();
-    }
-
-
-
-
-
-    public static int parse(String s) throws NumberFormatException
-    {
-        if(!s.startsWith("0x"))
-            throw new NumberFormatException();
-        int number=0,n=0;
-        for(int i=2;i<s.length();i++)
-        {
-            char c=s.charAt(i);
-            switch(c)
-            {
-                case '1':
-                    n=1;break;
-                case '2':
-                    n=2;break;
-                case '3':
-                    n=3;break;
-                case '4':
-                    n=4;break;
-                case '5':
-                    n=5;break;
-                case '6':
-                    n=6;break;
-                case '7':
-                    n=7;break;
-                case '8':
-                    n=8;break;
-                case '9':
-                    n=9;break;
-                case '0':
-                    n=0;break;
-                case 'a':
-                case 'A':
-                    n=10;break;
-                case 'b':
-                case 'B':
-                    n=11;break;
-                case 'c':
-                case 'C':
-                    n=12;break;
-                case 'd':
-                case 'D':
-                    n=13;break;
-                case 'e':
-                case 'E':
-                    n=14;break;
-                case 'f':
-                case 'F':
-                    n=15;break;
-                default:
-                    throw new NumberFormatException();
-            }
-            number=number*16+n;
-        }
-        return number;
-    }
-
     @Override
-    public void onClick(View v) {
-        ValueAnimator animator = ValueAnimator.ofInt(0, mWaveLength);
-        animator.setDuration(500);
-        animator.setRepeatCount(ValueAnimator.INFINITE);
-        animator.setInterpolator(new LinearInterpolator());
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                mOffset = (int) animation.getAnimatedValue();
-                postInvalidate();
-            }
-        });
-        animator.start();
-        ValueAnimator animator1 = ValueAnimator.ofInt(0, mWaveLength);
-        animator1.setDuration(1000);
-        animator1.setRepeatCount(ValueAnimator.INFINITE);
-        animator1.setInterpolator(new LinearInterpolator());
-        animator1.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+    public void computeScroll()
+    {
+        if (beatings.size() > 0)
+        {
 
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                mOffset1 = (int) animation.getAnimatedValue();
-                postInvalidate();
+            if (beatings.get(0).finished())
+            {
+                beatings.remove(0);
             }
-        });
-        animator1.start();
+            else
+            {
+                beatings.get(0).updateProgess();
+
+                if( animator != null && !animator.isRunning() ){
+                    animator.start();
+                }
+            }
+            Log.e(TAG,"computeScroll ===" );
+            invalidate();
+        }
     }
 }
 

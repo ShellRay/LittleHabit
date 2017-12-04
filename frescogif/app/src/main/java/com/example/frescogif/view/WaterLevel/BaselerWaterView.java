@@ -75,7 +75,7 @@ public class BaselerWaterView extends View implements View.OnClickListener {
 
         for (int i = 0; i < mWaveCount; i++) {
             //正弦曲线
-            mPath.quadTo((-mWaveLength * 3 / 4) + (i * mWaveLength) + mOffset, mCenterY + 30, (-mWaveLength / 2) + (i * mWaveLength) + mOffset, mCenterY);
+            mPath.quadTo((-mWaveLength * 3 / 4) + (i * mWaveLength) + mOffset, mCenterY - 30, (-mWaveLength / 2) + (i * mWaveLength) + mOffset, mCenterY);
             mPath.quadTo((-mWaveLength / 4) + (i * mWaveLength) + mOffset, mCenterY - 30, i * mWaveLength + mOffset, mCenterY);
 
 
@@ -90,7 +90,7 @@ public class BaselerWaterView extends View implements View.OnClickListener {
         mPath.lineTo(0, mScreenHeight);
         mPath.close();
         Shader mShader = new LinearGradient(mScreenWidth/2, 0, mScreenWidth/2,  mScreenHeight,
-                Color.GREEN, Color.BLUE,  Shader.TileMode.MIRROR);
+                0x80FF4081, 0xFFF90A5B,  Shader.TileMode.MIRROR);
         mPaint.setShader(mShader);
         canvas.drawPath(mPath, mPaint);
 
