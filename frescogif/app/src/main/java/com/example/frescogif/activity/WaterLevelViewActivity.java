@@ -45,17 +45,12 @@ public class WaterLevelViewActivity extends BaseActivity implements View.OnClick
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.addDepth:
-                /*if(depthFloat >= 1){
-                    depthFloat = 0.0f;
-                }else {
-                    depthFloat = depthFloat + 0.1f;
-                }
-                realWaterLevel.setDepthOfWater(depthFloat);*/
-
-                realWaterLevel.playBeating(depthFloat);
-                depthFloat = 50+depthFloat;
-                if(depthFloat > 8000){
+                depthFloat = 500 + depthFloat;
+                if(depthFloat >= 10000){
                     depthFloat = 0;
+                    realWaterLevel.clearBeating().playBeating(0);
+                }else {
+                    realWaterLevel.playBeating(depthFloat);
                 }
                 break;
 

@@ -28,6 +28,6 @@
     <color name="blue">#b8f1ed</color>
 
     <color name="colorWaveLow">#88FF4081</color>
-    <color name="colorWaveDeep">#F90A5B</color>
+    <color name="colorWaveDeep">#ffF90A5B</color>
 
 </resources>

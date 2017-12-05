@@ -142,7 +142,6 @@ public class BeatingWaveView extends View
     {
         super(context, attrs, defStyleAttr);
         beatings = new ArrayList<>();
-        View inflate = inflate(context, R.layout.activity_wave_view, null);
 
       /*  TypedArray t = context.getResources().obtainTypedArray(R.array.beatingHeart);
         int[] array = context.getResources().getIntArray(R.array.beatingHeart);

@@ -22,8 +22,8 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
-        app:anyshapeMask="@mipmap/water_level_icon"
-        android:background="@mipmap/water_level_icon"
+        app:anyshapeMask="@mipmap/water_bottle"
+        android:background="@mipmap/water_bottle"
         app:anyshapeBackColor ="#ff000000"
         android:layout_marginTop="30dp"
         />

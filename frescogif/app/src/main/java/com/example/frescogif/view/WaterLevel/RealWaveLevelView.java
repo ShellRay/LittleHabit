@@ -2,6 +2,7 @@ package com.example.frescogif.view.WaterLevel;
 
 import android.animation.Animator;
 import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -16,6 +17,8 @@ import android.graphics.Path;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
+import android.os.Message;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -31,6 +34,8 @@ import com.example.frescogif.view.anyshape.PathManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by GG on 2017/11/29.
@@ -39,6 +44,7 @@ import java.util.List;
 public class RealWaveLevelView extends android.support.v7.widget.AppCompatImageView  {
 
     private static final String TAG = "RealWaveLevelView";
+    private Timer timer;
 
 
     public static class Beating
@@ -143,7 +149,6 @@ public class RealWaveLevelView extends android.support.v7.widget.AppCompatImageV
     private int mOffset;
     //波纹的中间轴
     private float mCenterY;
-
     //波纹的高度
     private static final int WAVE_HIGHT = 20;
 
@@ -157,13 +162,81 @@ public class RealWaveLevelView extends android.support.v7.widget.AppCompatImageV
     private ValueAnimator animator;
     private List<RealWaveLevelView.Beating> beatings;
 
-    private long duration = 0;
+    private long duration = 1000;
+    private boolean isRuning = false;
+
+    @SuppressLint("HandlerLeak")
+    Handler handler = new Handler(){
+
+        @Override
+        public void handleMessage(Message msg) {
+            // TODO Auto-generated method stub
+            switch(msg.what){
+
+                case 1:
+                    if(animator != null && !isRuning){
+                        animator.start();
+                    }
+                    break;
+                default:
+                    break;
+            }
+            super.handleMessage(msg);
+        }
+
+    };
 
     public RealWaveLevelView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.context = context;
         beatings = new ArrayList<>();
         /////////////////////////////////////////////////////////////////////////
+        animator = ValueAnimator.ofInt(0, mWaveLength);
+        animator.setDuration(duration);
+        animator.setRepeatCount(ValueAnimator.RESTART);
+        animator.setInterpolator(new LinearInterpolator());
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                mOffset = (int) animation.getAnimatedValue();
+                postInvalidate();
+            }
+        });
+        animator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                isRuning = true;
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                isRuning = false;
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+
+        timer = new Timer();
+        TimerTask selfAnimationTask = new TimerTask()
+        {
+            @Override
+            public void run()
+            {
+                Message message = handler.obtainMessage();
+                message.what = 1;
+                handler.sendEmptyMessage(message.what);
+            }
+        };
+        timer.schedule(selfAnimationTask, 10 * 1000, 10 * 1000);
+
         mPath = new Path();
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setColor(context.getResources().getColor(R.color.white));
@@ -202,85 +275,6 @@ public class RealWaveLevelView extends android.support.v7.widget.AppCompatImageV
     public RealWaveLevelView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
-
-
-    public RealWaveLevelView clearBeating()
-    {
-        beatings.clear();
-        return this;
-    }
-
-    public long playBeaintg(long loop_count, long heartCount)
-    {
-        depthOfWater = ((double )heartCount)/8000;
-        if(depthOfWater > 1){
-            depthOfWater = 0;
-        }
-        Log.e(TAG,"depthOfWater====" +depthOfWater );
-        if (heartCount >= 8000)
-        {
-            beatings.clear();
-        }
-
-        int size = beatings.size();
-
-        // 如果有新的心跳任务，先取消循环模式
-        if(size > 0){
-            beatings.get(size-1).cancleLoop();
-        }
-
-        long fromtime = size > 0 ? beatings.get(size - 1).finishTime() : AnimationUtils.currentAnimationTimeMillis();
-
-        int length = 1000;//resource.length;
-
-        if (heartCount < 2000)
-        {
-            duration = 1000;
-        }
-        else if (heartCount < 4000)
-        {
-            duration = 1000 * length / (length + 15);
-        }
-        else if (heartCount < 6000)
-        {
-            duration = 1000 * length / (length + 30);
-        }
-        else if (heartCount < 8000)
-        {
-            duration = 1000 * length / (length + 45);
-        }
-        else if (heartCount < 10000)
-        {
-            duration = 1000 * length / (length + 60);
-        }
-        else
-        {
-            duration = 1000 * length / (length + 75);
-        }
-
-        animator = ValueAnimator.ofInt(0, mWaveLength);
-        animator.setDuration(duration);
-        animator.setRepeatCount(ValueAnimator.INFINITE);
-        animator.setInterpolator(new LinearInterpolator());
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                mOffset = (int) animation.getAnimatedValue();
-                postInvalidate();
-            }
-        });
-
-        RealWaveLevelView.Beating beating = new RealWaveLevelView.Beating(fromtime, duration, heartCount >= 8000).setPlayLoop(heartCount < 8000 ? loop_count : 1);
-        beatings.add(beating);
-        invalidate();
-        return fromtime;
-    }
-
-    public long playBeating(long heartCount)
-    {
-        return playBeaintg(1, heartCount);
-    }
-
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
@@ -386,7 +380,7 @@ public class RealWaveLevelView extends android.support.v7.widget.AppCompatImageV
         mPath.close();
         mPathA.close();
         Shader mShader = new LinearGradient(vWidth /2, mCenterY, vWidth /2, vHeight,
-//        Shader mShader = new LinearGradient(vWidth /2, 0, vWidth /2, vHeight,
+        //        Shader mShader = new LinearGradient(vWidth /2, 0, vWidth /2, vHeight,
                 context.getResources().getColor(R.color.colorWaveLow), context.getResources().getColor(R.color.colorWaveDeep),  Shader.TileMode.MIRROR);
         mCyclePaint.setShader(mShader);
         mPaint.setShader(mShader);
@@ -439,15 +433,83 @@ public class RealWaveLevelView extends android.support.v7.widget.AppCompatImageV
             }
             else
             {
-                beatings.get(0).updateProgess();
-
-                if( animator != null && !animator.isRunning() ){
+                 beatings.get(0).updateProgess();
+                if(!isRuning && animator != null ){
                     animator.start();
                 }
             }
             Log.e(TAG,"computeScroll ===" );
             invalidate();
         }
+    }
+
+    public RealWaveLevelView clearBeating()
+    {
+        beatings.clear();
+        return this;
+    }
+
+    public long playBeaintg(long loop_count, long heartCount)
+    {
+        depthOfWater = ((double )heartCount)/10000;
+        Log.e(TAG,"depthOfWater====" +depthOfWater );
+        if (heartCount >= 8000)
+        {
+            beatings.clear();
+        }
+
+        int size = beatings.size();
+
+        // 如果有新的心跳任务，先取消循环模式
+        if(size > 0){
+            beatings.get(size-1).cancleLoop();
+        }
+
+        long fromtime = size > 0 ? beatings.get(size - 1).finishTime() : AnimationUtils.currentAnimationTimeMillis();
+
+        int length = 1000;//resource.length;
+
+        if (heartCount < 2000)
+        {
+            duration = 1000;
+        }
+        else if (heartCount < 4000)
+        {
+            duration = 1000 * length / (length + 15);
+        }
+        else if (heartCount < 6000)
+        {
+            duration = 1000 * length / (length + 30);
+        }
+        else if (heartCount < 8000)
+        {
+            duration = 1000 * length / (length + 45);
+        }
+        else if (heartCount < 10000)
+        {
+            duration = 1000 * length / (length + 60);
+        }
+        else
+        {
+            duration = 1000 * length / (length + 75);
+        }
+
+        RealWaveLevelView.Beating beating = new RealWaveLevelView.Beating(fromtime, duration, heartCount >= 8000).setPlayLoop(heartCount < 8000 ? loop_count : 1);
+        beatings.add(beating);
+        invalidate();
+        return fromtime;
+    }
+
+    public long playBeating(long heartCount)
+    {
+        return playBeaintg(1, heartCount);
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        timer.cancel();
+        timer = null;
     }
 }
 
