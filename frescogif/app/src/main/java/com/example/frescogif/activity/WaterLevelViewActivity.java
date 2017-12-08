@@ -11,6 +11,7 @@ import com.example.frescogif.baseActvity.BaseActivity;
 import com.example.frescogif.view.BeatingWaveView;
 import com.example.frescogif.view.WaterLevel.RealWaveLevelView;
 import com.example.frescogif.view.WaterLevel.WaterLevelView;
+import com.example.frescogif.view.WaterLevel.WaveCircleView;
 import com.example.frescogif.view.loadingview.Titanic;
 
 import org.w3c.dom.Text;
@@ -24,6 +25,7 @@ public class WaterLevelViewActivity extends BaseActivity implements View.OnClick
 
     private RealWaveLevelView realWaterLevel;
     private WaterLevelView water_level;
+    private WaveCircleView waveCircle;
 
     private long depthFloat ;
     private float depthFloat1 = 0.1f;
@@ -34,10 +36,13 @@ public class WaterLevelViewActivity extends BaseActivity implements View.OnClick
 
         realWaterLevel = (RealWaveLevelView) findViewById(R.id.realWaterLevel);
         water_level = (WaterLevelView) findViewById(R.id.water_level);
+        waveCircle = (WaveCircleView) findViewById(R.id.waveCircle);
 
         Button addDepth = (Button) findViewById(R.id.addDepth);
         addDepth.setOnClickListener(this);
         water_level.setOnClickListener(this);
+        waveCircle.setOnClickListener(this);
+
     }
 
 
@@ -48,9 +53,11 @@ public class WaterLevelViewActivity extends BaseActivity implements View.OnClick
                 depthFloat = 500 + depthFloat;
                 if(depthFloat >= 10000){
                     depthFloat = 0;
-                    realWaterLevel.clearBeating().playBeating(0);
+//                    realWaterLevel.clearBeating().playBeating(0);
+                    waveCircle.clearBeating().playBeating(0);
                 }else {
-                    realWaterLevel.playBeating(depthFloat);
+//                    realWaterLevel.playBeating(depthFloat);
+                    waveCircle.playBeating(depthFloat);
                 }
                 break;
 
@@ -61,6 +68,9 @@ public class WaterLevelViewActivity extends BaseActivity implements View.OnClick
                     depthFloat1 = depthFloat1 + 0.1f;
                 }
                 water_level.setAddWaveHeight(depthFloat1);
+                break;
+            case R.id.waveCircle:
+                waveCircle.startWaveTimeTask();
                 break;
         }
 
