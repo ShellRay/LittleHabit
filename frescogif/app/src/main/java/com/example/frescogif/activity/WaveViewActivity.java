@@ -3,6 +3,7 @@ package com.example.frescogif.activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.CompoundButtonCompat;
+import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
@@ -117,6 +118,13 @@ public class WaveViewActivity extends BaseActivity{
                         }
                     }
                 });
+
+        findViewById(R.id.start).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mWaveHelper.start();
+            }
+        });
     }
 
     @Override
@@ -128,6 +136,6 @@ public class WaveViewActivity extends BaseActivity{
     @Override
     protected void onResume() {
         super.onResume();
-        mWaveHelper.start();
+
     }
 }

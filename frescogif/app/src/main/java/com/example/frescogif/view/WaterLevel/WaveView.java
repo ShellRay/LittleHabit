@@ -50,8 +50,8 @@ public class WaveView extends View {
     private static final float DEFAULT_WAVE_LENGTH_RATIO = 1.0f;
     private static final float DEFAULT_WAVE_SHIFT_RATIO = 0.0f;
 
-    public static final int DEFAULT_BEHIND_WAVE_COLOR = Color.parseColor("#28FFFFFF");
-    public static final int DEFAULT_FRONT_WAVE_COLOR = Color.parseColor("#3CFFFFFF");
+    public static final int DEFAULT_BEHIND_WAVE_COLOR = Color.parseColor("#28FF4081");
+    public static final int DEFAULT_FRONT_WAVE_COLOR = Color.parseColor("#FFF90A5B");
     public static final ShapeType DEFAULT_WAVE_SHAPE = ShapeType.CIRCLE;
     private Bitmap mBitmap;
     private Canvas mCanvas;
@@ -78,7 +78,7 @@ public class WaveView extends View {
     private float mDefaultWaveLength;
     private double mDefaultAngularFrequency;
 
-    private float mAmplitudeRatio = DEFAULT_AMPLITUDE_RATIO;
+    private float mAmplitudeRatio = 0.0001f;//DEFAULT_AMPLITUDE_RATIO;
     private float mWaveLengthRatio = DEFAULT_WAVE_LENGTH_RATIO;
     private float mWaterLevelRatio = DEFAULT_WATER_LEVEL_RATIO;
     private float mWaveShiftRatio = DEFAULT_WAVE_SHIFT_RATIO;

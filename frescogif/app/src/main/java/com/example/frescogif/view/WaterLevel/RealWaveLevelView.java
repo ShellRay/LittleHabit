@@ -45,6 +45,7 @@ public class RealWaveLevelView extends android.support.v7.widget.AppCompatImageV
 
     private static final String TAG = "RealWaveLevelView";
     private Timer timer;
+    private int standardWaveHeight;
 
 
     public static class Beating
@@ -142,7 +143,7 @@ public class RealWaveLevelView extends android.support.v7.widget.AppCompatImageV
     private Path mPath;
     private Path mPathA;
     //一个波浪长度
-    private int mWaveLength = 180;
+    private int mWaveLength;
     //波纹个数
     private int mWaveCount;
     //平移偏移量
@@ -150,7 +151,7 @@ public class RealWaveLevelView extends android.support.v7.widget.AppCompatImageV
     //波纹的中间轴
     private float mCenterY;
     //波纹的高度
-    private static final int WAVE_HIGHT = 20;
+    private int WAVE_HIGHT;
 
 //////////////////////////////////////////////////////////
 
@@ -191,6 +192,9 @@ public class RealWaveLevelView extends android.support.v7.widget.AppCompatImageV
         this.context = context;
         beatings = new ArrayList<>();
         /////////////////////////////////////////////////////////////////////////
+        standardWaveHeight = MediaUtils.dip2px(context, 6);
+        mWaveLength = MediaUtils.dip2px(context, 30);
+
         animator = ValueAnimator.ofInt(0, mWaveLength);
         animator.setDuration(duration);
         animator.setRepeatCount(ValueAnimator.RESTART);
@@ -282,7 +286,7 @@ public class RealWaveLevelView extends android.support.v7.widget.AppCompatImageV
         vHeight = getHeight();
         vWidth = getWidth();
         //加1.5：至少保证波纹有2个，至少2个才能实现平移效果
-        mWaveCount = (int) Math.round(vWidth / mWaveLength + 1.5);
+        mWaveCount = (int) Math.round(vWidth *2/ mWaveLength + 2.5);
 
         if (originMaskPath != null) {
             //scale the size of the path to fit the one of this View
@@ -361,15 +365,17 @@ public class RealWaveLevelView extends android.support.v7.widget.AppCompatImageV
         mPathA.reset();
         //移到屏幕外最左边
         mPath.moveTo(-mWaveLength + mOffset, mCenterY);
-        mPathA.moveTo(-mWaveLength + mOffset , mCenterY );
+
+        //移到屏幕外最右边
+        mPathA.moveTo( 2*mWaveLength + (mWaveLength-mOffset) , mCenterY );
 
         for (int i = 0; i < mWaveCount; i++) {
             //正弦曲线
             mPath.quadTo((-mWaveLength * 3 / 4) + (i * mWaveLength) + mOffset, mCenterY + WAVE_HIGHT, (-mWaveLength / 2) + (i * mWaveLength) + mOffset, mCenterY);
             mPath.quadTo((-mWaveLength / 4) + (i * mWaveLength) + mOffset, mCenterY - WAVE_HIGHT, i * mWaveLength + mOffset, mCenterY);
 
-            mPathA.quadTo((-mWaveLength * 3 / 4) + (i * mWaveLength) + mOffset, mCenterY-WAVE_HIGHT , (-mWaveLength / 2) + (i * mWaveLength) + mOffset, mCenterY);
-            mPathA.quadTo((-mWaveLength / 4) + (i * mWaveLength) + mOffset, mCenterY+WAVE_HIGHT , i * mWaveLength + mOffset, mCenterY);
+            mPathA.quadTo((mWaveLength * 3 / 4) + (i * mWaveLength) + (mWaveLength-mOffset), mCenterY - WAVE_HIGHT , (mWaveLength / 2) + (i * mWaveLength) + (mWaveLength-mOffset), mCenterY);
+            mPathA.quadTo((mWaveLength / 4) + (i * mWaveLength) + (mWaveLength-mOffset), mCenterY + WAVE_HIGHT , i * mWaveLength + (mWaveLength-mOffset), mCenterY);
 
         }
             //填充矩形
@@ -385,7 +391,7 @@ public class RealWaveLevelView extends android.support.v7.widget.AppCompatImageV
         mCyclePaint.setShader(mShader);
         mPaint.setShader(mShader);
         canvas1.drawPath(mPathA, mCyclePaint);
-        canvas1.drawPath(mPath, mPaint);
+//        canvas1.drawPath(mPath, mPaint);
         ///////////////////////////////////////////////////////////////////
 
         paint.reset();
@@ -453,6 +459,9 @@ public class RealWaveLevelView extends android.support.v7.widget.AppCompatImageV
     {
         depthOfWater = ((double )heartCount)/10000;
         Log.e(TAG,"depthOfWater====" +depthOfWater );
+
+        WAVE_HIGHT = depthOfWater < 0.40d ? (int) (standardWaveHeight * (0.5 + depthOfWater)) : standardWaveHeight;
+
         if (heartCount >= 8000)
         {
             beatings.clear();

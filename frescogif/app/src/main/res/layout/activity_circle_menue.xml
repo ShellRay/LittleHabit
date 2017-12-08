@@ -20,28 +20,28 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:src="@mipmap/icon_facebook"
-            circle:name="snapHelper" />
+            circle:name="SNAPHELPER" />
 
         <com.example.frescogif.view.rotateMenu.CircleImageView
             android:id="@+id/main_myspace_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/icon_myspace"
-            circle:name="ViewPagerTransformer" />
+            circle:name="VIEWPAGERTRANSFORMER" />
 
         <com.example.frescogif.view.rotateMenu.CircleImageView
             android:id="@+id/main_google_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/icon_google"
-            circle:name="WaterLevelView" />
+            circle:name="WATERLEVELVIEW" />
 
         <com.example.frescogif.view.rotateMenu.CircleImageView
             android:id="@+id/main_linkedin_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/icon_linkedin"
-            circle:name="WaveView" />
+            circle:name="WAVEVIEW" />
 
         <com.example.frescogif.view.rotateMenu.CircleImageView
             android:id="@+id/main_twitter_image"
@@ -55,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/icon_wordpress"
-            circle:name="wordpress" />
+            circle:name="BESAERLINES" />
         <com.example.frescogif.view.rotateMenu.CircleImageView
             android:id="@+id/main_myspace_1"
             android:layout_width="wrap_content"

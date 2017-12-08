@@ -117,4 +117,13 @@
             android:textColor="#b8f1ed"
             android:text="blue"/>
     </RadioGroup>
+
+    <Button
+        android:id="@+id/start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/wave"
+        android:layout_marginTop="30dp"
+        android:layout_centerInParent="true"
+        android:text="start Ani"/>
 </RelativeLayout>

@@ -37,7 +37,7 @@ public class WaveHelper {
         // wave waves infinitely.
         ObjectAnimator waveShiftAnim = ObjectAnimator.ofFloat(
                 mWaveView, "waveShiftRatio", 0f, 1f);
-        waveShiftAnim.setRepeatCount(ValueAnimator.INFINITE);
+        waveShiftAnim.setRepeatCount(ValueAnimator.RESTART);
         waveShiftAnim.setDuration(1000);
         waveShiftAnim.setInterpolator(new LinearInterpolator());
         animators.add(waveShiftAnim);
@@ -48,15 +48,15 @@ public class WaveHelper {
                 mWaveView, "waterLevelRatio", 0f, 0.5f);
         waterLevelAnim.setDuration(10000);
         waterLevelAnim.setInterpolator(new DecelerateInterpolator());
-        animators.add(waterLevelAnim);
+//        animators.add(waterLevelAnim);
 
         // amplitude animation.
         // wave grows big then grows small, repeatedly
         ObjectAnimator amplitudeAnim = ObjectAnimator.ofFloat(
                 mWaveView, "amplitudeRatio", 0.0001f, 0.05f);
-        amplitudeAnim.setRepeatCount(ValueAnimator.INFINITE);
+        amplitudeAnim.setRepeatCount(ValueAnimator.RESTART);
         amplitudeAnim.setRepeatMode(ValueAnimator.REVERSE);
-        amplitudeAnim.setDuration(5000);
+        amplitudeAnim.setDuration(1000);
         amplitudeAnim.setInterpolator(new LinearInterpolator());
         animators.add(amplitudeAnim);
 

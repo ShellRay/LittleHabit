@@ -40,7 +40,7 @@ public class WaterLevelView extends View {
 
     private Paint mWavePaint;
     private DrawFilter mDrawFilter;
-    private float addWaveHeight;
+    private float addWaveHeight = 0.3f;
 
     public WaterLevelView(Context context, AttributeSet attrs) {
         super(context, attrs);

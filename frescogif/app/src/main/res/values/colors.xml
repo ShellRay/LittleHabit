@@ -27,7 +27,7 @@
     <color name="green">#b7d28d</color>
     <color name="blue">#b8f1ed</color>
 
-    <color name="colorWaveLow">#88FF4081</color>
-    <color name="colorWaveDeep">#ffF90A5B</color>
+    <color name="colorWaveLow">#ffff60ab</color>
+    <color name="colorWaveDeep">#ffff291e</color>
 
 </resources>
