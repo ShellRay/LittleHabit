@@ -12,7 +12,13 @@
         android:background="@color/red"
         android:src="@mipmap/water_test"/>
 
-
+    <com.example.frescogif.view.radomLovew.RandomHeartView1
+        android:id="@+id/randomHeart1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/translate"
+        android:visibility="invisible"
+        />
 
     <com.example.frescogif.view.radomLovew.RandomHeartView
         android:id="@+id/randomHeart"
@@ -22,11 +28,20 @@
         />
 
 
+
     <Button
+        android:id="@+id/click"
         android:onClick="click"
         android:layout_centerInParent="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="click"/>
 
+    <Button
+        android:onClick="click1"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/click"
+        android:text="change"/>
 </RelativeLayout>
