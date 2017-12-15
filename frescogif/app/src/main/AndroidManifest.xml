@@ -131,6 +131,17 @@
             android:theme="@style/AppTheme">
 
         </activity>
+
+        <activity
+            android:name=".activity.AddSecretActivity"
+            android:theme="@style/AppTheme">
+
+        </activity>
+
+
+
+
+
         <activity
             android:name=".activity.RotateMenuActivity"
             android:theme="@style/AppTheme">

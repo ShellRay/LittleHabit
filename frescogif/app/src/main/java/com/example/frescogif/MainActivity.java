@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.example.frescogif.activity.AddSecretActivity;
 import com.example.frescogif.activity.AppBarActivity;
 import com.example.frescogif.activity.ChatGatherActivity;
 import com.example.frescogif.activity.CircleSolidActivity;
@@ -54,6 +55,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private Button btn_solid;
     private Button btn_emoji;
     private Button btn_chat_gather;
+    private Button addMi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +78,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         btn_I = (Button)  findViewById(R.id.btn_I);
         btn_emoji = (Button)  findViewById(R.id.btn_emoji);
         btn_chat_gather = (Button)  findViewById(R.id.btn_chat_gather);
+        addMi = (Button)  findViewById(R.id.addMi);
 
 
         btn_bg.setOnClickListener(this);
@@ -94,6 +97,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         btn_I.setOnClickListener(this);
         btn_emoji.setOnClickListener(this);
         btn_chat_gather.setOnClickListener(this);
+        addMi.setOnClickListener(this);
 
         ArrayList<GiftDialogBean> list = new ArrayList<GiftDialogBean>();
         String path = "asset:///a.gif";
@@ -202,6 +206,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.btn_chat_gather:
                 startActivity(new Intent(this, ChatGatherActivity.class));
+                break;
+            case R.id.addMi:
+                startActivity(new Intent(this, AddSecretActivity.class));
                 break;
 
         }

@@ -42,8 +42,8 @@
 
     <com.example.frescogif.view.WaterLevel.WaveCircleView
         android:id="@+id/waveCircle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="35dp"
         app:anyshapeMask="@mipmap/water_level_icon"
         android:background="@mipmap/water_level_icon"
         android:layout_marginTop="30dp"

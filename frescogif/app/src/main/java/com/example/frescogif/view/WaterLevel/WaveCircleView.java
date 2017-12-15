@@ -24,6 +24,7 @@ import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 
 import com.example.frescogif.R;
+import com.example.frescogif.utils.MediaUtils;
 import com.example.frescogif.view.anyshape.PathInfo;
 import com.example.frescogif.view.anyshape.PathManager;
 
@@ -39,9 +40,7 @@ import java.util.TimerTask;
 public class WaveCircleView extends android.support.v7.widget.AppCompatImageView {
 
     private static final String TAG = "WaveLevelView";
-    private AnimatorSet mAnimatorSet;
-    private Bitmap bitmap;
-    private BitmapShader mWaveShader;
+    private AnimatorSet animatorSet;
 
     public static class BeatingTime
     {
@@ -125,41 +124,36 @@ public class WaveCircleView extends android.support.v7.widget.AppCompatImageView
     int originMaskHeight = 0;
     Path realMaskPath = new Path();
     Paint paint = new Paint();
-
+    //波浪画笔
+    private Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private Paint mPaintA = new Paint(Paint.ANTI_ALIAS_FLAG);
+    //波浪Path类
+    private Path mPath = new Path();
+    private Path mPathA = new Path();
+    private ValueAnimator animator;
     private List<BeatingTime> beatings;
     public Timer mTimer = new Timer();// 定时器
     private Canvas canvas1;
-    Paint wavePaint = new Paint();
-    Matrix mShaderMatrix = new Matrix();
+    //波纹个数
+    private int mWaveCount;
+    //平移偏移量
+    private int mOffset;
+    private int mOffsetRight;
+
+    //波纹的中间轴
+    private float mCenterY;
+    private int standardWaveHeight;
     int maskResId = 0;
     int vWidth = 0;
     int vHeight = 0;
 
-    private long duration = 1000;
+    //一个波浪长度
+    private int mWaveLength ;
+    private long duration = 5000;
     private double depthOfWater = 0f;
-
+    //波纹的高度
+    private  int wave_hight ;
     private boolean isRuning = false;
-
-    private static final float DEFAULT_AMPLITUDE_RATIO = 0.05f;
-    private static final float DEFAULT_WATER_LEVEL_RATIO = 1;//0.5f;
-    private static final float DEFAULT_WAVE_LENGTH_RATIO = 1.0f;
-    private static final float DEFAULT_WAVE_SHIFT_RATIO = 1.0f;//0.0f;
-
-    public static final int DEFAULT_BEHIND_WAVE_COLOR = Color.parseColor("#4Dff60ab");
-    public static final int DEFAULT_FRONT_WAVE_COLOR = Color.parseColor("#ffff60ab");//ffff291e");
-
-    private float mDefaultAmplitude;
-    private float mDefaultWaterLevel;
-    private float mDefaultWaveLength;
-    private double mDefaultAngularFrequency;
-
-    private float mAmplitudeRatio = 0.0001f;//DEFAULT_AMPLITUDE_RATIO;
-    private float mWaveLengthRatio = DEFAULT_WAVE_LENGTH_RATIO;
-    private float mWaveShiftRatio = DEFAULT_WAVE_SHIFT_RATIO;
-
-    private int mBehindWaveColor = DEFAULT_BEHIND_WAVE_COLOR;
-    private int mFrontWaveColor = DEFAULT_FRONT_WAVE_COLOR;
-
 
     public Handler handler = new Handler(){
 
@@ -169,8 +163,8 @@ public class WaveCircleView extends android.support.v7.widget.AppCompatImageView
             switch(msg.what){
 
                 case 1:
-                    if(mAnimatorSet != null){
-                        mAnimatorSet.start();
+                    if(animatorSet != null){
+                        animatorSet.start();
                     }
                     break;
                 default:
@@ -192,8 +186,16 @@ public class WaveCircleView extends android.support.v7.widget.AppCompatImageView
     public WaveCircleView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.context = context;
+        standardWaveHeight = MediaUtils.dip2px(context, 6);
+        mWaveLength = MediaUtils.dip2px(context, 25);
         beatings = new ArrayList<>();
-        initAnimation();
+        initAnim();
+
+        mPaint.setColor(context.getResources().getColor(R.color.colorWaveLow));
+        mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        mPaintA.setColor(context.getResources().getColor(R.color.colorWaveLow));
+        mPaintA.setStyle(Paint.Style.FILL_AND_STROKE);
+
         TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.AnyShapeImageView, defStyleAttr, 0);
         int n = a.getIndexCount();
         for (int i = 0; i < n; i++)
@@ -210,50 +212,53 @@ public class WaveCircleView extends android.support.v7.widget.AppCompatImageView
         a.recycle();
     }
 
+    public void initAnim() {
+
+        ArrayList<Animator> animators = new ArrayList<>();
+        ValueAnimator animatorRight = ValueAnimator.ofInt(0, 3 * mWaveLength);
+
+        animatorRight.setDuration(duration);
+        animatorRight.setRepeatCount(ValueAnimator.RESTART);
+        animatorRight.setInterpolator(new LinearInterpolator());
+        animatorRight.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                mOffsetRight = (int) animation.getAnimatedValue();
+                postInvalidate();
+            }
+        });
+        animators.add(animatorRight);
+
+        animator = ValueAnimator.ofInt(0, 2 * mWaveLength);
+        animator.setDuration(duration);
+        animator.setRepeatCount(ValueAnimator.RESTART);
+        animator.setInterpolator(new LinearInterpolator());
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                mOffset = (int) animation.getAnimatedValue();
+                postInvalidate();
+            }
+        });
+        animator.addListener(new MyAnimatorListenaer());
+        animators.add(animator);
+        animatorSet = new AnimatorSet();
+        animatorSet.playTogether(animators);
+    }
+
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         vHeight = getHeight();
         vWidth = getWidth();
+        //加1.5：至少保证波纹有2个，至少2个才能实现平移效果
+        mWaveCount = (int) Math.round(vWidth / mWaveLength + 2.5);
         if (originMaskPath != null) {
             //scale the size of the path to fit the one of this View
             Matrix matrix = new Matrix();
             matrix.setScale(vWidth * 1f / originMaskWidth, vHeight * 1f / originMaskHeight);
             originMaskPath.transform(matrix, realMaskPath);
         }
-    }
-
-    private void initAnimation() {
-        List<Animator> animators = new ArrayList<>();
-
-        ValueAnimator waveShiftAnim = ObjectAnimator.ofFloat( 0f, 1f);
-        waveShiftAnim.setRepeatCount(ValueAnimator.RESTART);
-        waveShiftAnim.setDuration(duration);
-        waveShiftAnim.setInterpolator(new LinearInterpolator());
-        animators.add(waveShiftAnim);
-        waveShiftAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                mWaveShiftRatio = (float) animation.getAnimatedValue();
-            }
-        });
-
-        ValueAnimator amplitudeAnim = ObjectAnimator.ofFloat( 0.0001f, 0.05f);
-        amplitudeAnim.setRepeatCount(ValueAnimator.RESTART);
-        amplitudeAnim.setRepeatMode(ValueAnimator.REVERSE);
-        amplitudeAnim.setDuration(duration);
-        amplitudeAnim.setInterpolator(new LinearInterpolator());
-        amplitudeAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                mAmplitudeRatio = (float) animation.getAnimatedValue();
-            }
-        });
-        animators.add(amplitudeAnim);
-
-        mAnimatorSet = new AnimatorSet();
-        mAnimatorSet.playTogether(animators);
-        mAnimatorSet.addListener(new MyAnimatorListenaer());
     }
 
     @Override
@@ -309,76 +314,71 @@ public class WaveCircleView extends android.support.v7.widget.AppCompatImageView
         if (vWidth == 0 || vHeight == 0) {
             return;
         }
-
-        mDefaultAngularFrequency = 4.0f * Math.PI / DEFAULT_WAVE_LENGTH_RATIO / vWidth;
-        mDefaultAmplitude = vHeight * DEFAULT_AMPLITUDE_RATIO;
-        mDefaultWaterLevel = vHeight * DEFAULT_WATER_LEVEL_RATIO;
-        mDefaultWaveLength = vWidth;
-
-        wavePaint.reset();
-        wavePaint.setStrokeWidth(2);
-        wavePaint.setAntiAlias(true);
+        mCenterY = (float) (vHeight *(1 - depthOfWater));
 
         Bitmap bitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
         canvas1 = new Canvas(bitmap);
+        mPaint.reset();
+        mPaintA.reset();
 
+        mPath.reset();
+        mPathA.reset();
 
+        //移到屏幕外最左边  ---》 运动方向
+        mPath.moveTo( - 2 * mWaveLength + mOffset, mCenterY);
+        //移动到皮姆左边   《---- 运动方向
+        mPathA.moveTo(  - mOffset , mCenterY );
 
-        // Draw default waves into the bitmap
-        // y=Asin(ωx+φ)+h
-        final int endX = getWidth() + 1;
-        final int endY = getHeight() + 1;
+        //        画先是一条mWaveLength长直线 然后两个周期的正弦曲线 然后 再一条 直线  下同
+        //        tips：需要移动的距离是不同的， 前一个2个宽度就可以 而后一个需要3个宽度
 
-        float[] waveY = new float[endX];
+        mPath.quadTo((-mWaveLength * 7 / 4)  + mOffset, mCenterY + wave_hight , (-mWaveLength * 6/ 4)  + mOffset, mCenterY);
+        mPath.quadTo((-mWaveLength * 5 / 4)  + mOffset, mCenterY - wave_hight,  (-mWaveLength * 4 / 4)  + mOffset, mCenterY);
 
-        //center 第二个参数
-        /*Shader mShader =  new LinearGradient(vWidth /2, vHeight, vWidth /2, vHeight,
+        mPath.quadTo((-mWaveLength * 3 / 4)  + mOffset, mCenterY + wave_hight, (-mWaveLength / 2)  + mOffset, mCenterY);
+        mPath.quadTo((-mWaveLength / 4)  + mOffset, mCenterY - wave_hight, mOffset, mCenterY);
+
+        mPath.quadTo((mWaveLength * 1 / 4)  + mOffset, mCenterY + wave_hight, (mWaveLength / 2) + mOffset, mCenterY);
+        mPath.quadTo((mWaveLength* 3/ 4)  + mOffset, mCenterY  - wave_hight,  mWaveLength + mOffset, mCenterY);
+
+        mPath.quadTo((mWaveLength * 5 / 4)  + mOffset, mCenterY + wave_hight , (mWaveLength * 6/ 4)  + mOffset, mCenterY);
+        mPath.quadTo((mWaveLength * 7 / 4)  + mOffset, mCenterY - wave_hight,  (mWaveLength * 8 / 4)  + mOffset, mCenterY);
+
+//==========================================================================================================================
+
+        mPathA.quadTo((mWaveLength * 1 / 4)  - mOffset, mCenterY - wave_hight, (mWaveLength / 2) - mOffset, mCenterY);
+        mPathA.quadTo((mWaveLength* 3/ 4)    - mOffset, mCenterY + wave_hight,  mWaveLength - mOffset, mCenterY);
+
+        mPathA.quadTo((mWaveLength * 5 / 4)  - mOffset, mCenterY - wave_hight , (mWaveLength * 6/ 4)  - mOffset, mCenterY);
+        mPathA.quadTo((mWaveLength * 7 / 4)  - mOffset, mCenterY + wave_hight,  (mWaveLength * 8 / 4) - mOffset, mCenterY);
+
+        mPathA.quadTo((mWaveLength * 9 / 4)  - mOffset, mCenterY - wave_hight , (mWaveLength * 10/ 4)  - mOffset, mCenterY);
+        mPathA.quadTo((mWaveLength * 11 /4)  - mOffset, mCenterY + wave_hight,  (mWaveLength * 12 / 4) - mOffset, mCenterY);
+
+        mPathA.quadTo((mWaveLength * 13 /4)  - mOffset, mCenterY - wave_hight, (mWaveLength * 14/ 4) - mOffset, mCenterY);
+        mPathA.quadTo((mWaveLength * 15 /4)  - mOffset, mCenterY + wave_hight,  (mWaveLength * 16/4) + mOffset, mCenterY);
+
+        //填充矩形
+        mPath.lineTo(vWidth, vHeight);
+        mPathA.lineTo(vWidth, vHeight);
+        mPath.lineTo(0, vHeight);
+        mPathA.lineTo(0, vHeight);
+        mPath.close();
+        mPathA.close();
+        Shader mShader =  new LinearGradient(vWidth /2, mCenterY, vWidth /2, vHeight,
                 context.getResources().getColor(R.color.colorWaveLow), context.getResources().getColor(R.color.colorWaveDeep),  Shader.TileMode.MIRROR);
-        wavePaint.setShader(mShader);*/
 
-        wavePaint.setColor(mBehindWaveColor);
-        for (int beginX = 0; beginX < endX; beginX++) {
-            double wx = beginX * mDefaultAngularFrequency;
-            float beginY = (float) (mDefaultWaterLevel + mDefaultAmplitude * Math.sin(wx));
-            canvas1.drawLine(beginX, beginY, beginX, endY, wavePaint);
+        mPaintA.setShader(mShader);
+        mPaint.setShader(mShader);
 
-            waveY[beginX] = beginY;
-        }
+        canvas1.drawPath(mPathA, mPaintA);
+        canvas1.drawPath(mPath, mPaint);
 
-        wavePaint.setColor(mFrontWaveColor);
-        final int wave2Shift = (int) (mDefaultWaveLength / 4);
-        for (int beginX = 0; beginX < endX; beginX++) {
-            canvas1.drawLine(beginX, waveY[(beginX + wave2Shift) % endX], beginX, endY, wavePaint);
-        }
-
-        // use the bitamp to create the shader
-        mWaveShader = new BitmapShader(bitmap, Shader.TileMode.REPEAT, Shader.TileMode.CLAMP);
-        wavePaint.setShader(mWaveShader);
-
-
-        /*if (wavePaint.getShader() == null) {
-            wavePaint.setShader(mWaveShader);
-        }*/
-        if(mWaveShader != null) {
-            mShaderMatrix.setScale(
-                    mWaveLengthRatio / DEFAULT_WAVE_LENGTH_RATIO,
-                    mAmplitudeRatio / DEFAULT_AMPLITUDE_RATIO,
-                    0,
-                    mDefaultWaterLevel);
-
-            mShaderMatrix.postTranslate(
-                    mWaveShiftRatio * getWidth(),
-                    (float) ((DEFAULT_WATER_LEVEL_RATIO - depthOfWater) * getHeight()));
-
-            mWaveShader.setLocalMatrix(mShaderMatrix);
-            canvas1.drawRect(0, 0, vWidth,
-                    vHeight, wavePaint);
-        }
         paint.reset();
         paint.setStyle(Paint.Style.STROKE);
 
         if (null != bitmap) {
-            Bitmap showBitmap = bitmap;//((BitmapDrawable) showDrawable).getBitmap();
+            Bitmap showBitmap = bitmap;
             Shader shader = new BitmapShader(showBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
             Matrix shaderMatrix = new Matrix();
             float scaleX = vWidth * 1.0f / showBitmap.getWidth();
@@ -401,15 +401,12 @@ public class WaveCircleView extends android.support.v7.widget.AppCompatImageView
             if (beatings.get(0).finished())
             {
                 beatings.remove(0);
-                if(mAnimatorSet != null) {
-                    mAnimatorSet.end();
-                }
             }
             else
             {
                 beatings.get(0).updateProgess();
-                if(!isRuning && mAnimatorSet != null ){
-                    mAnimatorSet.start();
+                if(!isRuning && animatorSet != null ){
+                    animatorSet.start();
                 }
             }
             invalidate();
@@ -425,7 +422,7 @@ public class WaveCircleView extends android.support.v7.widget.AppCompatImageView
     public long playBeaintg(long loop_count, long heartCount)
     {
         depthOfWater = ((double )heartCount)/10000;
-//        wave_hight = depthOfWater < 0.40d ? (int) (standardWaveHeight * (0.5+depthOfWater)) : standardWaveHeight;
+        wave_hight = depthOfWater < 0.40d ? (int) (standardWaveHeight * (0.5+depthOfWater)) : standardWaveHeight;
         int size = beatings.size();
 
         // 如果有新的心跳任务，先取消循环模式
@@ -459,7 +456,7 @@ public class WaveCircleView extends android.support.v7.widget.AppCompatImageView
                     handler.sendEmptyMessage(message.what);
                 }
             }
-        }, 20000, 20000);
+        }, 5000, 5000);
     }
 
     class MyAnimatorListenaer implements Animator.AnimatorListener{
@@ -487,9 +484,9 @@ public class WaveCircleView extends android.support.v7.widget.AppCompatImageView
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
+        animatorSet.cancel();
         mTimer.cancel();
         mTimer = null;
     }
 }
-
 
