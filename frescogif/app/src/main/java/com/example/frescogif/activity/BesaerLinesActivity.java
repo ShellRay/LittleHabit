@@ -30,6 +30,7 @@ public class BesaerLinesActivity extends BaseActivity{
         randomHeart1 = (RandomHeartView1) findViewById(R.id.randomHeart1);
         imgView = (ImageView) findViewById(R.id.imgView);
         randomHeart.setDstChild(imgView);
+        randomHeart1.setDstChild(imgView);
     }
 
 

@@ -163,7 +163,7 @@ public class RealWaveLevelView extends android.support.v7.widget.AppCompatImageV
     private ValueAnimator animator;
     private List<RealWaveLevelView.Beating> beatings;
 
-    private long duration = 1000;
+    private long duration = 2000;
     private boolean isRuning = false;
 
     @SuppressLint("HandlerLeak")
@@ -192,8 +192,8 @@ public class RealWaveLevelView extends android.support.v7.widget.AppCompatImageV
         this.context = context;
         beatings = new ArrayList<>();
         /////////////////////////////////////////////////////////////////////////
-        standardWaveHeight = MediaUtils.dip2px(context, 6);
-        mWaveLength = MediaUtils.dip2px(context, 30);
+        standardWaveHeight = MediaUtils.dip2px(context, 12);
+        mWaveLength = MediaUtils.dip2px(context, 50);
 
         animator = ValueAnimator.ofInt(0, mWaveLength);
         animator.setDuration(duration);
@@ -367,15 +367,15 @@ public class RealWaveLevelView extends android.support.v7.widget.AppCompatImageV
         mPath.moveTo(-mWaveLength + mOffset, mCenterY);
 
         //移到屏幕外最右边
-        mPathA.moveTo( 2*mWaveLength + (mWaveLength-mOffset) , mCenterY );
+        mPathA.moveTo( - mOffset - 40 , mCenterY );
 
         for (int i = 0; i < mWaveCount; i++) {
             //正弦曲线
             mPath.quadTo((-mWaveLength * 3 / 4) + (i * mWaveLength) + mOffset, mCenterY + WAVE_HIGHT, (-mWaveLength / 2) + (i * mWaveLength) + mOffset, mCenterY);
             mPath.quadTo((-mWaveLength / 4) + (i * mWaveLength) + mOffset, mCenterY - WAVE_HIGHT, i * mWaveLength + mOffset, mCenterY);
 
-            mPathA.quadTo((mWaveLength * 3 / 4) + (i * mWaveLength) + (mWaveLength-mOffset), mCenterY - WAVE_HIGHT , (mWaveLength / 2) + (i * mWaveLength) + (mWaveLength-mOffset), mCenterY);
-            mPathA.quadTo((mWaveLength / 4) + (i * mWaveLength) + (mWaveLength-mOffset), mCenterY + WAVE_HIGHT , i * mWaveLength + (mWaveLength-mOffset), mCenterY);
+            mPathA.quadTo((-mWaveLength * 3 / 4) + (i * mWaveLength) - mOffset - 40, mCenterY + WAVE_HIGHT, (-mWaveLength / 2) + (i * mWaveLength) - mOffset - 40, mCenterY);
+            mPathA.quadTo((-mWaveLength / 4) + (i * mWaveLength) - mOffset -40, mCenterY - WAVE_HIGHT, i * mWaveLength - mOffset - 40, mCenterY);
 
         }
             //填充矩形
@@ -391,7 +391,7 @@ public class RealWaveLevelView extends android.support.v7.widget.AppCompatImageV
         mCyclePaint.setShader(mShader);
         mPaint.setShader(mShader);
         canvas1.drawPath(mPathA, mCyclePaint);
-//        canvas1.drawPath(mPath, mPaint);
+        canvas1.drawPath(mPath, mPaint);
         ///////////////////////////////////////////////////////////////////
 
         paint.reset();

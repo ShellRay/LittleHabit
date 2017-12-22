@@ -39,7 +39,9 @@ public class WaterLevelViewActivity extends BaseActivity implements View.OnClick
         waveCircle = (WaveCircleView) findViewById(R.id.waveCircle);
 
         Button addDepth = (Button) findViewById(R.id.addDepth);
+        Button addDepth1 = (Button) findViewById(R.id.addDepth1);
         addDepth.setOnClickListener(this);
+        addDepth1.setOnClickListener(this);
         water_level.setOnClickListener(this);
         waveCircle.setOnClickListener(this);
 
@@ -60,7 +62,17 @@ public class WaterLevelViewActivity extends BaseActivity implements View.OnClick
                     waveCircle.playBeating(depthFloat);
                 }
                 break;
-
+            case R.id.addDepth1:
+                depthFloat = 500 + depthFloat;
+                if(depthFloat >= 10000){
+                    depthFloat = 0;
+                    realWaterLevel.clearBeating().playBeating(0);
+//                    waveCircle.clearBeating().playBeating(0);
+                }else {
+                    realWaterLevel.playBeating(depthFloat);
+//                    waveCircle.playBeating(depthFloat);
+                }
+                break;
             case R.id.water_level:
                 if(depthFloat1 >= 1){
                     depthFloat1 = 0.1f;

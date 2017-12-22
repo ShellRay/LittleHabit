@@ -37,7 +37,7 @@ public class WaveHelper {
         // wave waves infinitely.
         ObjectAnimator waveShiftAnim = ObjectAnimator.ofFloat(
                 mWaveView, "waveShiftRatio", 0f, 1f);
-        waveShiftAnim.setRepeatCount(ValueAnimator.RESTART);
+        waveShiftAnim.setRepeatCount(ValueAnimator.RESTART);//运动一次or重复运动
         waveShiftAnim.setDuration(1000);
         waveShiftAnim.setInterpolator(new LinearInterpolator());
         animators.add(waveShiftAnim);

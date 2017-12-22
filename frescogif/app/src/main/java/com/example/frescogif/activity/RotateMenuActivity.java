@@ -66,10 +66,10 @@ public class RotateMenuActivity extends BaseActivity implements CircleLayout.OnI
                 intent = new Intent(this, BesaerLinesActivity.class);
                 break;
             case R.id.main_myspace_1:
-
+                intent = new Intent(this, WeakAnimActivity.class);
                 break;
             case R.id.main_myspace_2:
-
+                intent = new Intent(this, CardViewActivity.class);
                 break;
         }
         if(intent != null){

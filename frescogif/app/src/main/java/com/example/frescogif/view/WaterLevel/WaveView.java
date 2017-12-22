@@ -272,11 +272,12 @@ public class WaveView extends View {
 
             // sacle shader according to mWaveLengthRatio and mAmplitudeRatio
             // this decides the size(mWaveLengthRatio for width, mAmplitudeRatio for height) of waves
-            mShaderMatrix.setScale(
+            /*mShaderMatrix.setScale(
                 mWaveLengthRatio / DEFAULT_WAVE_LENGTH_RATIO,
                 mAmplitudeRatio / DEFAULT_AMPLITUDE_RATIO,
                 0,
-                mDefaultWaterLevel);
+                mDefaultWaterLevel);*/
+            mShaderMatrix.setScale(1,1);
             // translate shader according to mWaveShiftRatio and mWaterLevelRatio
             // this decides the start position(mWaveShiftRatio for x, mWaterLevelRatio for y) of waves
             mShaderMatrix.postTranslate(

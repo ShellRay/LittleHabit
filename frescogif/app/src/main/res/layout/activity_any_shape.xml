@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/tools"
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -33,7 +34,26 @@
                 android:layout_marginTop="-15dp"
                 app:anyshapeBackColor="@android:color/holo_red_light"
                 app:anyshapeMask="@drawable/rings"/>
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/sdv"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                fresco:actualImageScaleType="focusCrop"
+                fresco:fadeDuration="3000"
+                fresco:failureImage="@mipmap/ic_launcher"
+                fresco:failureImageScaleType="centerInside"
+                fresco:placeholderImage="@mipmap/ic_launcher"
+                fresco:placeholderImageScaleType="fitCenter"
+                fresco:progressBarAutoRotateInterval="1000"
+                fresco:progressBarImage="@mipmap/ic_launcher"
+                fresco:progressBarImageScaleType="centerInside"
+                fresco:retryImage="@mipmap/ic_launcher"
+                fresco:retryImageScaleType="centerCrop"
+                fresco:roundAsCircle="false"
+                fresco:viewAspectRatio="1.6" />
         </LinearLayout>
+
     </ScrollView>
     <Button
         android:id="@+id/btn_change"

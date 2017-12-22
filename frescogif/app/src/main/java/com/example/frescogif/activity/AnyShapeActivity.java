@@ -1,12 +1,16 @@
 package com.example.frescogif.activity;
 
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
 import com.example.frescogif.R;
 import com.example.frescogif.baseActvity.BaseActivity;
 import com.example.frescogif.view.anyshape.AnyshapeImageView;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.request.ImageRequestBuilder;
 
 /**
  *
@@ -32,5 +36,16 @@ public class AnyShapeActivity extends BaseActivity{
                 iv_rings.setBackColor(colors[index]);
             }
         });
+
+        SimpleDraweeView sdv = (SimpleDraweeView) findViewById(R.id.sdv);
+        sdv.setController(Fresco.newDraweeControllerBuilder()
+                .setImageRequest(ImageRequestBuilder.newBuilderWithSource(
+                        Uri.parse("http://image5.tuku.cn/pic/wallpaper/fengjing/menghuandaziranmeijingbizhi/001.jpg"))
+                        .setProgressiveRenderingEnabled(true)
+                        .build())
+                .setOldController(sdv.getController())
+                .build());
     }
+
+
 }

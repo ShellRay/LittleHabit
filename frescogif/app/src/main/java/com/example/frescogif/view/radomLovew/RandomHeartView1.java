@@ -17,6 +17,8 @@ import java.util.Random;
 
 /**
  * Created by GG on 2017/8/24.
+ *
+ * 基本无bug的
  */
 public class RandomHeartView1 extends View
 {
