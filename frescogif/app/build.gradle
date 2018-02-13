@@ -31,5 +31,6 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:25.4.0'
     compile 'com.android.support:support-v4:25.4.0'
     compile files('libs/barlibrary-2.2.2.jar')
+    compile 'com.google.code.gson:gson:2.4'
     compile project(':calligraphy')
 }

@@ -139,26 +139,39 @@
             android:text="your"
             android:layout_centerHorizontal="true"/>
         <Button
+            android:id="@+id/rce_stickiness"
             style="@style/button_style2"
             android:background="@drawable/cirle_shape"
             android:text="ass"
             />
         <Button
+            android:id="@+id/loading_ani"
             style="@style/button_style2"
             android:background="@drawable/cirle_shape"
+            android:layout_centerHorizontal="true"
             android:text="!"
             />
         <Button
             style="@style/button_style2"
             android:background="@drawable/cirle_shape"
+            android:layout_centerHorizontal="true"
+            android:text="can"
             />
         <Button
             style="@style/button_style2"
             android:background="@drawable/cirle_shape"
+            android:layout_centerHorizontal="true"
+            android:text="I"
             />
         <Button
             style="@style/button_style2"
             android:background="@drawable/cirle_shape"
+            android:text="help"
+            />
+        <Button
+            style="@style/button_style2"
+            android:background="@drawable/cirle_shape"
+            android:text="you"
             />
     </LinearLayout>
 </ScrollView>

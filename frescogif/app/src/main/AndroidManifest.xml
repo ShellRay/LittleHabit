@@ -190,7 +190,19 @@
         </activity>
 
         <activity
-            android:name=".activity.CardViewActivity"
+            android:name=".activity.ValidCodeActivity"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name=".activity.StickinessActivity"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name=".activity.LoadingAnimActivity"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait">
         </activity>

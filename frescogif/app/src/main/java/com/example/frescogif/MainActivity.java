@@ -1,15 +1,10 @@
 package com.example.frescogif;
 
 import android.content.Intent;
-import android.content.res.AssetManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.example.frescogif.activity.AddSecretActivity;
 import com.example.frescogif.activity.AppBarActivity;
 import com.example.frescogif.activity.ChatGatherActivity;
@@ -19,6 +14,7 @@ import com.example.frescogif.activity.DesignActivity;
 import com.example.frescogif.activity.EmojiActivity;
 import com.example.frescogif.activity.LayoutMangerActivity;
 import com.example.frescogif.activity.LoadingActivity;
+import com.example.frescogif.activity.LoadingAnimActivity;
 import com.example.frescogif.activity.PullScaleActivity;
 import com.example.frescogif.activity.PullToRefreshActivity;
 import com.example.frescogif.activity.PullToRefreshPlantActivity;
@@ -26,15 +22,14 @@ import com.example.frescogif.activity.RecycleViewActivity;
 import com.example.frescogif.activity.ShapeActivity;
 import com.example.frescogif.activity.SlidMenuActivity;
 import com.example.frescogif.activity.SomeAnimationActivity;
+import com.example.frescogif.activity.StickinessActivity;
 import com.example.frescogif.baseActvity.BaseActivity;
 import com.example.frescogif.bean.GiftDialogBean;
-import com.facebook.drawee.backends.pipeline.Fresco;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
@@ -56,12 +51,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private Button btn_emoji;
     private Button btn_chat_gather;
     private Button addMi;
+    private Button rceStickiness;
+    private Button loadingAni;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+
         btn_bg = (Button) findViewById(R.id.btn_bg);
         btn_login = (Button) findViewById(R.id.btn_login);
         btn_recycle = (Button) findViewById(R.id.btn_recycle);
@@ -79,6 +77,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         btn_emoji = (Button)  findViewById(R.id.btn_emoji);
         btn_chat_gather = (Button)  findViewById(R.id.btn_chat_gather);
         addMi = (Button)  findViewById(R.id.addMi);
+        rceStickiness = (Button)  findViewById(R.id.rce_stickiness);
+        loadingAni = (Button)  findViewById(R.id.loading_ani);
 
 
         btn_bg.setOnClickListener(this);
@@ -98,6 +98,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         btn_emoji.setOnClickListener(this);
         btn_chat_gather.setOnClickListener(this);
         addMi.setOnClickListener(this);
+        rceStickiness.setOnClickListener(this);
+        loadingAni.setOnClickListener(this);
 
         ArrayList<GiftDialogBean> list = new ArrayList<GiftDialogBean>();
         String path = "asset:///a.gif";
@@ -210,7 +212,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.addMi:
                 startActivity(new Intent(this, AddSecretActivity.class));
                 break;
-
+            case R.id.rce_stickiness:
+                startActivity(new Intent(this, StickinessActivity.class));
+                break;
+            case R.id.loading_ani:
+                startActivity(new Intent(this, LoadingAnimActivity.class));
+                break;
         }
     }
 }
