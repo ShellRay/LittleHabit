@@ -152,6 +152,7 @@
             android:text="!"
             />
         <Button
+            android:id="@+id/city"
             style="@style/button_style2"
             android:background="@drawable/cirle_shape"
             android:layout_centerHorizontal="true"

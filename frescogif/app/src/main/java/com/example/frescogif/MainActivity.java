@@ -9,6 +9,7 @@ import com.example.frescogif.activity.AddSecretActivity;
 import com.example.frescogif.activity.AppBarActivity;
 import com.example.frescogif.activity.ChatGatherActivity;
 import com.example.frescogif.activity.CircleSolidActivity;
+import com.example.frescogif.activity.CityActivity;
 import com.example.frescogif.activity.CustomPhotoActivity;
 import com.example.frescogif.activity.DesignActivity;
 import com.example.frescogif.activity.EmojiActivity;
@@ -53,6 +54,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private Button addMi;
     private Button rceStickiness;
     private Button loadingAni;
+    private Button city;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +81,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         addMi = (Button)  findViewById(R.id.addMi);
         rceStickiness = (Button)  findViewById(R.id.rce_stickiness);
         loadingAni = (Button)  findViewById(R.id.loading_ani);
+        city = (Button)  findViewById(R.id.city);
 
 
         btn_bg.setOnClickListener(this);
@@ -100,6 +103,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         addMi.setOnClickListener(this);
         rceStickiness.setOnClickListener(this);
         loadingAni.setOnClickListener(this);
+        city.setOnClickListener(this);
 
         ArrayList<GiftDialogBean> list = new ArrayList<GiftDialogBean>();
         String path = "asset:///a.gif";
@@ -217,6 +221,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.loading_ani:
                 startActivity(new Intent(this, LoadingAnimActivity.class));
+                break;
+            case R.id.city:
+                startActivity(new Intent(this, CityActivity.class));
                 break;
         }
     }

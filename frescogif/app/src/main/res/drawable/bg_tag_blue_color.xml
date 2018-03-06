@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+
+
+    <!-- 背景色 -->
+    <solid android:color="@android:color/transparent" />
+    <corners android:radius="20dip"/>
+    <stroke
+        android:width="2px"
+        android:color="@color/blue"
+        />
+    <!--&lt;!&ndash; 边框色 &ndash;&gt;-->
+    <!--<size android:width="200dp" android:height="40dp"/>-->
+</shape>
