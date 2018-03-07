@@ -3,6 +3,7 @@ package com.example.frescogif.activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -112,7 +114,8 @@ public class CityActivity extends AppCompatActivity {
         SignLayoutManager signLayoutManager = new SignLayoutManager(4, Utils.convertDpToPixel(CityActivity.this, 20));
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this,4);
-        recycler.setLayoutManager(gridLayoutManager);
+        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL);
+        recycler.setLayoutManager(staggeredGridLayoutManager);
         NormalAdapter customAdapter = new NormalAdapter(this, list);
 
 //        recycler.addItemDecoration(new SpacesItemDecoration(20));
@@ -191,6 +194,7 @@ public class CityActivity extends AppCompatActivity {
 
     public void clickTextCus(View view) {
 
+        startActivity(new Intent(this,CusTagActivity.class));
 
     }
 

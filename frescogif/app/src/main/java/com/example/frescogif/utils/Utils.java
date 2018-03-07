@@ -8,8 +8,10 @@ import android.content.Context;
 public class Utils {
 
     public static int convertDpToPixel(Context context, int dp) {
-        float density = context.getResources().getDisplayMetrics().density;
-        return Math.round((float) dp * density);
+        /*float density = context.getResources().getDisplayMetrics().density;
+        return Math.round((float) dp * density);*/
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dp * scale + 0.5f);
     }
 
     //将16进制的字符串变成整型int
