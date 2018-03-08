@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.frescogif.R;
-import com.example.frescogif.activity.CusTagActivity;
 import com.example.frescogif.utils.Utils;
 
 import java.util.ArrayList;
@@ -15,6 +14,8 @@ import java.util.List;
 
 /**
  * Created by Pinger on 2016/10/6.
+ *
+ * tag 标签 展示控件
  */
 
 public class FlowLayout extends ViewGroup {
@@ -111,12 +112,25 @@ public class FlowLayout extends ViewGroup {
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         // 这里只负责高度的位置，具体的宽度和子孩子的位置让具体的行去管理
-        l = Utils.convertDpToPixel(getContext(), 20);//getPaddingLeft();
-        t = Utils.convertDpToPixel(getContext(), 20);;//getPaddingTop();
+//        l = getPaddingLeft();//Utils.convertDpToPixel(getContext(), 20);//getPaddingLeft();
+        t = getPaddingTop();//Utils.convertDpToPixel(getContext(), 20);;//getPaddingTop();
         for (int i = 0; i < mLines.size(); i++) {
             // 获取行
             Line line = mLines.get(i);
+
             // 管理
+            if(i%5 == 0){
+                l = Utils.convertDpToPixel(getContext(), 30);
+            }else if(i%5 == 1){
+                l = Utils.convertDpToPixel(getContext(), 45);
+            }else if(i%5 == 2){
+                l = Utils.convertDpToPixel(getContext(), 13);
+            }else if(i%5 == 3){
+                l = Utils.convertDpToPixel(getContext(), 49);
+            }else if(i%5 == 4){
+                l = Utils.convertDpToPixel(getContext(), 19);
+            }
+
             line.layout(t, l);
 
             // 更新高度
@@ -188,7 +202,7 @@ public class FlowLayout extends ViewGroup {
             }
 
             // 最后一个孩子的宽度大于剩余宽度就不添加
-            if (view.getMeasuredWidth() > (maxWidth - usedWidth - 5*space)) {
+            if (view.getMeasuredWidth() > (maxWidth - usedWidth - space)) {
                 return false;
             }
 //            当前行大于四个元素
@@ -216,8 +230,11 @@ public class FlowLayout extends ViewGroup {
                 int measuredWidth = view.getMeasuredWidth();
                 int measuredHeight = view.getMeasuredHeight();
                 // 重新测量
-                view.measure(MeasureSpec.makeMeasureSpec(measuredWidth + avg, MeasureSpec.EXACTLY),
+                view.measure(MeasureSpec.makeMeasureSpec(measuredWidth , MeasureSpec.EXACTLY),
                         MeasureSpec.makeMeasureSpec(measuredHeight, MeasureSpec.EXACTLY));
+
+               /* view.measure(MeasureSpec.makeMeasureSpec(measuredWidth + avg, MeasureSpec.EXACTLY),
+                        MeasureSpec.makeMeasureSpec(measuredHeight, MeasureSpec.EXACTLY));*/
                 // 重新获取宽度值
                 measuredWidth = view.getMeasuredWidth();
 
