@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
@@ -31,7 +32,6 @@ public class UserTagAdapter extends RecyclerView.Adapter <RecyclerView.ViewHolde
     private boolean[] flag;
 
     private ArrayList<TagBean> checkedList = new ArrayList(3);
-    private  List<RadioButton>  viewList = new ArrayList();
     private View.OnClickListener listener;
 
     public UserTagAdapter(Context p0, List<AnchorImpressionBean> list) {
@@ -55,7 +55,8 @@ public class UserTagAdapter extends RecyclerView.Adapter <RecyclerView.ViewHolde
 
             Log.e("userTag","bindData === "+view.getId());
             view.setButtonDrawable(android.R.color.transparent);
-            view.setText(position+"--"+ view.getId());//mData.get(postion).getTagName());
+//            view.setText(position+"--"+ view.getId());//mData.get(postion).getTagName());
+            view.setText(mData.get(view.getId()).getTagName());
             int paddingTop = Utils.convertDpToPixel(context, 3);
             int paddingLeft = Utils.convertDpToPixel(context, 5);
             int viewWidth = Utils.convertDpToPixel(context, 60);
@@ -71,24 +72,25 @@ public class UserTagAdapter extends RecyclerView.Adapter <RecyclerView.ViewHolde
             view.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                    int position = (int) view.getTag();
                     if(position == view.getId()){
                         flag[position] = isChecked;
-                        listener.onClick(view);
+//                        listener.onClick(view);
                         view.setTextColor(context.getResources().getColor(R.color.white));
                         view.setChecked(true);
 
                         if(checkedList.size()> 2 ){
                             int tagid = checkedList.get(0).getTagid();
 
-                            for (int x = 0; x < viewList.size(); x++ )//RadioButton radioButton : viewList) {
+                            for (int x = 0; x < mData.size(); x++ )
                             {
-                                RadioButton radioButton = viewList.get(x);
-                                if(tagid == (mData.get(radioButton.getId()).getTagId())){
-                                    radioButton.setChecked(false);
-                                    flag[radioButton.getId()] = false;
-                                    radioButton.setTextColor(Color.parseColor("#"+mData.get(x).getTagRGB()));
+                                if(tagid == (mData.get(x).getTagId())){
+
+                                    flag[x] = false;
+//                                    radioButton.setTextColor(Color.parseColor("#"+mData.get(x).getTagRGB()));
                                     checkedList.remove(0);
+//                                    notifyDataSetChanged();
+//                                    notifyItemChanged(x);
+                                    specialUpdate(x);
                                 }
                             }
                         }
@@ -105,7 +107,7 @@ public class UserTagAdapter extends RecyclerView.Adapter <RecyclerView.ViewHolde
             normalDrawable.setStroke(1, Color.parseColor("#"+mData.get(position).getTagRGB()));
             normalDrawable.setColor(Color.parseColor("#00ffffff"));
             view.setBackgroundDrawable(normalDrawable);
-            view.setTextColor(Color.parseColor("#"+ mData.get(position).getTagRGB()));
+            view.setTextColor(Color.parseColor(flag[position]? "#ffffff":"#"+ mData.get(position).getTagRGB()));
 
             // 设置按下的灰色背景
             GradientDrawable pressedDrawable = new GradientDrawable();
@@ -131,7 +133,6 @@ public class UserTagAdapter extends RecyclerView.Adapter <RecyclerView.ViewHolde
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RadioButton view  = new RadioButton(context);
         view.setChecked(false);
-        viewList.add(view);
         return new StyleViewHolder(view);
     }
 
@@ -159,4 +160,16 @@ public class UserTagAdapter extends RecyclerView.Adapter <RecyclerView.ViewHolde
     public void setOnClickListener(View.OnClickListener listener){
         this.listener = listener;
     }
+
+    //xCannot call this method while RecyclerView is computing a layout or scrolling 异常
+    private void specialUpdate(final int positon) {
+        Handler handler = new Handler();
+        final Runnable r = new Runnable() {
+            public void run() {
+                notifyItemChanged(positon);
+            }
+        };
+        handler.post(r);
+    }
+
 }
