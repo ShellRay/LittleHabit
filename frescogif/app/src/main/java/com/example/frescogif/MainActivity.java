@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
 
 import com.example.frescogif.activity.AddSecretActivity;
 import com.example.frescogif.activity.AppBarActivity;
@@ -19,6 +20,7 @@ import com.example.frescogif.activity.LoadingAnimActivity;
 import com.example.frescogif.activity.PullScaleActivity;
 import com.example.frescogif.activity.PullToRefreshActivity;
 import com.example.frescogif.activity.PullToRefreshPlantActivity;
+import com.example.frescogif.activity.RadioButtonActivity;
 import com.example.frescogif.activity.RecycleViewActivity;
 import com.example.frescogif.activity.ShapeActivity;
 import com.example.frescogif.activity.SlidMenuActivity;
@@ -55,6 +57,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private Button rceStickiness;
     private Button loadingAni;
     private Button city;
+    private Button radiobutton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +85,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         rceStickiness = (Button)  findViewById(R.id.rce_stickiness);
         loadingAni = (Button)  findViewById(R.id.loading_ani);
         city = (Button)  findViewById(R.id.city);
+        radiobutton = (Button)  findViewById(R.id.radiobutton);
 
 
         btn_bg.setOnClickListener(this);
@@ -104,6 +108,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         rceStickiness.setOnClickListener(this);
         loadingAni.setOnClickListener(this);
         city.setOnClickListener(this);
+        radiobutton.setOnClickListener(this);
 
         ArrayList<GiftDialogBean> list = new ArrayList<GiftDialogBean>();
         String path = "asset:///a.gif";
@@ -225,6 +230,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.city:
                 startActivity(new Intent(this, CityActivity.class));
                 break;
+            case R.id.radiobutton:
+                startActivity(new Intent(this, RadioButtonActivity.class));
+                break;
+
         }
     }
 }
