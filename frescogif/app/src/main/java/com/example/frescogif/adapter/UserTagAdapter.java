@@ -1,7 +1,9 @@
 package com.example.frescogif.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
@@ -13,12 +15,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
 
 import com.example.frescogif.R;
 import com.example.frescogif.bean.AnchorImpressionBean;
 import com.example.frescogif.bean.TagBean;
 import com.example.frescogif.utils.Utils;
+import com.example.frescogif.view.loadingview.Typefaces;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,38 +31,34 @@ import java.util.List;
  * Created by GG on 2017/5/26.
  */
 public class UserTagAdapter extends RecyclerView.Adapter <RecyclerView.ViewHolder>{
-    private  List<AnchorImpressionBean> mData;
-    private  Context context;
-    private boolean[] flag;
+    private List<AnchorImpressionBean> mData;
+    private Context context;
 
     private ArrayList<TagBean> checkedList = new ArrayList(3);
     private View.OnClickListener listener;
-
+    private Handler handler = new Handler();
     public UserTagAdapter(Context p0, List<AnchorImpressionBean> list) {
         this.context = p0;
         this.mData = list;
-        flag = new boolean[mData.size()];
     }
 
 
     private class StyleViewHolder extends RecyclerView.ViewHolder {
 
 
-        private final RadioButton view;
+        private final TextView view;
 
         public StyleViewHolder(View itemView) {
             super(itemView);
-            view = (RadioButton) itemView;
+            view = (TextView) itemView;
         }
 
+        @SuppressLint("ResourceAsColor")
         public void bindData(final int position) {
-
-            Log.e("userTag","bindData === "+view.getId());
-            view.setButtonDrawable(android.R.color.transparent);
-//            view.setText(position+"--"+ view.getId());//mData.get(postion).getTagName());
+            view.setBackgroundColor(android.R.color.transparent);
             view.setText(mData.get(view.getId()).getTagName());
             int paddingTop = Utils.convertDpToPixel(context, 3);
-            int paddingLeft = Utils.convertDpToPixel(context, 5);
+            final int paddingLeft = Utils.convertDpToPixel(context, 5);
             int viewWidth = Utils.convertDpToPixel(context, 60);
             int viewHight = Utils.convertDpToPixel(context, 22);
             view.setPadding(paddingLeft, paddingTop, paddingLeft, paddingTop);
@@ -67,80 +67,83 @@ public class UserTagAdapter extends RecyclerView.Adapter <RecyclerView.ViewHolde
             view.setGravity(Gravity.CENTER);
             view.setTextSize(11);
             view.setMaxLines(1);
-            view.setChecked(flag[position]);
-            view.setOnCheckedChangeListener(null);
-            view.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if(position == view.getId()){
-                        flag[position] = isChecked;
-//                        listener.onClick(view);
-                        view.setTextColor(context.getResources().getColor(R.color.white));
-                        view.setChecked(true);
+            view.setTypeface(Typeface.DEFAULT_BOLD);
 
-                        if(checkedList.size()> 2 ){
-                            int tagid = checkedList.get(0).getTagid();
 
-                            for (int x = 0; x < mData.size(); x++ )
-                            {
-                                if(tagid == (mData.get(x).getTagId())){
-
-                                    flag[x] = false;
-//                                    radioButton.setTextColor(Color.parseColor("#"+mData.get(x).getTagRGB()));
-                                    checkedList.remove(0);
-//                                    notifyDataSetChanged();
-//                                    notifyItemChanged(x);
-                                    specialUpdate(x);
-                                }
-                            }
-                        }
-                        TagBean tagBean = new TagBean();
-                        tagBean.setTag_name(mData.get(position).getTagName());
-                        tagBean.setTag_rgb(mData.get(position).getTagRGB());
-                        tagBean.setTagid(mData.get(position).getTagId());
-                        checkedList.add(tagBean);
-                    }}
-            });
-
-            GradientDrawable normalDrawable = new GradientDrawable();
-            normalDrawable.setCornerRadius(100);
-            normalDrawable.setStroke(1, Color.parseColor("#"+mData.get(position).getTagRGB()));
-            normalDrawable.setColor(Color.parseColor("#00ffffff"));
-            view.setBackgroundDrawable(normalDrawable);
-            view.setTextColor(Color.parseColor(flag[position]? "#ffffff":"#"+ mData.get(position).getTagRGB()));
-
-            // 设置按下的灰色背景
-            GradientDrawable pressedDrawable = new GradientDrawable();
+            final GradientDrawable pressedDrawable = new GradientDrawable();
             pressedDrawable.setShape(GradientDrawable.RECTANGLE);
             pressedDrawable.setCornerRadius(100);
-            pressedDrawable.setColor(Color.parseColor("#"+mData.get(position).getTagRGB()));
+            pressedDrawable.setColor(Color.parseColor("#" + mData.get(position).getTagRGB()));
 
-            // 背景选择器
-            StateListDrawable stateDrawable = new StateListDrawable();
-            stateDrawable.addState(new int[]{android.R.attr.state_pressed}, pressedDrawable);
-            stateDrawable.addState(new int[]{android.R.attr.state_checked}, pressedDrawable);
-            stateDrawable.addState(new int[]{}, normalDrawable);
+            final GradientDrawable normalDrawable = new GradientDrawable();
+            normalDrawable.setCornerRadius(100);
+            normalDrawable.setStroke(5, Color.parseColor("#" + mData.get(position).getTagRGB()));
+            normalDrawable.setColor(Color.parseColor("#00ffffff"));
 
-            // 设置背景选择器到TextView上
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                view.setBackground(stateDrawable);
+            view.setBackgroundDrawable(normalDrawable);
+            view.setTextColor(Color.parseColor(mData.get(position).isCheck() ? "#ffffff" : "#" + mData.get(position).getTagRGB()));
+
+
+            if (mData.get(position).isCheck()) {
+                view.setTextColor(context.getResources().getColor(R.color.white));
+                view.setBackgroundDrawable(pressedDrawable);
             }
+
+            view.setOnClickListener(null);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                    listener.onClick(view);
+                    if (mData.get(view.getId()).isCheck()) {
+                        mData.get(view.getId()).setCheck(false);
+                        view.setBackgroundDrawable(normalDrawable);
+                        view.setTextColor(Color.parseColor(mData.get(position).isCheck() ? "#ffffff" : "#" + mData.get(position).getTagRGB()));
+                        for (TagBean bean : checkedList) {
+                            if (bean.getTagid() == mData.get(view.getId()).getTagId()) {
+                                checkedList.remove(bean);
+                                specialUpdate(view.getId());
+                                return;
+                            }
+                        }
+                    } else {
+                        mData.get(view.getId()).setCheck(true);
+                        view.setTextColor(context.getResources().getColor(R.color.white));
+                        view.setBackgroundDrawable(pressedDrawable);
+                    }
+
+
+                    if (checkedList.size() > 2) {
+                        int tagid = checkedList.get(0).getTagid();
+                        for (int x = 0; x < mData.size(); x++) {
+                            if (tagid == (mData.get(x).getTagId())) {
+                                mData.get(x).setCheck(false);
+                                checkedList.remove(0);
+                                specialUpdate(x);
+                            }
+                        }
+                    }
+                    TagBean tagBean = new TagBean();
+                    tagBean.setTag_name(mData.get(position).getTagName());
+                    tagBean.setTag_rgb(mData.get(position).getTagRGB());
+                    tagBean.setTagid(mData.get(position).getTagId());
+                    checkedList.add(tagBean);
+
+                }
+            });
 
         }
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        RadioButton view  = new RadioButton(context);
-        view.setChecked(false);
+        TextView view = new TextView(context);
         return new StyleViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ((StyleViewHolder) holder).view.setId(position);
-        ((StyleViewHolder)holder).bindData(position);
-
+        ((StyleViewHolder) holder).bindData(position);
     }
 
     @Override
@@ -153,17 +156,17 @@ public class UserTagAdapter extends RecyclerView.Adapter <RecyclerView.ViewHolde
         return position;
     }
 
-    public ArrayList<TagBean> getCheckedList(){
+    public ArrayList<TagBean> getCheckedList() {
         return checkedList;
     }
 
-    public void setOnClickListener(View.OnClickListener listener){
+    public void setOnClickListener(View.OnClickListener listener) {
         this.listener = listener;
     }
 
     //xCannot call this method while RecyclerView is computing a layout or scrolling 异常
     private void specialUpdate(final int positon) {
-        Handler handler = new Handler();
+
         final Runnable r = new Runnable() {
             public void run() {
                 notifyItemChanged(positon);

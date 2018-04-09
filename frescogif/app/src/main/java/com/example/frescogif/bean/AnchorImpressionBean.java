@@ -10,7 +10,15 @@ public class AnchorImpressionBean {
     private String tagRGB;
     private int tagSort;
     private int tagType;
+    private boolean isCheck;
 
+    public boolean isCheck() {
+        return isCheck;
+    }
+
+    public void setCheck(boolean check) {
+        isCheck = check;
+    }
     public int getTagId() {
         return tagId;
     }
