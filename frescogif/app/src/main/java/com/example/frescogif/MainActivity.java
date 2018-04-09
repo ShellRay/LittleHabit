@@ -122,22 +122,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         list.add(new GiftDialogBean(path3,15));
         list.add(new GiftDialogBean(path4,5));
         list.add(new GiftDialogBean(path1,7));
-      /*  for (int x = 0;x<2;x++){
-            list.add(x,new GiftDialogBean(path,10));
-        }
-        for (int x = 0;x<2;x++){
 
-            list.add(x,path1);
-        }
-        for (int x = 0;x<2;x++){
-            list.add(x,path2);
-        }
-        for (int x = 0;x<2;x++){
-            list.add(x,path3);
-        }
-        for (int x = 0;x<2;x++){
-            list.add(x,path4);
-        }*/
         giftDialog = new GiftDialog(this, list);
       /*
        这个是可以使用的

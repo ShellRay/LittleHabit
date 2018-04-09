@@ -1,7 +1,10 @@
 package com.example.frescogif;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -19,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.frescogif.activity.RotateMenuActivity;
+import com.example.frescogif.view.ProgressButton;
 
 /**
  * Created by GG on 2017/5/16.
@@ -27,7 +31,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private EditText etUserName;
     private EditText etPassword;
-    private Button btLogin;
+    private ProgressButton btLogin;
     private TextView tvAnimUsername;
     private TextView tvAnimPsw;
     private boolean tagPhone = true;
@@ -42,7 +46,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
         etUserName = (EditText) findViewById(R.id.et_username);
         etPassword = (EditText) findViewById(R.id.et_pwd);
-        btLogin = (Button) findViewById(R.id.btn_login);
+        btLogin = (ProgressButton) findViewById(R.id.btn_login);
         btnRegister = (Button) findViewById(R.id.btn_register);
         tvAnimUsername = (TextView) findViewById(R.id.tv_anim_username);
         tvAnimPsw = (TextView) findViewById(R.id.tv_anim_pwd);
@@ -62,6 +66,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void initView() {
+
+        btLogin.setBgColor(getResources().getColor(R.color.colorAccent));
+        btLogin.setTextColor(Color.WHITE);
+        btLogin.setProColor(Color.WHITE);
+        btLogin.setButtonText("Login in");
+
         etUserName.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -149,8 +159,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_login:
-                startActivity(new Intent(this,MainActivity.class));
-                finish();
+                btLogin.startAnim();
+                Message m=mHandler.obtainMessage();
+                mHandler.sendMessageDelayed(m,1500);
+
                 break;
             case R.id.btn_register:
                 startActivity(new Intent(this,RotateMenuActivity.class));
@@ -158,4 +170,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
 
     }
+
+    private Handler mHandler=new Handler()
+    {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+
+            btLogin.stopAnim(new ProgressButton.OnStopAnim() {
+                @Override
+                public void Stop() {
+                    startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                    finish();
+                }
+            });
+
+        }
+    };
 }

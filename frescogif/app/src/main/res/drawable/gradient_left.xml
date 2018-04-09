@@ -13,5 +13,5 @@
         android:endColor="#ffffff"
         android:angle="0"
         />
-
+    <corners android:radius="150dp"/>
 </shape>
