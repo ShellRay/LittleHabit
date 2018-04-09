@@ -25,6 +25,8 @@ import java.util.Random;
 
 /**
  * Created by GG on 2017/6/5.
+ *
+ * 不建议使用
  */
 public class CusTagActivity extends AppCompatActivity {
 
@@ -57,22 +59,7 @@ public class CusTagActivity extends AppCompatActivity {
             "免费游戏",
             "刀塔传奇",
             "节奏大师",
-            };//"装机必备",
-            /*"天天动听",
-                    "备份",
-                    "网盘",
-                    "海淘网",
-                    "大众点评",
-                    "爱奇艺频",
-                    "腾讯手",
-                    "百度地图",
-                    "猎豹清师",
-                    "谷歌图",
-                    "网导航",
-                    "京东",
-                    "有你",
-                    "万年",
-                    "支付宝"*/
+            };
 
      private  List  checkedList = new ArrayList(2);
      private  List<RadioButton>  viewList = new ArrayList();
@@ -103,23 +90,9 @@ public class CusTagActivity extends AppCompatActivity {
             view.setPadding(paddingLeft, paddingTop, paddingLeft, paddingTop);
             view.setWidth(viewWidth);
             view.setHeight(viewHight);
-
-
             view.setGravity(Gravity.CENTER);
             view.setTextSize(11);
             view.setTag(i);
-
-            /*// 设置点击事件
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int i = (int) v.getTag();
-//                    view.setBackgroundResource(colors[i%4]);
-                    view.setTextColor(getResources().getColor(R.color.white));
-
-                    Toast.makeText(CusTagActivity.this, view.getText().toString(), Toast.LENGTH_SHORT).show();
-                }
-            });*/
 
             view.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override

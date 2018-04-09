@@ -1,18 +1,24 @@
 package com.example.frescogif.activity;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.text.format.DateUtils;
+import android.util.AttributeSet;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,6 +45,8 @@ import com.google.android.flexbox.FlexboxLayout;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -55,107 +63,24 @@ public class CityActivity extends AppCompatActivity {
     final int DATE_DIALOG = 1;
 
     private TextView city_text;
-    private RecyclerView recycler;
-    int initPosition =0;
+    private FixedHoloDatePickerDialog datePickerDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_city);
         city_text = (TextView) findViewById(R.id.city_text);
         dateDisplay = (TextView) findViewById(R.id.dateDisplay);
-        recycler = (RecyclerView) findViewById(R.id.recycler);
 
         final Calendar ca = Calendar.getInstance();
         mYear = ca.get(Calendar.YEAR);
         mMonth = ca.get(Calendar.MONTH);
         mDay = ca.get(Calendar.DAY_OF_MONTH);
-        List list = new ArrayList();
 
-        list.add("邻家小妹");
-        list.add("情感专家");
-        list.add("青川美女");
-        list.add("宅男女神");
-
-        list.add("气质美女");
-        list.add("长发飘飘");
-        list.add("大眼睛");
-        list.add("女孩子");
-
-        list.add("妩媚性感");
-        list.add("清纯萝莉");
-        list.add("萌妹子");
-        list.add("时尚御姐");
-
-        list.add("妩媚性感");
-        list.add("清纯萝莉");
-        list.add("萌妹子");
-        list.add("时尚御姐");
-
-        list.add("妩媚性感");
-        list.add("清纯萝莉");
-        list.add("萌妹子");
-        list.add("时尚御姐");
-
-        list.add("妩媚性感");
-        list.add("清纯萝莉");
-        list.add("萌妹子");
-        list.add("时尚御姐");
-
-        list.add("妩媚性感");
-        list.add("清纯萝莉");
-        list.add("萌妹子");
-        list.add("时尚御姐");
-        /*FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(this);
-        layoutManager.setFlexDirection(FlexDirection.ROW);
-        layoutManager.setFlexWrap(FlexWrap.WRAP);
-        layoutManager.setJustifyContent(JustifyContent.CENTER);*/
-//        layoutManager.setAlignItems(AlignItems.FLEX_START);
-
-        SignLayoutManager signLayoutManager = new SignLayoutManager(4, Utils.convertDpToPixel(CityActivity.this, 20));
-
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this,4);
-        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL);
-        recycler.setLayoutManager(staggeredGridLayoutManager);
-        NormalAdapter customAdapter = new NormalAdapter(this, list);
-
-//        recycler.addItemDecoration(new SpacesItemDecoration(20));
-//        recycler.addItemDecoration(new GridSpacingItemDecoration(4,20,true));
-
-        recycler.addItemDecoration(new RecyclerView.ItemDecoration() {
-            @Override
-            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-                int childAdapterPosition = parent.getChildAdapterPosition(view);
-                int left = Utils.convertDpToPixel(CityActivity.this,20);
-                int kerning = Utils.convertDpToPixel(CityActivity.this,15);
-
-                if(childAdapterPosition%4 == 0){
-//                    int initPosition = Constant.initPosition;
-//                    GridLayoutManager.LayoutParams layoutParams = (GridLayoutManager.LayoutParams) view.getLayoutParams();
-                    switch (initPosition %4){
-                        case 0:
-                            left = Utils.convertDpToPixel(CityActivity.this,30);
-                            break;
-                        case 1:
-                            left = Utils.convertDpToPixel(CityActivity.this,45);
-                            break;
-                        case 2:
-                            left = Utils.convertDpToPixel(CityActivity.this,13);
-                            break;
-                        case 3:
-                            left = Utils.convertDpToPixel(CityActivity.this,49);
-                            break;
-                    }
-                    initPosition ++;
-                    outRect.set(left, 0, 0, kerning);
-
-                }else{
-                    outRect.set(left, 0, 0, kerning);
-                }
-                Log.e("random","childAdapterPosition = "+childAdapterPosition +"----initPosition" + initPosition + "++++left" + left);
-            }
-        });
-
-        recycler.setAdapter(customAdapter);
+        Context themed = new ContextThemeWrapper(this,
+                R.style.MyDatePickerDialogTheme);
+        //Android 7.0 下我们默认改变theme不能管用，所以需要自定义写一个
+        datePickerDialog = new FixedHoloDatePickerDialog(themed, mdateListener, mYear, mMonth, mDay);
     }
 
 
@@ -175,7 +100,7 @@ public class CityActivity extends AppCompatActivity {
 
     public void clickDialogTime(View view){
 
-        showDialog(DATE_DIALOG);
+        datePickerDialog.show();
     }
 
     public void clickDialogTimeCus(View view){
@@ -198,15 +123,6 @@ public class CityActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected Dialog onCreateDialog(int id) {
-        switch (id) {
-            case DATE_DIALOG:
-                return new DatePickerDialog(this,R.style.MyDatePickerDialogTheme, mdateListener, mYear, mMonth, mDay);
-        }
-        return null;
-    }
-
     /**
      * 设置日期 利用StringBuffer追加
      */
@@ -226,63 +142,128 @@ public class CityActivity extends AppCompatActivity {
         }
     };
 
-    public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
-        private int space;
+    class FixedHoloDatePickerDialog extends DatePickerDialog {
 
-        public SpacesItemDecoration(int space) {
-            this.space = space;
+        DatePicker datePicker;
+        final Context context;
+        private final Calendar mCalendar;
+
+        @SuppressLint("NewApi")
+        public FixedHoloDatePickerDialog(Context context,
+                                         OnDateSetListener callBack, int year, int monthOfYear,
+                                         int dayOfMonth) {
+            super(context, callBack, year, monthOfYear, dayOfMonth);
+
+            this.context = context;
+            mCalendar = Calendar.getInstance();
+            // Force spinners on Android 7.0 only (SDK 24).
+            // Note: I'm using a naked SDK value of 24 here, because I'm
+            // targeting SDK 23, and Build.VERSION_CODES.N is not available yet.
+            // But if you target SDK >= 24, you should have it.
+            if (Build.VERSION.SDK_INT >= 24) {
+                try {
+                    final Field field = this.findField(DatePickerDialog.class,
+                            DatePicker.class, "mDatePicker");
+
+                    datePicker = (DatePicker) field.get(this);
+                    final Class<?> delegateClass = Class
+                            .forName("android.widget.DatePicker$DatePickerDelegate");
+                    final Field delegateField = this.findField(DatePicker.class,
+                            delegateClass, "mDelegate");
+
+                    final Object delegate = delegateField.get(datePicker);
+                    final Class<?> spinnerDelegateClass = Class
+                            .forName("android.widget.DatePickerSpinnerDelegate");
+
+                    if (delegate.getClass() != spinnerDelegateClass) {
+                        delegateField.set(datePicker, null);
+                        datePicker.removeAllViews();
+
+                        final Constructor spinnerDelegateConstructor = spinnerDelegateClass
+                                .getDeclaredConstructor(DatePicker.class,
+                                        Context.class, AttributeSet.class,
+                                        int.class, int.class);
+                        spinnerDelegateConstructor.setAccessible(true);
+
+                        final Object spinnerDelegate = spinnerDelegateConstructor
+                                .newInstance(datePicker, context, null,
+                                        android.R.attr.datePickerStyle, 0);
+                        delegateField.set(datePicker, spinnerDelegate);
+
+                        datePicker.init(year, monthOfYear, dayOfMonth, this);
+                        datePicker.setCalendarViewShown(false);
+                        datePicker.setSpinnersShown(true);
+                    }
+                } catch (Exception e) { /* Do nothing */
+                }
+            } else {
+                datePicker = new DatePicker(context);
+            }
         }
 
         @Override
-        public void getItemOffsets(Rect outRect, View view,
-                                   RecyclerView parent, RecyclerView.State state) {
-            outRect.left = space;
-            outRect.right = space;
-            outRect.bottom = space;
+        public void onDateChanged(DatePicker view, int year, int month, int day) {
+            super.onDateChanged(view, year, month, day);
+            mCalendar.set(Calendar.YEAR, year);
+            mCalendar.set(Calendar.MONTH, month);
+            mCalendar.set(Calendar.DAY_OF_MONTH, day);
+            String title = DateUtils.formatDateTime(context,
+                    mCalendar.getTimeInMillis(),
+                    DateUtils.FORMAT_SHOW_DATE
+                            | DateUtils.FORMAT_SHOW_WEEKDAY
+                            | DateUtils.FORMAT_SHOW_YEAR
+                            | DateUtils.FORMAT_ABBREV_MONTH
+                            | DateUtils.FORMAT_ABBREV_WEEKDAY);
+            if (hasNoDay)
+                title = year + "年" + (month + 1) + "月";
 
-            // Add top margin only for the first item to avoid double space between items
-            if (parent.getChildLayoutPosition(view) == 0) {
-                outRect.top = space;
-            } else {
-                outRect.top = 0;
+            this.setTitle(title);
+        }
+
+        /**
+         * Find Field with expectedName in objectClass. If not found, find first
+         * occurrence of target fieldClass in objectClass.
+         */
+        private Field findField(Class objectClass, Class fieldClass,
+                                String expectedName) {
+            try {
+                final Field field = objectClass.getDeclaredField(expectedName);
+                field.setAccessible(true);
+                return field;
+            } catch (NoSuchFieldException e) { /* Ignore */
             }
-        }
-    }
 
-    public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
-
-        private int spanCount;
-        private int spacing;
-        private boolean includeEdge;
-
-        public GridSpacingItemDecoration(int spanCount, int spacing, boolean includeEdge) {
-            this.spanCount = spanCount;
-            this.spacing = spacing;
-            this.includeEdge = includeEdge;
-        }
-
-        @Override
-        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-            int position = parent.getChildAdapterPosition(view); // item position
-            int column = position % spanCount; // item column
-
-            if (includeEdge) {
-                outRect.left = spacing - column * spacing / spanCount; // spacing - column * ((1f / spanCount) * spacing)
-                outRect.right = (column + 1) * spacing / spanCount; // (column + 1) * ((1f / spanCount) * spacing)
-
-                if (position < spanCount) { // top edge
-                    outRect.top = spacing;
-                }
-                outRect.bottom = spacing; // item bottom
-            } else {
-                outRect.left = column * spacing / spanCount; // column * ((1f / spanCount) * spacing)
-                outRect.right = spacing - (column + 1) * spacing / spanCount; // spacing - (column + 1) * ((1f /    spanCount) * spacing)
-                if (position >= spanCount) {
-                    outRect.top = spacing; // item top
+            // Search for it if it wasn't found under the expectedName.
+            for (final Field field : objectClass.getDeclaredFields()) {
+                if (field.getType() == fieldClass) {
+                    field.setAccessible(true);
+                    return field;
                 }
             }
+
+            return null;
+        }
+
+        boolean hasNoDay;
+
+        public void setHasNoDay(boolean bol) {
+
+            hasNoDay = bol;
+
+            if (hasNoDay)
+
+                try {
+                    ((ViewGroup) ((ViewGroup) datePicker.getChildAt(0))
+                            .getChildAt(0)).getChildAt(2).setVisibility(
+                            View.GONE);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+        }
+
+        public boolean isHasNoDay() {
+            return hasNoDay;
         }
     }
-
 
 }
