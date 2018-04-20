@@ -1,15 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
+    android:gravity="center_horizontal"
     android:layout_height="match_parent">
 
     <Button
         android:layout_marginTop="30dp"
-        android:layout_marginLeft="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="makedir"
         android:background="@color/colorPrimaryDark"
         android:onClick="makedir"/>
 
+    <Button
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="player_one"
+        android:background="@color/colorPrimaryDark"
+        android:onClick="playOne"/>
+
+    <Button
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="player_two"
+        android:background="@color/colorPrimaryDark"
+        android:onClick="playTwo"/>
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="24:00"
+        android:shadowColor="#b3000000"
+        android:shadowRadius="5"
+        android:shadowDx="0"
+        android:shadowDy="30"
+        android:textColor="@color/white"
+        android:textSize="34sp"
+        />
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="24:00"
+        android:shadowColor="#b3000000"
+        android:shadowRadius="1"
+        android:shadowDx="0"
+        android:shadowDy="1"
+        android:textColor="@color/white"
+        android:textSize="34sp"
+        />
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="24:00"
+        android:shadowColor="#b3000000"
+        android:shadowRadius="1"
+        android:shadowDx="1"
+        android:shadowDy="0"
+        android:textColor="@color/white"
+        android:textSize="34sp"
+        />
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="24:00"
+        android:shadowColor="#b3000000"
+        android:shadowRadius="1"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:textColor="@color/white"
+        android:textSize="34sp"
+        />
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="24:00"
+        android:shadowColor="#b3000000"
+        android:shadowRadius="1"
+        android:shadowDx="0"
+        android:shadowDy="10"
+        android:textColor="@color/white"
+        android:textSize="34sp"
+        />
+    <TextView
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="24:00"
+        android:shadowColor="#b3000000"
+        android:shadowRadius="1"
+        android:shadowDx="0"
+        android:shadowDy="30"
+        android:textColor="@color/white"
+        android:textSize="34sp"
+        />
 </LinearLayout>
