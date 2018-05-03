@@ -8,14 +8,18 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.DragEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowInsets;
 import android.view.WindowManager;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
 
 import com.example.frescogif.R;
 import com.example.frescogif.baseActvity.BaseActivity;
+import com.example.frescogif.view.NumberScrollTextView;
 import com.gyf.barlibrary.ImmersionBar;
 
 /**
@@ -45,11 +49,17 @@ public class AppBarActivity extends AppCompatActivity{
     private CollapsingToolbarLayout collapse;
     private Toolbar toolbar;
     private AppBarLayout appbar;
-    private enum State {
+        private NumberScrollTextView numberView;
+
+        private enum State {
         EXPANDED,//展开
         COLLAPSED,//折叠
         IDLE //空闲
     }
+
+    int sigleInt = 1000;
+    int startInt = 0;
+    int duration = 10000;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +95,27 @@ public class AppBarActivity extends AppCompatActivity{
                 }
         });
 
+        numberView = (NumberScrollTextView) findViewById(R.id.numberView);
+        numberView.setOnEndListener(new NumberScrollTextView.EndListener() {
+            @Override
+            public void onEndFinish() {
+                Log.e("shell","anim is end");
+            }
+        });
+        Button btn_start = (Button) findViewById(R.id.btn_start);
+        btn_start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                numberView.setFromAndEndNumber(startInt, sigleInt);
+                numberView.setDuration(duration);
+                numberView.start();
+                startInt = sigleInt;
+                sigleInt = sigleInt+1000;
+                if(duration > 1000){
+                    duration = duration - 1000;
+                }
+            }
+        });
 
 
     }
@@ -102,5 +133,6 @@ public class AppBarActivity extends AppCompatActivity{
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        numberView.clearCacheList();
     }
 }

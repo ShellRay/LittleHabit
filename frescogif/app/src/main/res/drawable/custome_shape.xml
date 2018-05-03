@@ -3,7 +3,7 @@
     android:shape="rectangle">
     <!--四角都是圆角的button背景-->
     <gradient
-        android:startColor="#fee570"
+        android:startColor="@color/red"
         android:endColor="#ffffff"
         android:angle="-90"/>
 
@@ -13,7 +13,7 @@
         android:color="#fee570" />-->
     <!-- 设置按钮的四个角为弧形 -->
     <!-- android:radius 弧形的半径 -->
-    <soild android:color = "#fee570"/>
+    <soild android:color = "@color/red"/>
 
     <corners
         android:bottomLeftRadius = "0dp"

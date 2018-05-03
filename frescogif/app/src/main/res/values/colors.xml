@@ -30,5 +30,6 @@
 
     <color name="colorWaveLow">#88ff60ab</color>
     <color name="colorWaveDeep">#ffff291e</color>
+    <color name="colorgold">#ffdd00</color>
 
 </resources>

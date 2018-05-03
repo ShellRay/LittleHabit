@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/fly_screen"
+        android:layout_width="wrap_content"
+        android:layout_height="31dp">
+
+        <LinearLayout
+            android:id="@+id/ll_msg_container"
+            android:layout_width="wrap_content"
+            android:layout_height="27dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="20dp"
+            android:orientation="horizontal">
+            <!--android:background="@drawable/barrage_bg_1"-->
+
+
+            <TextView
+                android:id="@+id/tv_fly_screen_msg"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp"
+                android:textColor="@color/white"
+                android:background="@drawable/li_circle_color"
+                android:textSize="16sp"
+                />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

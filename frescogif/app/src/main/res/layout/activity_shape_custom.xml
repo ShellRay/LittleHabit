@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="200dp">
@@ -18,4 +25,54 @@
         android:layout_height="40dp"
         />
     </RelativeLayout>
-</LinearLayout>
+
+    <com.example.frescogif.view.runwaylaout.RunnerLayout
+        android:id="@+id/runnerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_alignParentBottom="true"
+
+        />
+
+    <Button
+        android:onClick="onClick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:text="startDanmu"/>
+
+    <com.example.frescogif.view.runwaylaout.BarrageView
+        android:id="@+id/BarrageView"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        />
+    <Button
+        android:onClick="onClick1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="BarrageView"/>
+        <com.example.frescogif.view.danmu.BarrageViewSimple
+            android:id="@+id/BarrageView1"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            app:allow_repeat="true"
+            app:border_color="@color/colorAccent"
+            app:line_height="20dp"
+            app:max_text_size="12"
+            app:min_text_size="12"
+            app:random_color="false"
+            app:text_left_padding="14"
+            app:text_right_padding="14"
+            app:size="10"
+            />
+        <Button
+            android:onClick="onClick2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="BarrageView"/>
+
+    </LinearLayout>
+</ScrollView>

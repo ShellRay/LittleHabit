@@ -97,4 +97,17 @@
         <attr name="height_space" format="dimension"/>
     </declare-styleable>
 
+    <declare-styleable name="BarrageViewSimple">
+        <attr name="size" format="integer"/>
+        <attr name="text_left_padding" format="integer"/>
+        <attr name="text_right_padding" format="integer"/>
+        <attr name="text_top_padding" format="integer"/>
+        <attr name="text_bottom_padding" format="integer"/>
+        <attr name="max_text_size" format="integer"/>
+        <attr name="min_text_size" format="integer"/>
+        <attr name="line_height" format="dimension"/>
+        <attr name="border_color" format="color"/>
+        <attr name="random_color" format="boolean"/>
+        <attr name="allow_repeat" format="boolean"/>
+    </declare-styleable>
 </resources>
