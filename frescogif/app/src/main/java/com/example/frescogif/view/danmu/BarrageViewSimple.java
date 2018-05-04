@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.frescogif.R;
+import com.example.frescogif.utils.MediaUtils;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -146,8 +147,7 @@ public class BarrageViewSimple extends RelativeLayout {
         int leftMargin = getRight() - getLeft() - getPaddingLeft();
         int verticalMargin = getRandomTopMargin();
         textView.setTag(verticalMargin);
-        LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams
-                .WRAP_CONTENT);
+        LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, MediaUtils.dip2px(getContext(),27));
         params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
         params.topMargin = verticalMargin;
         textView.setLayoutParams(params);
