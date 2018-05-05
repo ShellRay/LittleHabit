@@ -8,6 +8,8 @@ import android.view.View;
 import com.example.frescogif.R;
 import com.example.frescogif.baseActvity.BaseActivity;
 import com.example.frescogif.view.danmu.Barrage;
+import com.example.frescogif.view.opendanmaku.DanmakuItem;
+import com.example.frescogif.view.opendanmaku.DanmakuView;
 import com.example.frescogif.view.runwaylaout.FlyItemLayout;
 import com.example.frescogif.view.runwaylaout.RunnerLayout;
 
@@ -22,7 +24,7 @@ import master.flame.danmaku.danmaku.model.IDanmakus;
 import master.flame.danmaku.danmaku.model.android.DanmakuContext;
 import master.flame.danmaku.danmaku.model.android.Danmakus;
 import master.flame.danmaku.danmaku.parser.BaseDanmakuParser;
-import master.flame.danmaku.ui.widget.DanmakuView;
+//import master.flame.danmaku.ui.widget.DanmakuView;
 
 import static com.example.frescogif.view.runwaylaout.FlyItemLayout.FLY_SCREEN;
 
@@ -38,7 +40,7 @@ public class ShapeActivity extends BaseActivity{
 
     private boolean showDanmaku;
 
-    private DanmakuView danmakuView;
+//    private DanmakuView danmakuView;
 
     private DanmakuContext danmakuContext;
 
@@ -48,6 +50,7 @@ public class ShapeActivity extends BaseActivity{
             return new Danmakus();
         }
     };
+    private DanmakuView openDanmaku;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,12 +58,14 @@ public class ShapeActivity extends BaseActivity{
         setContentView(R.layout.activity_shape_custom);
 
         runnerLayout = (RunnerLayout)findViewById(R.id.runnerLayout);
+        openDanmaku = (DanmakuView)findViewById(R.id.openDanmaku);
+
 
         barrageView = (com.example.frescogif.view.runwaylaout.BarrageView)findViewById(R.id.BarrageView);
         barrageViewSimple = (com.example.frescogif.view.danmu.BarrageViewSimple)findViewById(R.id.BarrageView1);
         barrageView.setRowNum(4);
 
-        danmakuView = (DanmakuView) findViewById(R.id.danmaku_view);
+        /*danmakuView = (DanmakuView) findViewById(R.id.danmaku_view);
 
         danmakuView.enableDanmakuDrawingCache(true);
         danmakuView.setCallback(new DrawHandler.Callback() {
@@ -87,7 +92,7 @@ public class ShapeActivity extends BaseActivity{
             }
         });
         danmakuContext = DanmakuContext.create();
-        danmakuView.prepare(parser, danmakuContext);
+        danmakuView.prepare(parser, danmakuContext);*/
     }
 
     /**
@@ -104,11 +109,11 @@ public class ShapeActivity extends BaseActivity{
         danmaku.textSize = sp2px(20);
         danmaku.textColor = Color.RED;
         danmaku.textShadowColor = Color.BLACK;
-        danmaku.setTime(danmakuView.getCurrentTime());
+//        danmaku.setTime(danmakuView.getCurrentTime());
         if (withBorder) {
             danmaku.borderColor = Color.GREEN;
         }
-        danmakuView.addDanmaku(danmaku);
+//        danmakuView.addDanmaku(danmaku);
     }
 
     /**
@@ -143,23 +148,31 @@ public class ShapeActivity extends BaseActivity{
     @Override
     protected void onPause() {
         super.onPause();
-        if (danmakuView != null && danmakuView.isPrepared()) {
-            danmakuView.pause();
-        }
+//        if (danmakuView != null && danmakuView.isPrepared()) {
+//            danmakuView.pause();
+//        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (danmakuView != null && danmakuView.isPrepared() && danmakuView.isPaused()) {
-            danmakuView.resume();
-        }
+//        if (danmakuView != null && danmakuView.isPrepared() && danmakuView.isPaused()) {
+//            danmakuView.resume();
+//        }
     }
 
     public void onClick(View v) {
-        FlyItemLayout item = new FlyItemLayout(getApplicationContext(), FLY_SCREEN);
-        item.setMsg("this is danmu I wish it can work!");
-        runnerLayout.displayFlyItem(item);
+
+        for (int i = 0; i < 50; i++) {
+            ArrayList<Object> arrayList = new ArrayList<>();
+            for (int y = 0; y < 50; y++) {
+                arrayList.add("宝宝正在梳"+ y +"，展现更好的");
+            }
+            FlyItemLayout item = new FlyItemLayout(getApplicationContext(), FLY_SCREEN);
+            item.setMsg(arrayList);
+            runnerLayout.displayFlyItem(item);
+        }
+
     }
     public void onClick1(View v) {
 
@@ -190,7 +203,7 @@ public class ShapeActivity extends BaseActivity{
 
     public void onClick2(View v) {
         for (int i = 0; i < 200; i++) {
-            mBarrages.add(new Barrage("弹幕数据----" + i));
+            mBarrages.add(new Barrage("宝宝正在梳妆打扮，展现更好的一面" + i));
         }
         barrageViewSimple.setBarrages(mBarrages);
 //        barrageView1.addBarrage(new Barrage("111111111111", R.color.colorPrimary, Color.RED));
@@ -200,14 +213,22 @@ public class ShapeActivity extends BaseActivity{
         addDanmaku("dfdf",false);
     }
 
+    public void onClick4(View v) {
+        for (int i = 0; i < 200; i++) {
+            openDanmaku.addItem(new DanmakuItem(this,
+                    "宝宝正在梳妆打扮，展现更好的一面"+i, openDanmaku.getWidth()));
+        }
+        openDanmaku.show();
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         barrageViewSimple.destroy();
         showDanmaku = false;
-        if (danmakuView != null) {
-            danmakuView.release();
-            danmakuView = null;
-        }
+//        if (danmakuView != null) {
+//            danmakuView.release();
+//            danmakuView = null;
+//        }
     }
 }

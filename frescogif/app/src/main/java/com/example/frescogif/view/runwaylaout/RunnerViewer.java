@@ -1,6 +1,10 @@
 package com.example.frescogif.view.runwaylaout;
 
+import android.content.Context;
+import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.FrameLayout;
@@ -12,6 +16,7 @@ import android.widget.Scroller;
 public class RunnerViewer extends FrameLayout
 {
 
+    private  int duration;
     RunnerLayout parent;
 
     Scroller mScroller;
@@ -19,6 +24,15 @@ public class RunnerViewer extends FrameLayout
     int content_width;
 
     int contentHeight;
+
+    public RunnerViewer(Context context, RunnerLayout parent,int duration)
+    {
+        super(context);
+        this.duration = duration;
+//        setBackgroundColor(Color.GREEN);
+        mScroller = new Scroller(parent.getContext(), new LinearInterpolator());
+        this.parent = parent;
+    }
 
     public RunnerViewer(RunnerLayout parent)
     {
@@ -99,7 +113,7 @@ public class RunnerViewer extends FrameLayout
         if (finalX != stayed)
         {
             int startX = -getMeasuredWidth();
-            int duration = (finalX - startX) * 5;
+//            int duration = (finalX - startX) * 5;
             mScroller.abortAnimation();
             mScroller.startScroll(startX, 0, finalX - startX, 0, duration);
             invalidate();
@@ -110,7 +124,7 @@ public class RunnerViewer extends FrameLayout
     public void computeScroll()
     {
 
-        if (mScroller.computeScrollOffset())
+        if (mScroller.computeScrollOffset())//滚动未完成
         {
             int sx = mScroller.getCurrX();
             int sy = mScroller.getCurrY();
@@ -129,7 +143,7 @@ public class RunnerViewer extends FrameLayout
             if (getChildCount() > 0)
             {
                 removeAllViewsInLayout();
-                parent.runnerAvaliable(this);
+                parent.runnerAvaliable(this,true);
             }
         }
     }

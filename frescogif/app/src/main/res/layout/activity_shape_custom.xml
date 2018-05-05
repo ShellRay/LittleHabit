@@ -30,8 +30,6 @@
         android:id="@+id/runnerLayout"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:layout_alignParentBottom="true"
-
         />
 
     <Button
@@ -58,16 +56,16 @@
         <com.example.frescogif.view.danmu.BarrageViewSimple
             android:id="@+id/BarrageView1"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="121dp"
             app:allow_repeat="true"
             app:border_color="@color/colorAccent"
             app:line_height="20dp"
             app:max_text_size="12"
             app:min_text_size="12"
             app:random_color="false"
-            app:text_left_padding="14"
-            app:text_right_padding="14"
-            app:size="10"
+            app:text_left_padding="24"
+            app:text_right_padding="24"
+            app:size="200"
             />
         <Button
             android:onClick="onClick2"
@@ -89,5 +87,26 @@
             android:layout_gravity="center_horizontal"
             android:background="@color/colorPrimaryDark"
             android:text="BarrageViewBliBLI"/>
+
+        <com.example.frescogif.view.opendanmaku.DanmakuView
+            android:id="@+id/openDanmaku"
+            android:layout_width="match_parent"
+            android:layout_marginTop="30dp"
+            android:layout_height="121dp"
+            app:start_Y_offset="0.0"
+            app:end_Y_offset="1.0"
+            app:max_row="4"
+            app:max_running_per_row="4"
+            app:pick_interval="100"
+            app:show_debug="false"
+            />
+
+        <Button
+            android:onClick="onClick4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/colorPrimaryDark"
+            android:text="BarrageView"/>
     </LinearLayout>
 </ScrollView>

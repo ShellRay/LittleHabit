@@ -34,7 +34,7 @@ public class BarrageViewSimple extends RelativeLayout {
     private int linesCount;
 
     private int validHeightSpace;
-    private int INTERVAL = 500;
+    private int INTERVAL = 10;
 
     private Random random = new Random(System.currentTimeMillis());
     private int maxBarrageSize;
@@ -83,8 +83,8 @@ public class BarrageViewSimple extends RelativeLayout {
             borderColor = typedArray.getColor(R.styleable.BarrageViewSimple_border_color, DEFAULT_BORDERCOLOR);
             random_color = typedArray.getBoolean(R.styleable.BarrageViewSimple_random_color, DEFAULT_RANDOMCOLOR);
             allow_repeat = typedArray.getBoolean(R.styleable.BarrageViewSimple_allow_repeat, DEFAULT_ALLOWREPEAT);
-            if (BarrageTools.px2sp(context, lineHeight) < maxTextSize)
-                maxTextSize = BarrageTools.px2sp(context, lineHeight);
+//            if (BarrageTools.px2sp(context, lineHeight) < maxTextSize)
+//                maxTextSize = BarrageTools.px2sp(context, lineHeight);
         } finally {
             typedArray.recycle();
         }
@@ -123,7 +123,7 @@ public class BarrageViewSimple extends RelativeLayout {
         Barrage barrage = barrages.get(index);
         if (allow_repeat) {
             if (cache.contains(barrage))
-                return;
+//                return;
             cache.add(barrage);
         }
         showBarrage(barrage);
@@ -146,12 +146,14 @@ public class BarrageViewSimple extends RelativeLayout {
         textView.setTextColor(Color.WHITE);
         int leftMargin = getRight() - getLeft() - getPaddingLeft();
         int verticalMargin = getRandomTopMargin();
+        Log.e("shell","getRandomTopMargin  verticalMargin="+verticalMargin);
         textView.setTag(verticalMargin);
         LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, MediaUtils.dip2px(getContext(),27));
         params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
         params.topMargin = verticalMargin;
-        textView.setLayoutParams(params);
-        Animation anim = AnimationHelper.createTranslateAnim(getContext(), leftMargin, -getScreenWidth(getContext()));
+        textView.setLayoutParams(params);//
+        Animation anim = AnimationHelper.createTranslateAnim(getContext(), getScreenWidth(getContext()), -getScreenWidth(getContext()));
+//        Animation anim = AnimationHelper.createTranslateAnim(getContext(), leftMargin, -getScreenWidth(getContext()));
         anim.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -180,7 +182,7 @@ public class BarrageViewSimple extends RelativeLayout {
             validHeightSpace = getBottom() - getTop() - getPaddingTop() - getPaddingBottom();
         }
         if (linesCount == 0) {
-            linesCount = validHeightSpace / lineHeight;
+            linesCount = 4;//validHeightSpace / lineHeight;
             if (linesCount == 0) {
                 throw new RuntimeException("Not enough space to show text.");
             }
@@ -188,6 +190,7 @@ public class BarrageViewSimple extends RelativeLayout {
         while (true) {
             int randomIndex = (int) (Math.random() * linesCount);
             int marginValue = randomIndex * (validHeightSpace / linesCount);
+//            Log.e("shell","getRandomTopMargin  marginValue="+marginValue);
             if (!existMarginValues.contains(marginValue)) {
                 existMarginValues.add(marginValue);
                 return marginValue;

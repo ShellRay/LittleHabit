@@ -1,10 +1,15 @@
 package com.example.frescogif.view.runwaylaout;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Rect;
 import android.net.Uri;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -12,7 +17,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.frescogif.R;
+import com.example.frescogif.adapter.RecyclerViewAdapter;
+import com.example.frescogif.fragment.DummyContent;
+import com.example.frescogif.fragment.TopGradualFragment;
+import com.example.frescogif.utils.Utils;
 import com.facebook.drawee.view.SimpleDraweeView;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 /**
  *
@@ -33,8 +46,10 @@ public class FlyItemLayout extends FrameLayout
     public static final int FLY_SUPER_GIFT_SCREEN = 2;
     public int flySupVar = 1;
     private final LinearLayout msgContainerLL;
+    private final RecyclerView listView;
+    public List listDate= new ArrayList();
 
-    public FlyItemLayout(Context context, int type)
+    public FlyItemLayout(final Context context, int type)
     {
         super(context);
         this.type = type;
@@ -42,7 +57,15 @@ public class FlyItemLayout extends FrameLayout
         fly_screen = (RelativeLayout) view.findViewById(R.id.fly_screen);
         msgContainerLL = (LinearLayout) view.findViewById(R.id.ll_msg_container);
         mMsgTV = (TextView) view.findViewById(R.id.tv_fly_screen_msg);
-
+        listView = (RecyclerView) view.findViewById(R.id.listView);
+        listView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
+        listView.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(Rect outRect, int itemPosition, RecyclerView parent) {
+                super.getItemOffsets(outRect, itemPosition, parent);
+                outRect.left = Utils.convertDpToPixel(context,30);
+            }
+        });
         if (type == FLY_SCREEN)
         {
             fly_screen.setVisibility(View.VISIBLE);
@@ -53,29 +76,19 @@ public class FlyItemLayout extends FrameLayout
 
     }
 
-    public void setMsg(String msg)
+    public void setMsg(ArrayList<Object> msg)
     {
-        if (TextUtils.isEmpty(msg))
+        /*if (TextUtils.isEmpty(msg))
         {
             return;
-        }
+        }*/
         if (type == FLY_SCREEN)
         {
-            mMsgTV.setText(msg);
-        }
-        else if (type == FLY_LABA_SCREEN)
-        {
-//            laba_msg.setText(msg);
-            /*laba_msg.setEllipsize(TextUtils.TruncateAt.MARQUEE);
-            laba_msg.setSingleLine(true);
-            laba_msg.setSelected(true);
-            laba_msg.setFocusable(true);
-            laba_msg.setFocusableInTouchMode(true);*/
-
-        }
-        else
-        {
-//            super_gift_msg.setText(msg);
+            listDate = msg;
+//            mMsgTV.setText(msg);
+            RecyclerViewAdapter adapter = new RecyclerViewAdapter(listDate);
+            listView.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
         }
     }
 
@@ -91,5 +104,47 @@ public class FlyItemLayout extends FrameLayout
     {
         super.onDetachedFromWindow();
 //        EventBusManager.getInstance().unregister(this);
+    }
+    class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
+
+        private final List<String> mValues;
+
+        public RecyclerViewAdapter(List<String> items) {
+            mValues = items;
+        }
+
+        @Override
+        public RecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.danma_item, parent, false);
+            return new RecyclerViewAdapter.ViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(ViewHolder holder, int position) {
+
+            holder.mContentView.setText(mValues.get(new Random().nextInt(mValues.size()-1)));//new Random().nextInt(mValues.size()-1)
+        }
+
+        @Override
+        public int getItemCount() {
+            return mValues.size();
+        }
+
+        public class ViewHolder extends RecyclerView.ViewHolder {
+            public final View mView;
+            public final TextView mContentView;
+
+            public ViewHolder(View view) {
+                super(view);
+                mView = view;
+                mContentView = (TextView) view.findViewById(R.id.content);
+            }
+
+            @Override
+            public String toString() {
+                return super.toString() + " '" + mContentView.getText() + "'";
+            }
+        }
     }
 }
