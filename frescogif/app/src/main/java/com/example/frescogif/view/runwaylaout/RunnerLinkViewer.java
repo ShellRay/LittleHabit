@@ -1,10 +1,7 @@
 package com.example.frescogif.view.runwaylaout;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.support.annotation.NonNull;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.FrameLayout;
@@ -13,11 +10,11 @@ import android.widget.Scroller;
 /**
  * Created by yuanwei on 17/4/12.
  */
-public class RunnerViewer extends FrameLayout
+public class RunnerLinkViewer extends FrameLayout
 {
 
     private  int duration;
-    RunnerLayout parent;
+    RunnerLinkLayout parent;
 
     Scroller mScroller;
 
@@ -25,7 +22,7 @@ public class RunnerViewer extends FrameLayout
 
     int contentHeight;
 
-    public RunnerViewer(Context context, RunnerLayout parent,int duration)
+    public RunnerLinkViewer(Context context, RunnerLinkLayout parent, int duration)
     {
         super(context);
         this.duration = duration;
@@ -34,22 +31,22 @@ public class RunnerViewer extends FrameLayout
         this.parent = parent;
     }
 
-    public RunnerViewer(RunnerLayout parent)
+    public RunnerLinkViewer(RunnerLinkLayout parent)
     {
         this(parent, null);
     }
 
-    public RunnerViewer(RunnerLayout parent, AttributeSet attrs)
+    public RunnerLinkViewer(RunnerLinkLayout parent, AttributeSet attrs)
     {
         this(parent, attrs, 0);
     }
 
-    public RunnerViewer(RunnerLayout parent, AttributeSet attrs, int defStyleAttr, int defStyleRes)
+    public RunnerLinkViewer(RunnerLinkLayout parent, AttributeSet attrs, int defStyleAttr, int defStyleRes)
     {
         this(parent, attrs, defStyleAttr);
     }
 
-    public RunnerViewer(RunnerLayout parent, AttributeSet attrs, int defStyleAttr)
+    public RunnerLinkViewer(RunnerLinkLayout parent, AttributeSet attrs, int defStyleAttr)
     {
         super(parent.getContext(), attrs, defStyleAttr);
         mScroller = new Scroller(parent.getContext(), new LinearInterpolator());

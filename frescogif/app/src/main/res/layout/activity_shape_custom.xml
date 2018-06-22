@@ -26,7 +26,7 @@
         />
     </RelativeLayout>
 
-    <com.example.frescogif.view.runwaylaout.RunnerLayout
+    <com.example.frescogif.view.runwaylaout.RunnerLinkLayout
         android:id="@+id/runnerLayout"
         android:layout_width="match_parent"
         android:layout_height="150dp"
@@ -74,19 +74,6 @@
             android:layout_gravity="center_horizontal"
             android:background="@color/red"
             android:text="BarrageView"/>
-
-        <master.flame.danmaku.ui.widget.DanmakuView
-            android:id="@+id/danmaku_view"
-            android:layout_width="match_parent"
-            android:layout_height="150dp" />
-
-        <Button
-            android:onClick="onClick3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:background="@color/colorPrimaryDark"
-            android:text="BarrageViewBliBLI"/>
 
         <com.example.frescogif.view.opendanmaku.DanmakuView
             android:id="@+id/openDanmaku"

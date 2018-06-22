@@ -34,7 +34,7 @@ import java.util.Random;
  * @description 飞屏的布局
  * @modify
  */
-public class FlyItemLayout extends FrameLayout
+public class FlyItemLinkLayout extends FrameLayout
 {
     RelativeLayout fly_screen;
     private TextView mMsgTV;
@@ -49,7 +49,7 @@ public class FlyItemLayout extends FrameLayout
     private final RecyclerView listView;
     public List listDate= new ArrayList();
 
-    public FlyItemLayout(final Context context, int type)
+    public FlyItemLinkLayout(final Context context, int type)
     {
         super(context);
         this.type = type;
@@ -63,7 +63,7 @@ public class FlyItemLayout extends FrameLayout
             @Override
             public void getItemOffsets(Rect outRect, int itemPosition, RecyclerView parent) {
                 super.getItemOffsets(outRect, itemPosition, parent);
-                outRect.left = Utils.convertDpToPixel(context,30);
+                outRect.left = Utils.convertDpToPixel(context,250);
             }
         });
         if (type == FLY_SCREEN)

@@ -3,12 +3,12 @@
 
 
     <!-- 背景色 -->
-    <solid android:color="#99f72e8c" />
+    <solid android:color="#66131313" />
     <corners android:radius="13dip"
         />
     <stroke
         android:width="1px"
-        android:color="#99f72e8c"
+        android:color="#66131313"
         />
     <!-- 边框色 -->
     <!--<size android:width="200dp" android:height="40dp"/>-->

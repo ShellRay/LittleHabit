@@ -58,6 +58,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private Button loadingAni;
     private Button city;
     private Button radiobutton;
+    private Button permission;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +87,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         loadingAni = (Button)  findViewById(R.id.loading_ani);
         city = (Button)  findViewById(R.id.city);
         radiobutton = (Button)  findViewById(R.id.radiobutton);
+        permission = (Button)  findViewById(R.id.permission);
 
 
         btn_bg.setOnClickListener(this);
@@ -109,6 +111,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         loadingAni.setOnClickListener(this);
         city.setOnClickListener(this);
         radiobutton.setOnClickListener(this);
+        permission.setOnClickListener(this);
+
 
         ArrayList<GiftDialogBean> list = new ArrayList<GiftDialogBean>();
         String path = "asset:///a.gif";
@@ -217,6 +221,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.radiobutton:
                 startActivity(new Intent(this, RadioButtonActivity.class));
+                break;
+            case R.id.permission:
+//                startActivity(new Intent(this, PermissionActivity.class));
                 break;
 
         }

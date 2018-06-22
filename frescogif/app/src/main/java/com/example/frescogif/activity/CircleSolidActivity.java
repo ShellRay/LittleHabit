@@ -141,28 +141,28 @@ public class CircleSolidActivity extends BaseActivity {
         if(alphaShow == null) {
             alphaShow = ObjectAnimator.ofFloat(simpleView, "alpha", 1f, 1f);
         }
-        alphaShow.setDuration(10);
+        alphaShow.setDuration(1);
         alphaShow.setRepeatMode(ObjectAnimator.REVERSE);
 
         //X轴方向缩放到原图大小
         if(scaleX == null) {
-            scaleX = ObjectAnimator.ofFloat(simpleView, "scaleX", 1f, 1.2f);
+            scaleX = ObjectAnimator.ofFloat(simpleView, "scaleX", 1f, 1.05f);
         }
         scaleX.setRepeatMode(ObjectAnimator.REVERSE);
 
-        scaleX.setDuration(3000);
+        scaleX.setDuration(4000);
 
         //Y轴方向缩放到原图大小
         if(scaleY == null) {
-            scaleY = ObjectAnimator.ofFloat(simpleView, "scaleY", 1f, 1.2f);
+            scaleY = ObjectAnimator.ofFloat(simpleView, "scaleY", 1f, 1.05f);
         }
-        scaleY.setDuration(3000);
+        scaleY.setDuration(4000);
         scaleY.setRepeatMode(ObjectAnimator.REVERSE);
 
         if(alpha == null) {
             alpha = ObjectAnimator.ofFloat(simpleView, "alpha", 1f, 0f);
         }
-        alpha.setDuration(1500);
+        alpha.setDuration(2000);
         alpha.setRepeatMode(ObjectAnimator.REVERSE);
 
         set.play(scaleY).with(scaleX).with(alphaShow);
