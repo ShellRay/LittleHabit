@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/translate"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/main_tv_jpush"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:background="@color/translate"
+        android:layout_marginBottom="25dp"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/red"
+        android:text="确定"
+        android:layout_marginBottom="20dp"
+        android:id="@+id/main_dialog"/>
+
+</LinearLayout>

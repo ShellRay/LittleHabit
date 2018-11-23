@@ -1,20 +1,22 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "23.0.3"
+    compileSdkVersion 26
 
     defaultConfig {
         applicationId "com.example.frescogif"
         minSdkVersion 19
         targetSdkVersion 23
         versionCode 2
-        versionName "1.0"
+        versionName "2.0"
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            resValue("string", "PORT_NUMBER", "9999")
         }
     }
 }
@@ -35,4 +37,22 @@ dependencies {
     compile 'com.google.android:flexbox:0.3.2'
     compile project(':calligraphy')
     compile 'com.github.ctiao:DanmakuFlameMaster:0.5.3'
+//    https://mp.weixin.qq.com/s?__biz=MzAxMTI4MTkwNQ==&mid=2650825704&idx=1&sn=f1d039ac625e9d39441c12ebb2b3b780&chksm=80b7b776b7c03e602a4aad48e9955b08eb3fdca8b67ca51c16d70261cb8896337b45917f7394&mpshare=1&scene=23&srcid=06264zSn3uMZrAqnplndKR4S#rd
+    //ip得看手机无线的ip地址
+    debugCompile   'com.amitshekhar.android:debug-db:1.0.4'
+    //查看视图UItools
+    debugCompile 'me.ele:uetool:1.0.15'
+    compile 'com.yanzhenjie:permission:2.0.0-rc11'
+}
+
+configurations.all {
+
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '25.4.0'//默认使用的版本
+            }
+        }
+    }
 }
