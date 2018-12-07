@@ -3,6 +3,9 @@ package com.example.frescogif;
 import android.app.Application;
 import android.os.Environment;
 
+import com.bumptech.glide.Glide;
+import com.example.frescogif.utils.GlideLoadUtils;
+
 import java.io.File;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;

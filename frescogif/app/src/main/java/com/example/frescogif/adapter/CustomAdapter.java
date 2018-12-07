@@ -9,7 +9,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.frescogif.GlideApp;
 import com.example.frescogif.R;
+import com.example.frescogif.utils.GlideLoadUtils;
+import com.example.frescogif.utils.MediaUtils;
 
 import java.util.List;
 
@@ -42,10 +45,7 @@ public class CustomAdapter extends RecyclerView.Adapter <RecyclerView.ViewHolder
             String text = (String) mData.get(postion);
             tv_item.setText(text);
             String url = "https://res.guagua.cn/pic//6897_9.gif";
-            Glide.with(context)
-                    .load(url.toString())
-                    .asGif()
-                    .into(iv_gif);
+             GlideLoadUtils.getInstance().loadImageAsGif(context,url.toString(),iv_gif);
         }
     }
 

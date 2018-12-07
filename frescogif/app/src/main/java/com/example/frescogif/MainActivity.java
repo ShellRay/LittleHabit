@@ -1,7 +1,12 @@
 package com.example.frescogif;
 
 import android.Manifest;
+import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.annotation.TargetApi;
 import android.app.Dialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,15 +16,24 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.OvershootInterpolator;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -31,6 +45,7 @@ import com.example.frescogif.activity.CityActivity;
 import com.example.frescogif.activity.CustomPhotoActivity;
 import com.example.frescogif.activity.DesignActivity;
 import com.example.frescogif.activity.EmojiActivity;
+import com.example.frescogif.activity.HelpYourSelfActivity;
 import com.example.frescogif.activity.LayoutMangerActivity;
 import com.example.frescogif.activity.LoadingActivity;
 import com.example.frescogif.activity.LoadingAnimActivity;
@@ -46,8 +61,13 @@ import com.example.frescogif.activity.SomeAnimationActivity;
 import com.example.frescogif.activity.StickinessActivity;
 import com.example.frescogif.baseActvity.BaseActivity;
 import com.example.frescogif.bean.GiftDialogBean;
+import com.example.frescogif.utils.GlideLoadUtils;
+import com.example.frescogif.utils.PackUtils;
 import com.example.frescogif.utils.PermissionUtils;
 import com.example.frescogif.utils.ToastUtils;
+import com.example.frescogif.utils.Utils;
+import com.example.frescogif.view.GiftAnimView.CustomRoundView;
+import com.example.frescogif.view.GiftAnimView.MagicTextView;
 import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Permission;
@@ -57,6 +77,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
@@ -83,6 +105,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private Button city;
     private Button radiobutton;
     private Button popWindow;
+    private Button lastview;
+    private LinearLayout llgiftcontent;
+    private TranslateAnimation inAnim;
+    private TranslateAnimation outAnim;
+    private NumAnim giftNumAnim;
+    private Timer timer;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -113,7 +141,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         city = (Button) findViewById(R.id.city);
         radiobutton = (Button) findViewById(R.id.radiobutton);
         popWindow = (Button) findViewById(R.id.popWindow);
+        lastview = (Button) findViewById(R.id.lastview);
 
+        llgiftcontent = (LinearLayout) findViewById(R.id.llgiftcontent);
 
         btn_bg.setOnClickListener(this);
         btn_login.setOnClickListener(this);
@@ -137,22 +167,50 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         city.setOnClickListener(this);
         radiobutton.setOnClickListener(this);
         popWindow.setOnClickListener(this);
+        lastview.setOnClickListener(this);
 
+        inAnim = (TranslateAnimation) AnimationUtils.loadAnimation(this, R.anim.gift_in);
+        outAnim = (TranslateAnimation) AnimationUtils.loadAnimation(this, R.anim.gift_out);
+        giftNumAnim = new NumAnim();
+        clearTiming();
 
         ArrayList<GiftDialogBean> list = new ArrayList<GiftDialogBean>();
-        String path = "asset:///a.gif";
-        String path1 = "asset:///b.gif";
-        String path2 = "asset:///c.gif";
-        String path3 = "asset:///d.gif";
-        String path4 = "asset:///e.gif";
-        list.add(new GiftDialogBean(path, 10));
-        list.add(new GiftDialogBean(path1, 20));
-        list.add(new GiftDialogBean(path2, 30));
-        list.add(new GiftDialogBean(path3, 15));
-        list.add(new GiftDialogBean(path4, 5));
-        list.add(new GiftDialogBean(path1, 7));
+        int path = R.drawable.a;//"asset:///a.gif";
+        int path1 = R.drawable.b;//"asset:///b.gif";
+        int path2 = R.drawable.c;//"asset:///c.gif";
+        int path3 = R.drawable.d;//"asset:///d.gif";
+        int path4 = R.drawable.e;//"asset:///e.gif";
+
+
+
+        list.add(new GiftDialogBean("http://res.img002.com/pic//7202_9.gif", 10));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//7204_9.gif", 20));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//7205_9.gif", 30));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//7207_9.gif", 15));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//6187_9.gif", 5));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//6195_9.gif", 7));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//6197_9.gif", 7));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//6194_9.gif", 7));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//9708.gif", 7));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//8044.gif", 7));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//8048.gif", 7));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//8029.gif", 7));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//8040.gif", 30));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//8036.gif", 15));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//9742.gif", 5));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//9739.gif", 7));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//9609.gif", 7));
+
 
         giftDialog = new GiftDialog(this, list);
+
+        giftDialog.setOnClickListener(new GiftDialog.OnGiftClickListener() {
+            @Override
+            public void onItemSelect(GiftDialogBean bean, int num) {
+                showGift(bean.path + "", num);
+            }
+
+        });
       /*
        这个是可以使用的
        String url = "https://res.guagua.cn/pic//6897_9.gif";
@@ -180,40 +238,36 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             public void run() {
                 NotificationManagerCompat manager = NotificationManagerCompat.from(MainActivity.this);
                 boolean isOpened = manager.areNotificationsEnabled();
-                if(!isOpened) {
+                if (!isOpened) {
                     showConflictDialog(MainActivity.this, "请打开您的通知权限");
                 }
             }
-        },5000);
+        }, 5000);
 
+        if (Build.VERSION.SDK_INT >= 23) {
+            AndPermission.with(this)
+                    .runtime()
+                    .permission(
+                            Permission.READ_EXTERNAL_STORAGE,
+                            Permission.WRITE_EXTERNAL_STORAGE
+                    )
+                    .onDenied(new Action<List<String>>() {
 
-       /* AndPermission.with(this)
-                .overlay()
-                .onGranted(new Action<Void>() {
-                    @Override
-                    public void onAction(Void data) {
-                        ToastUtils.showShort(MainActivity.this, "有权限--=");
-                        *//*Dialog dialog = new Dialog(MainActivity.this);
-                        Window window = dialog.getWindow();
-
-                        int overlay = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
-                        int alertWindow = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
-                        int type = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O ? overlay : alertWindow;
-                        window.setType(type);*//*
-
-//                        dialog.show();
-//                        showAlertWindow();
-                    }
-                })
-                .onDenied(new Action<Void>() {
-                    @Override
-                    public void onAction(Void data) {
-                        ToastUtils.showShort(MainActivity.this, "无权限--=");
-                        // TODO ...
-                    }
-                })
-                .start();*/
-
+                        @Override
+                        public void onAction(List<String> data) {
+                            ToastUtils.showShort(MainActivity.this, "您已禁止读取存储空间权限");
+                        }
+                    })
+                    .onGranted(new Action<List<String>>() {
+                        @Override
+                        public void onAction(List<String> data) {
+//                            ToastUtils.showShort(MainActivity.this, "开启读取存储空间权限");
+                        }
+                    })
+                    .start();
+        }
+        ImageView viewById = (ImageView) findViewById(R.id.ivImage);
+        GlideLoadUtils.getInstance().loadImageAsGif(MainActivity.this, path3, viewById);
     }
 
     public void click(View view) {
@@ -305,16 +359,22 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.popWindow:
                 startActivity(new Intent(this, PopWindowActivity.class));
                 break;
+            case R.id.lastview:
+                startActivity(new Intent(this, HelpYourSelfActivity.class));
+                break;
+
 
         }
     }
+
     int LAYOUT_FLAG;
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void showConflictDialog(final Context context, final String text) {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
-             LAYOUT_FLAG = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;//Android O版本适配
+            LAYOUT_FLAG = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;//Android O版本适配
         } else {
 
             LAYOUT_FLAG = WindowManager.LayoutParams.TYPE_PHONE;
@@ -367,6 +427,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         button.setOnClickListener(new View.OnClickListener() {
 
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
 
@@ -375,16 +436,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     alertDialog.dismiss();
 
                 }
-
-//                boolean isConflictDialogShow = false;
-
-//                conflictBuilder = null;
-
-//                Intent intent = new Intent(context, LoginActivity.class);
-//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-//                intent.putExtra("type", "exit");
-//                context.startActivity(intent);
-
+                if (Build.VERSION.SDK_INT >= 23) {
+                    if (!Settings.canDrawOverlays(MainActivity.this) || !PackUtils.isNotificationEnabled(MainActivity.this)) {
+                        getPermissonForHand();//获取权限
+                    }
+                }
             }
 
         });
@@ -424,4 +480,254 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     }
 
+    @TargetApi(Build.VERSION_CODES.M)
+    public void getPermissonForHand() {
+        if (!Settings.canDrawOverlays(MainActivity.this)) {
+            String systemName = Utils.getSystemName();
+            switch (systemName) {
+                case Utils.SYS_MIUI:
+                    Intent intentMi = new Intent();
+                    intentMi.setAction("miui.intent.action.APP_PERM_EDITOR");
+                    intentMi.addCategory(Intent.CATEGORY_DEFAULT);
+                    intentMi.putExtra("extra_pkgname", getApplication().getPackageName());
+                    intentMi.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    try {
+                        startActivity(intentMi);
+                    } catch (Exception e) {
+                        Intent intent1 = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+                        startActivity(intent1);
+                    }
+                    break;
+                case Utils.SYS_EMUI:
+                    Intent intentHua = new Intent();
+                    intentHua.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    ComponentName comp = new ComponentName("com.huawei.systemmanager", "com.huawei.permissionmanager.ui.MainActivity");//华为权限管理
+                    intentHua.setComponent(comp);
+                    try {
+                        startActivity(intentHua);
+                    } catch (Exception e) {
+                        Intent intent1 = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+                        startActivity(intent1);
+                    }
+                    break;
+                case Utils.SYS_FLYME:
+                    Intent intentMei = new Intent("com.meizu.safe.security.SHOW_APPSEC");
+                    intentMei.addCategory(Intent.CATEGORY_DEFAULT);
+                    intentMei.putExtra("packageName", getApplication().getPackageName());
+                    try {
+                        startActivity(intentMei);
+                    } catch (Exception e) {
+                        Intent intent1 = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+                        startActivity(intent1);
+                    }
+                    break;
+                default:
+                    Intent intent1 = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+                    startActivity(intent1);
+                    break;
+            }
+
+        }
+        if (!PackUtils.isNotificationEnabled(MainActivity.this)) {
+            getNotificationPermission();
+        }
+    }
+
+    public void getNotificationPermission() {
+        //android 8.0引导
+        Intent intent = new Intent();
+        if (Build.VERSION.SDK_INT >= 26) {
+            intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            Uri uri = Uri.fromParts("package", getApplication().getPackageName(), null);
+            intent.setData(uri);
+        }
+
+        if (Build.VERSION.SDK_INT >= 21 && Build.VERSION.SDK_INT < 26) {
+            intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
+            intent.putExtra("app_package", getApplication().getPackageName());
+            intent.putExtra("app_uid", getApplication().getApplicationInfo().uid);
+        }
+        if (Build.VERSION.SDK_INT < 21) {
+            intent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
+            intent.setData(Uri.fromParts("package", getApplication().getPackageName(), null));
+        }
+        startActivity(intent);
+    }
+
+    /**
+     * 数字放大动画
+     */
+    public class NumAnim {
+        private Animator lastAnimator = null;
+
+        public void start(View view) {
+            if (lastAnimator != null) {
+                lastAnimator.removeAllListeners();
+                lastAnimator.end();
+                lastAnimator.cancel();
+            }
+            ObjectAnimator anim1 = ObjectAnimator.ofFloat(view, "scaleX", 1.3f, 1.0f);
+            ObjectAnimator anim2 = ObjectAnimator.ofFloat(view, "scaleY", 1.3f, 1.0f);
+            AnimatorSet animSet = new AnimatorSet();
+            lastAnimator = animSet;
+            animSet.setDuration(200);
+            animSet.setInterpolator(new OvershootInterpolator());
+            animSet.playTogether(anim1, anim2);
+            animSet.start();
+        }
+    }
+
+    private List<View> giftViewCollection = new ArrayList<View>();
+
+    /**
+     * 添加礼物view,(考虑垃圾回收)
+     */
+    public View addGiftView() {
+        View view = null;
+        if (giftViewCollection.size() <= 0) {
+            /*如果垃圾回收中没有view,则生成一个*/
+            view = LayoutInflater.from(this).inflate(R.layout.item_gift, null);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            lp.topMargin = 10;
+            view.setLayoutParams(lp);
+            llgiftcontent.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
+                @Override
+                public void onViewAttachedToWindow(View view) {
+                }
+
+                @Override
+                public void onViewDetachedFromWindow(View view) {
+                    giftViewCollection.add(view);
+                }
+            });
+        } else {
+            view = giftViewCollection.get(0);
+            giftViewCollection.remove(view);
+        }
+        return view;
+    }
+
+    /**
+     * 删除礼物view
+     */
+    public void removeGiftView(final int index) {
+        final View removeView = llgiftcontent.getChildAt(index);
+        outAnim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                llgiftcontent.removeViewAt(index);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+        });
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                removeView.startAnimation(outAnim);
+            }
+        });
+    }
+
+    /**
+     * 显示礼物的方法
+     */
+    public void showGift(String tag, int num) {
+        View giftView = llgiftcontent.findViewWithTag(tag);
+        if (giftView == null) {/*该用户不在礼物显示列表*/
+
+            if (llgiftcontent.getChildCount() > 2) {/*如果正在显示的礼物的个数超过两个，那么就移除最后一次更新时间比较长的*/
+                View giftView1 = llgiftcontent.getChildAt(0);
+                CustomRoundView picTv1 = (CustomRoundView) giftView1.findViewById(R.id.crvheadimage);
+                long lastTime1 = (Long) picTv1.getTag();
+                View giftView2 = llgiftcontent.getChildAt(1);
+                CustomRoundView picTv2 = (CustomRoundView) giftView2.findViewById(R.id.crvheadimage);
+                long lastTime2 = (Long) picTv2.getTag();
+                if (lastTime1 > lastTime2) {/*如果第二个View显示的时间比较长*/
+                    removeGiftView(1);
+                } else {/*如果第一个View显示的时间长*/
+                    removeGiftView(0);
+                }
+            }
+
+            giftView = addGiftView();/*获取礼物的View的布局*/
+            giftView.setTag(tag);/*设置view标识*/
+
+            CustomRoundView crvheadimage = (CustomRoundView) giftView.findViewById(R.id.crvheadimage);
+            final MagicTextView giftNum = (MagicTextView) giftView.findViewById(R.id.giftNum);/*找到数量控件*/
+
+            ImageView ivgift = (ImageView) giftView.findViewById(R.id.ivgift);
+
+
+            giftNum.setText("x" + num);/*设置礼物数量*/
+            crvheadimage.setTag(System.currentTimeMillis());/*设置时间标记*/
+            giftNum.setTag(num);/*给数量控件设置标记*/
+
+            llgiftcontent.addView(giftView);/*将礼物的View添加到礼物的ViewGroup中*/
+            llgiftcontent.invalidate();/*刷新该view*/
+            giftView.startAnimation(inAnim);/*开始执行显示礼物的动画*/
+            String url = "https://res.guagua.cn/pic//6897_9.gif";
+
+            GlideLoadUtils.getInstance().loadImageAsGif(MainActivity.this, tag, ivgift);
+            inAnim.setAnimationListener(new Animation.AnimationListener() {/*显示动画的监听*/
+                @Override
+                public void onAnimationStart(Animation animation) {
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    giftNumAnim.start(giftNum);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                }
+            });
+        } else {/*该用户在礼物显示列表*/
+            CustomRoundView crvheadimage = (CustomRoundView) giftView.findViewById(R.id.crvheadimage);/*找到头像控件*/
+            MagicTextView giftNum = (MagicTextView) giftView.findViewById(R.id.giftNum);/*找到数量控件*/
+//            ImageView ivgift = (ImageView) giftView.findViewById(R.id.ivgift);
+//            GlideLoadUtils.getInstance().loadImageAsGif(this,tag,ivgift);
+            int showNum = (Integer) giftNum.getTag() + num;
+            giftNum.setText("x" + showNum);
+            giftNum.setTag(showNum);
+            crvheadimage.setTag(System.currentTimeMillis());
+            giftNumAnim.start(giftNum);
+        }
+    }
+
+    /**
+     * 定时清除礼物
+     */
+    private void clearTiming() {
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                int count = llgiftcontent.getChildCount();
+                for (int i = 0; i < count; i++) {
+                    View view = llgiftcontent.getChildAt(i);
+                    CustomRoundView crvheadimage = (CustomRoundView) view.findViewById(R.id.crvheadimage);
+                    long nowtime = System.currentTimeMillis();
+                    long upTime = (Long) crvheadimage.getTag();
+                    if ((nowtime - upTime) >= 3000) {
+                        removeGiftView(i);
+                        return;
+                    }
+                }
+            }
+        };
+        timer = new Timer();
+        timer.schedule(task, 0, 3000);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        timer.cancel();
+    }
 }

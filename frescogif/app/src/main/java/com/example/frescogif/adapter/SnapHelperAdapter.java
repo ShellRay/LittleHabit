@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.frescogif.R;
+import com.example.frescogif.utils.GlideLoadUtils;
 
 import java.util.List;
 
@@ -46,11 +47,7 @@ public class SnapHelperAdapter extends RecyclerView.Adapter <RecyclerView.ViewHo
             String text = (String) mData.get(postion);
             tv_item.setText(text);
             String url = "https://res.guagua.cn/pic//6897_9.gif";
-            Glide.with(context)
-                    .load(url.toString())
-                    .asGif()
-                    .into(iv_gif);
-
+            GlideLoadUtils.getInstance().loadImageAsGif(context,url.toString(),iv_gif);
             if(postion % 2 == 0){
                 ObjectAnimator animator = ObjectAnimator.ofFloat(image_card_view,"rotation",0f,10f);
                 animator.setDuration(10);

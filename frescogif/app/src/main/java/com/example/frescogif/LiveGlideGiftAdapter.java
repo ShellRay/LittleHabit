@@ -12,24 +12,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.frescogif.bean.GiftDialogBean;
-import com.facebook.drawee.backends.pipeline.Fresco;
+import com.example.frescogif.utils.GlideLoadUtils;
 import com.facebook.drawee.controller.BaseControllerListener;
-import com.facebook.drawee.interfaces.DraweeController;
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.image.ImageInfo;
 
 import java.util.List;
 
 
 /**
- * Created by yuanwei on 17/3/20.
+ * Created
  */
-public class LiveGiftAdapter extends BaseAdapter {
+public class LiveGlideGiftAdapter extends BaseAdapter {
     private static final String TAG = "LiveGiftAdapter";
-    private Context context;
+    private  Context context;
     private int selected;
     private int clicknum;
     private static final String GIFT_IMG_TYPE_GIF = "_9.gif";
@@ -39,7 +38,7 @@ public class LiveGiftAdapter extends BaseAdapter {
     List<GiftDialogBean> datalist;
     LayoutInflater inflater;
 
-    public LiveGiftAdapter(Context context, List<GiftDialogBean> datalist, LayoutInflater inflater) {
+    public LiveGlideGiftAdapter(Context context, List<GiftDialogBean> datalist, LayoutInflater inflater) {
         this.selected = -1;
         this.clicknum = -1;
         this.datalist = datalist;
@@ -64,22 +63,14 @@ public class LiveGiftAdapter extends BaseAdapter {
             giftCount.setText("");
             view.setSelected(false);
 
-            SimpleDraweeView giftImage = (SimpleDraweeView) view.findViewById(R.id.giftImage);
+            ImageView giftImage = (ImageView) view.findViewById(R.id.giftImage);
             if (mGiftCtrHandler == null) {
                 mGiftCtrHandler = new Handler();
             }
 
-            final Animatable anim = giftImage.getController().getAnimatable();
-            if (anim != null) {
-                // 再次star 让动画回到第一帧，100毫秒后停止
-                anim.start();
-                mGiftCtrHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        anim.stop();
-                    }
-                }, 100);
-            }
+            String url = "https://res.guagua.cn/pic//6897_9.gif";
+            GlideLoadUtils.getInstance().loadImageAsBitmap(context,datalist.get(selected).path,giftImage);
+
         }
         this.selected = -1;
         clicknum = -1;
@@ -106,11 +97,10 @@ public class LiveGiftAdapter extends BaseAdapter {
             set.start();
 
             // 播放 gif
-            SimpleDraweeView giftImage = (SimpleDraweeView) view.findViewById(R.id.giftImage);
-            Animatable animatable = giftImage.getController().getAnimatable();
-            if (animatable != null && !animatable.isRunning()) {
-                giftImage.getController().getAnimatable().start();
-            }
+            ImageView giftImage = (ImageView) view.findViewById(R.id.giftImage);
+            String url = "https://res.guagua.cn/pic//6897_9.gif";
+            GlideLoadUtils.getInstance().loadImageAsGif(context,datalist.get(position).path,giftImage);
+
         }
 
     }
@@ -153,10 +143,10 @@ public class LiveGiftAdapter extends BaseAdapter {
 
         private void reloadGiftImg() {
             if (mViewHolder != null) {
-                // Log.e(TAG, "========= 标志 礼物类型");
+               // Log.e(TAG, "========= 标志 礼物类型");
                 mViewHolder.giftImage.setImageURI(Uri.parse(mGiftUrl));
                 // 记录该 资源无gif 格式的资源
-                // mViewHolder.giftImage.setTag(GIFT_IMG_TYPE_PNG);
+               // mViewHolder.giftImage.setTag(GIFT_IMG_TYPE_PNG);
                 mViewHolder.noGifRes = true;
             }
         }
@@ -170,57 +160,44 @@ public class LiveGiftAdapter extends BaseAdapter {
 
     private class ViewHolder {
 
-        public SimpleDraweeView giftImage;
+        public ImageView giftImage;
         public TextView giftPrice;
         public TextView giftLable;
         public TextView giftCount;
-        public boolean noGifRes;
+        public boolean  noGifRes;
 
     }
 
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder vieHolder;
+           ViewHolder vieHolder;
         if (convertView == null) {
             //Log.e(TAG,"=========>11111111");
-            convertView = inflater.inflate(R.layout.item_roomlivegift, null);
+            convertView = inflater.inflate(R.layout.item_room_glide_livegift, null);
             vieHolder = new ViewHolder();
-            vieHolder.giftImage = (SimpleDraweeView) convertView.findViewById(R.id.giftImage);
-            vieHolder.giftPrice = (TextView) convertView.findViewById(R.id.giftPrice);
-            vieHolder.giftLable = (TextView) convertView.findViewById(R.id.giftLable);
-            vieHolder.giftCount = (TextView) convertView.findViewById(R.id.giftCount);
+            vieHolder.giftImage = (ImageView) convertView.findViewById(R.id.giftImage);
+            vieHolder.giftPrice =   (TextView) convertView.findViewById(R.id.giftPrice);
+            vieHolder.giftLable =  (TextView) convertView.findViewById(R.id.giftLable);
+            vieHolder.giftCount =   (TextView) convertView.findViewById(R.id.giftCount);
             convertView.setTag(vieHolder);
-        } else {
+        }else{
             vieHolder = (ViewHolder) convertView.getTag();
         }
 
         String giftUrl = datalist.get(position).path;
 
-        //应该是drawble转uri 但是并不好使
-       /* Resources r =context.getResources();
-        Uri uri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://"
-                + r.getResourcePackageName(giftUrl) + "/"
-                + r.getResourceTypeName(giftUrl) + "/"
-                + r.getResourceEntryName(giftUrl));*/
+        String url = "https://res.guagua.cn/pic//6897_9.gif";
+        GlideLoadUtils.getInstance().loadImageAsBitmap(context,giftUrl,vieHolder.giftImage);
 
-//        Uri uri = Uri.parse(ANDROID_RESOURCE + context.getPackageName() + FOREWARD_SLASH + giftUrl);
-//        Uri uri = Uri.parse("android.resource://"+context.getPackageName()+"/"+R.drawable.a);
+//        }
 
-        String path = "asset:///c.gif";
-        DraweeController controller = Fresco.newDraweeControllerBuilder()
-                .setAutoPlayAnimations(false)
-                .setOldController(vieHolder.giftImage.getController())
-                .setUri(Uri.parse(path))
-                .build();
-        vieHolder.giftImage.setController(controller);
-
-
-        vieHolder.giftPrice.setText("" + datalist.get(position).giftNum);
+        vieHolder.giftPrice.setText( "" +datalist.get(position).giftNum);
         vieHolder.giftLable.setText("gif");
 
         FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) vieHolder.giftCount.getLayoutParams();
-        params.gravity = (position % 8 == 6 || position % 8 == 7) ? Gravity.LEFT : Gravity.RIGHT;
+//        个位数=1831%10  获取个位数
+        params.gravity = position % 10 == 8 || position % 10 == 9 ? Gravity.LEFT : Gravity.RIGHT;
         vieHolder.giftCount.setLayoutParams(params);
 
         String text = clicknum < 10 ? "x" + clicknum : "  x" + clicknum + "  ";

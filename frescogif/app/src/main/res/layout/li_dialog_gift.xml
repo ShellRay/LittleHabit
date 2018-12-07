@@ -25,19 +25,19 @@
                 android:clipToPadding="false"
                 android:background="@color/colorPrimary"
                 android:paddingTop="12dp"
-                library:gridColNumber="2"
-                library:gridRowNumber="1"
+                library:gridColNumber="5"
+                library:gridRowNumber="2"
                 library:gridSpaceX="0dp"
                 library:gridSpceY="0dp"/>
 
             <com.example.frescogif.PageMarkView
                 android:id="@+id/pageMarkView"
                 android:layout_width="wrap_content"
-                android:layout_height="20dp"
+                android:layout_height="10dp"
                 android:layout_gravity="center_horizontal"
                 library:pageImageNormal="@drawable/red_point"
                 library:pageImageSelect="@drawable/red_point"
-                library:pageImageSize="12dp"
+                library:pageImageSize="6dp"
                 library:pageSpaceSize="5dp"/>
 
         </LinearLayout>

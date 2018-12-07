@@ -8,13 +8,6 @@ import android.view.Gravity;
 import android.widget.Toast;
 
 /**
- * <p>Copyright: Copyright (c) 2016</p>
- *
- * <p>Company: 浙江齐聚科技有限公司<a href="www.guagua.cn">www.guagua.cn</a></p>
- *
- * @description 显示文字提示,文字提示的各种静态方法
- *
- * @author 薛文超
  * @modify
  * @version 1.0.0
  */

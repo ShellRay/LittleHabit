@@ -31,5 +31,11 @@
     <color name="colorWaveLow">#88ff60ab</color>
     <color name="colorWaveDeep">#ffff291e</color>
     <color name="colorgold">#ffdd00</color>
+    <color name="c_666666">#666666</color>
+
+    <drawable name="list_item_normal">#FFFFFFFF</drawable>
+    <drawable name="list_item_pressed">#FFE9E9E9</drawable>
+    <drawable name="color_normal_simple_list_bg">#00000000</drawable>
+    <drawable name="color_simple_list_bg">#cc000000</drawable>
 
 </resources>

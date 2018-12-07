@@ -29,6 +29,8 @@ import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.OrientationEventListener;
 import android.view.Surface;
+import android.view.View;
+import android.widget.ListView;
 import android.widget.Toast;
 
 
@@ -760,5 +762,36 @@ public class MediaUtils {
 			}
 		}
 		return data;
+	}
+
+	/**
+	 * 获取listitem最大宽度
+	 */
+	public static int getMaxWidth(Context context, ListView listView) {
+		int maxWidth = 100;
+
+		if (listView.getAdapter() == null) {
+			return maxWidth;
+		}
+
+		int count = listView.getAdapter().getCount();
+
+		View view = null;
+		for (int i = 0; i < count; i++) {
+
+			view = listView.getAdapter().getView(i, null, listView);
+			view.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+					View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+			if (view.getMeasuredWidth() > maxWidth) {
+				maxWidth = view.getMeasuredWidth() + 60;
+			}
+		}
+
+		int widthPixels = context.getResources().getDisplayMetrics().widthPixels;
+		if (widthPixels < maxWidth) {
+			return context.getResources().getDisplayMetrics().widthPixels;
+		}
+
+		return maxWidth;
 	}
 }

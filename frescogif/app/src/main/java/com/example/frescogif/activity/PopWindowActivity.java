@@ -2,14 +2,18 @@ package com.example.frescogif.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.frescogif.R;
 import com.example.frescogif.baseActvity.BaseActivity;
 import com.example.frescogif.utils.Utils;
+import com.example.frescogif.view.popwindow.ChoseGiftPopWindow;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -17,7 +21,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.locks.Lock;
 
 import static android.widget.RelativeLayout.ALIGN_PARENT_RIGHT;
 
@@ -30,6 +33,11 @@ public class PopWindowActivity extends BaseActivity{
     private TextView aView;
     private TextView bView;
     private TextView cView;
+    private ChoseGiftPopWindow choseGiftCountPopWindow;
+    private String[] chooseNames = new String[]{"一生一世", "我爱你", "长长久久", "三生有幸", "全心全意", "想你...", "一心一意"};
+    private String[] chooseCounts = new String[]{"1314", "520", "99", "33", "11", "3", "1"};
+    private Button showpop;
+    private boolean showA = true;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,21 +47,41 @@ public class PopWindowActivity extends BaseActivity{
         bView = (TextView) findViewById(R.id.b);
         cView = (TextView) findViewById(R.id.c);
 
+        showpop = (Button) findViewById(R.id.showpop);
+
     }
 
     public void moveview(View view){
 
-        RelativeLayout.LayoutParams aLayoutParams = (RelativeLayout.LayoutParams) aView.getLayoutParams();
-        aLayoutParams.width = Utils.convertDpToPixel(this,80);
-        aLayoutParams.height = Utils.convertDpToPixel(this,80);
-        aLayoutParams.addRule(ALIGN_PARENT_RIGHT);
-        aLayoutParams.addRule(RelativeLayout.ABOVE,R.id.c);
+        if(showA){
+            RelativeLayout.LayoutParams aLayoutParams = (RelativeLayout.LayoutParams) aView.getLayoutParams();
+            aLayoutParams.width = Utils.convertDpToPixel(this,80);
+            aLayoutParams.height = Utils.convertDpToPixel(this,80);
+            aLayoutParams.addRule(ALIGN_PARENT_RIGHT);
+            aLayoutParams.addRule(RelativeLayout.ABOVE,R.id.c);
 
-        aView.setLayoutParams(aLayoutParams);
-        RelativeLayout.LayoutParams bLayoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
-        bView.setLayoutParams(bLayoutParams);
+            aView.setLayoutParams(aLayoutParams);
+            RelativeLayout.LayoutParams bLayoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
+            bView.setLayoutParams(bLayoutParams);
 
-        aView.bringToFront();
+            aView.bringToFront();
+
+            showA = false;
+        }else {
+            RelativeLayout.LayoutParams aLayoutParams = (RelativeLayout.LayoutParams) bView.getLayoutParams();
+            aLayoutParams.width = Utils.convertDpToPixel(this,80);
+            aLayoutParams.height = Utils.convertDpToPixel(this,80);
+            aLayoutParams.addRule(ALIGN_PARENT_RIGHT);
+            aLayoutParams.addRule(RelativeLayout.ABOVE,R.id.c);
+
+            bView.setLayoutParams(aLayoutParams);
+            RelativeLayout.LayoutParams bLayoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
+            aView.setLayoutParams(bLayoutParams);
+
+            bView.bringToFront();
+            showA = true;
+        }
+
         cView.bringToFront();
     }
 
@@ -107,40 +135,66 @@ public class PopWindowActivity extends BaseActivity{
         list.add(3);
         list.add(4);
         list.add(5);
-        Thread thread1 = new Thread(){
+        final Iterator<Integer> iterator = list.iterator();
+        final Thread thread1 = new Thread(){
             public void run() {
-                Iterator<Integer> iterator = list.iterator();
 
-
+                synchronized(iterator) {
                     while (iterator.hasNext()) {
-                        synchronized(iterator) {
+
                             Integer integer = iterator.next();
-                            System.out.println(integer);
+//                            System.out.println(integer);
+                        Log.e("shell","thread1 + hashmapChange"+integer);
                             try {
-                                Thread.sleep(100);
+                                Thread.sleep(2*1000);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
+
+                }
+            }
+            };
+        };
+        final Thread thread2 = new Thread(){
+            public void run() {
+//                Iterator<Integer> iterator = list.iterator();
+                synchronized(iterator) {
+                    while (iterator.hasNext()) {
+
+                            Integer integer = iterator.next();
+//                            if (integer == 2) {
+//                                iterator.remove();
+//                            }
+                        Log.e("shell","thread2 + hashmapChange"+integer);
+
                     }
 
                 }
             };
         };
-        Thread thread2 = new Thread(){
-            public void run() {
-                Iterator<Integer> iterator = list.iterator();
-
-                    while (iterator.hasNext()) {
-                        synchronized(iterator) {
-                            Integer integer = iterator.next();
-                            if (integer == 2)
-                                iterator.remove();
-                        }
-                    }
-            };
-        };
         thread1.start();
         thread2.start();
+    }
+
+    public void showpop(View view){
+        if (choseGiftCountPopWindow == null) {
+            choseGiftCountPopWindow = new ChoseGiftPopWindow(this);
+            choseGiftCountPopWindow.bindData(chooseNames, chooseCounts, false);
+            choseGiftCountPopWindow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                }
+            });
+        }
+
+        if (!choseGiftCountPopWindow.isShowing()) {
+            choseGiftCountPopWindow.calculatePopWindowPos(showpop, showpop, 0);
+        } else {
+            choseGiftCountPopWindow.dismiss();
+        }
+
+
     }
 
     private class User {

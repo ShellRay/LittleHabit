@@ -46,29 +46,48 @@
 
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/click"
-        android:onClick="hashsetChange"
-        android:layout_alignParentBottom="true"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="hashset"/>
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/click1"
-        android:onClick="hashmapChange"
-        android:layout_alignParentBottom="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:text="hashmap"/>
+        <Button
+            android:id="@+id/click"
+            android:onClick="hashsetChange"
+            android:layout_alignParentBottom="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="hashset"/>
 
-    <Button
-        android:onClick="moveview"
-        android:layout_alignParentBottom="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:text="moveview"/>
+        <Button
+            android:id="@+id/click1"
+            android:onClick="hashmapChange"
+            android:layout_alignParentBottom="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="hashmap"/>
+
+        <Button
+            android:id="@+id/showpop"
+            android:onClick="showpop"
+            android:layout_alignParentBottom="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/click1"
+            android:text="showpop"/>
+
+        <Button
+            android:onClick="moveview"
+            android:layout_alignParentBottom="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="moveiew"/>
+
+    </LinearLayout>
+
+
 
 </RelativeLayout>

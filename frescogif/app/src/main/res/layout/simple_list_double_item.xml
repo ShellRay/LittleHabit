@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/simple_list_selector"
+    android:layout_width="match_parent" android:layout_height="34dp">
+
+    <TextView
+        android:id="@+id/tv_simple_text_count"
+        android:layout_width="match_parent"
+        android:layout_height="34dp"
+        android:gravity="left|center_vertical"
+        android:textSize="12sp"
+        android:text=""
+        android:layout_alignParentLeft="true"
+        android:textColor="@color/white"
+        android:singleLine="true"
+        />
+
+    <TextView
+        android:id="@+id/tv_simple_text_dec"
+        android:layout_width="match_parent"
+        android:layout_height="34dp"
+        android:gravity="right|center_vertical"
+        android:layout_alignParentRight="true"
+        android:textSize="12sp"
+        android:text=""
+        android:textColor="@color/white"
+        android:singleLine="true"
+        />
+
+    <View
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="#666666"
+        android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true"
+        />
+
+</RelativeLayout>

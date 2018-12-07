@@ -1,181 +1,204 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
     android:layout_marginTop="25dp"
     tools:context="com.example.frescogif.MainActivity">
 
-    <LinearLayout style="@style/weightLinear">
-
-    <Button
-        android:id="@+id/text1"
-        android:onClick="click"
-        android:text="Dialoggi"
-        style="@style/button_style" />
-
-    <Button
-        android:id="@+id/btn_bg"
-        style="@style/button_style"
-        android:text="Scrollvi"
-        android:layout_centerHorizontal="true"
-        />
-
-    <Button
-        android:id="@+id/btn_login"
-        style="@style/button_style"
-        android:text="slidmenue"
-        android:layout_centerHorizontal="true"/>
-    <Button
-        android:id="@+id/btn_recycle"
-        style="@style/button_style"
-        android:text="recycle"
-        android:layout_centerHorizontal="true"/>
-    <Button
-        android:id="@+id/btn_gif"
-        style="@style/button_style"
-        android:text="refresh"
-        />
-
-        <Button
-            android:id="@+id/btn_refresh_plant"
-            style="@style/button_style"
-            android:text="plant"
-            />
-
-        <Button
-            android:id="@+id/btn_loading"
-            style="@style/button_style"
-            android:text="loading"
-            />
-
-        <Button
-            android:id="@+id/btn_edit"
-            style="@style/button_style"
-            android:text="design5.0"
-            />
-        <Button
-            android:id="@+id/btn_layoutmanager"
-            style="@style/button_style"
-            android:text="laymana"
-            />
-    </LinearLayout>
-
     <LinearLayout
-        style="@style/weightLinear">
-
-        <Button
-            android:id="@+id/btn_photo"
-            android:text="photo-cus"
-            style="@style/button_style1" />
-
-        <Button
-            android:id="@+id/btn_app_bar"
-            style="@style/button_style1"
-            android:text="appbarlay"
-            android:layout_centerHorizontal="true"
-            />
-
-        <Button
-            android:id="@+id/btn_shape"
-            style="@style/button_style1"
-            android:text="shape-cus"
-            android:layout_centerHorizontal="true"/>
-        <Button
-            android:id="@+id/btn_pull"
-            style="@style/button_style1"
-            android:text="pull-scale"
-            android:layout_centerHorizontal="true"/>
-        <Button
-            style="@style/button_style1"
-            android:layout_height="200dp"
-
-            android:text="5"
-            />
-        <!--android:background="@drawable/ripple_drawable"-->
-        <Button
-            android:id="@+id/btn_solid"
-            style="@style/button_style1"
-            android:text="circle-solid"
-            android:layout_centerHorizontal="true"/>
-    </LinearLayout>
-<ScrollView
-    android:layout_width="0dp"
-    android:layout_height="match_parent"
-    android:layout_weight="1"
-    android:scrollbars="none"
-    android:scrollbarSize="30dp"
-    >
-    <LinearLayout
-        style="@style/weightLinear"
         android:layout_width="match_parent"
-        >
+        android:layout_height="match_parent"
+        android:layout_marginTop="25dp"
+        android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btn_I"
-            style="@style/button_style2"
-            android:background="@drawable/cirle_shape"
-            android:text="I"/>
+        <LinearLayout style="@style/weightLinear">
 
-        <Button
-            android:id="@+id/btn_emoji"
-            style="@style/button_style2"
-            android:layout_centerHorizontal="true"
-            android:text="have"
-            android:background="@drawable/cirle_shape"
-            />
+            <Button
+                android:id="@+id/text1"
+                style="@style/button_style"
+                android:onClick="click"
+                android:text="Dialoggi" />
 
-        <Button
-            android:id="@+id/btn_chat_gather"
-            style="@style/button_style2"
-            android:background="@drawable/cirle_shape"
-            android:text="save"
-            android:layout_centerHorizontal="true"/>
-        <Button
-            android:id="@+id/addMi"
-            style="@style/button_style2"
-            android:background="@drawable/cirle_shape"
-            android:text="your"
-            android:layout_centerHorizontal="true"/>
-        <Button
-            android:id="@+id/rce_stickiness"
-            style="@style/button_style2"
-            android:background="@drawable/cirle_shape"
-            android:text="ass"
-            />
-        <Button
-            android:id="@+id/loading_ani"
-            style="@style/button_style2"
-            android:background="@drawable/cirle_shape"
-            android:layout_centerHorizontal="true"
-            android:text="!"
-            />
-        <Button
-            android:id="@+id/city"
-            style="@style/button_style2"
-            android:background="@drawable/cirle_shape"
-            android:layout_centerHorizontal="true"
-            android:text="can"
-            />
-        <Button
-            style="@style/button_style2"
-            android:background="@drawable/cirle_shape"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/radiobutton"
-            android:text="I"
-            />
-        <Button
-            android:id="@+id/popWindow"
-            style="@style/button_style2"
-            android:background="@drawable/cirle_shape"
-            android:text="help"
-            />
-        <Button
-            style="@style/button_style2"
-            android:background="@drawable/cirle_shape"
-            android:text="you"
-            />
+            <Button
+                android:id="@+id/btn_bg"
+                style="@style/button_style"
+                android:layout_centerHorizontal="true"
+                android:text="Scrollvi" />
+
+            <Button
+                android:id="@+id/btn_login"
+                style="@style/button_style"
+                android:layout_centerHorizontal="true"
+                android:text="slidmenue" />
+
+            <Button
+                android:id="@+id/btn_recycle"
+                style="@style/button_style"
+                android:layout_centerHorizontal="true"
+                android:text="recycle" />
+
+            <Button
+                android:id="@+id/btn_gif"
+                style="@style/button_style"
+                android:text="refresh" />
+
+            <Button
+                android:id="@+id/btn_refresh_plant"
+                style="@style/button_style"
+                android:text="plant" />
+
+            <Button
+                android:id="@+id/btn_loading"
+                style="@style/button_style"
+                android:text="loading" />
+
+            <Button
+                android:id="@+id/btn_edit"
+                style="@style/button_style"
+                android:text="design5.0" />
+
+            <Button
+                android:id="@+id/btn_layoutmanager"
+                style="@style/button_style"
+                android:text="laymana" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/weightLinear">
+
+            <Button
+                android:id="@+id/btn_photo"
+                style="@style/button_style1"
+                android:text="photo-cus" />
+
+            <Button
+                android:id="@+id/btn_app_bar"
+                style="@style/button_style1"
+                android:layout_centerHorizontal="true"
+                android:text="appbarlay" />
+
+            <Button
+                android:id="@+id/btn_shape"
+                style="@style/button_style1"
+                android:layout_centerHorizontal="true"
+                android:text="shape-cus" />
+
+            <Button
+                android:id="@+id/btn_pull"
+                style="@style/button_style1"
+                android:layout_centerHorizontal="true"
+                android:text="pull-scale" />
+
+            <Button
+                style="@style/button_style1"
+                android:layout_height="200dp"
+
+                android:text="5" />
+            <!--android:background="@drawable/ripple_drawable"-->
+            <Button
+                android:id="@+id/btn_solid"
+                style="@style/button_style1"
+                android:layout_centerHorizontal="true"
+                android:text="circle-solid" />
+
+            <ImageView
+                android:id="@+id/ivImage"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitXY"
+                android:layout_marginTop="10dp"
+                android:adjustViewBounds="true"
+                />
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scrollbarSize="30dp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                style="@style/weightLinear"
+                android:layout_width="match_parent">
+
+                <Button
+                    android:id="@+id/btn_I"
+                    style="@style/button_style2"
+                    android:background="@drawable/cirle_shape"
+                    android:text="I" />
+
+                <Button
+                    android:id="@+id/btn_emoji"
+                    style="@style/button_style2"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/cirle_shape"
+                    android:text="have" />
+
+                <Button
+                    android:id="@+id/btn_chat_gather"
+                    style="@style/button_style2"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/cirle_shape"
+                    android:text="save" />
+
+                <Button
+                    android:id="@+id/addMi"
+                    style="@style/button_style2"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/cirle_shape"
+                    android:text="your" />
+
+                <Button
+                    android:id="@+id/rce_stickiness"
+                    style="@style/button_style2"
+                    android:background="@drawable/cirle_shape"
+                    android:text="ass" />
+
+                <Button
+                    android:id="@+id/loading_ani"
+                    style="@style/button_style2"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/cirle_shape"
+                    android:text="!" />
+
+                <Button
+                    android:id="@+id/city"
+                    style="@style/button_style2"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/cirle_shape"
+                    android:text="can" />
+
+                <Button
+                    android:id="@+id/radiobutton"
+                    style="@style/button_style2"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/cirle_shape"
+                    android:text="I" />
+
+                <Button
+                    android:id="@+id/popWindow"
+                    style="@style/button_style2"
+                    android:background="@drawable/cirle_shape"
+                    android:text="help" />
+
+                <Button
+                    android:id="@+id/lastview"
+                    style="@style/button_style2"
+                    android:background="@drawable/cirle_shape"
+                    android:text="you" />
+            </LinearLayout>
+        </ScrollView>
+
     </LinearLayout>
-</ScrollView>
-</LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llgiftcontent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:gravity="top"
+        android:layout_centerInParent="true"
+        android:orientation="vertical" />
+
+</RelativeLayout>

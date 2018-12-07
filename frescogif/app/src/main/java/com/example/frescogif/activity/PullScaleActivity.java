@@ -69,6 +69,18 @@ public class PullScaleActivity extends BaseActivity implements SoundPool.OnLoadC
         }
     }
 
+    public void makedir(View view){
+        String storePath  = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "aaa/photos/pho";
+        //先确定是否有这个文件夹防止保存的时候出错
+        File appDir  = new File(storePath);
+        if (!appDir .exists()) {
+            appDir .mkdirs();
+        }
+        if(appDir.exists()) {
+            Toast.makeText(this, "ok", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     public void playTwo(View view) throws IOException {
 
 //         sndPool.load( this , R.raw.complete , 1 ) ;

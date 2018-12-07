@@ -36,7 +36,9 @@ public class GiftDialog extends Dialog implements PageGridView.OnPageChangeListe
     private Button      rechargeBttn;//去充值
 
     private LayoutInflater  inflater;
-    private LiveGiftAdapter giftAdapter;
+//    private LiveGiftAdapter giftAdapter;
+    private LiveGlideGiftAdapter giftAdapter;
+    private OnGiftClickListener listener;
 
 
     public GiftDialog(Activity context,List<GiftDialogBean> list)
@@ -73,7 +75,11 @@ public class GiftDialog extends Dialog implements PageGridView.OnPageChangeListe
 
         sendGiftBttn.setOnClickListener(this);
 
-        giftAdapter = new LiveGiftAdapter(context,list, inflater);
+        //fresco
+//        giftAdapter = new LiveGiftAdapter(context,list, inflater);
+//        pageGridView.setAdapter(giftAdapter);
+
+        giftAdapter = new LiveGlideGiftAdapter(context,list, inflater);
         pageGridView.setAdapter(giftAdapter);
 
         int pageCount = pageGridView.getPageCount();
@@ -96,8 +102,8 @@ public class GiftDialog extends Dialog implements PageGridView.OnPageChangeListe
     {
 //        liveGiftList = giftlist;
 
-        giftAdapter = new LiveGiftAdapter(context, list, inflater);
-        pageGridView.setAdapter(giftAdapter);
+//        giftAdapter = new LiveGiftAdapter(context, list, inflater);
+//        pageGridView.setAdapter(giftAdapter);
 
         int pageCount = pageGridView.getPageCount();
         int visibility = pageCount > 1 ? View.VISIBLE : View.GONE;
@@ -115,7 +121,7 @@ public class GiftDialog extends Dialog implements PageGridView.OnPageChangeListe
         {
             int selected = giftAdapter.getSelected();
             View view = pageGridView.getItemView(selected);
-            giftAdapter.cancleSelect(view);
+            giftAdapter.cancleSelect(view, selected);
         }
     }
 
@@ -132,7 +138,7 @@ public class GiftDialog extends Dialog implements PageGridView.OnPageChangeListe
         {
             //如果position发生变化，先取消选中
             View child = pageGridView.getItemView(selected);
-            giftAdapter.cancleSelect(child);
+            giftAdapter.cancleSelect(child, selected);
         }
 
 //        Gift gift = list.get(position);
@@ -211,7 +217,7 @@ public class GiftDialog extends Dialog implements PageGridView.OnPageChangeListe
         {
             int selected = giftAdapter.getSelected();
             View view = pageGridView.getItemView(selected);
-            giftAdapter.cancleSelect(view);
+            giftAdapter.cancleSelect(view,selected);
         }
 
         super.dismiss();
@@ -233,19 +239,17 @@ public class GiftDialog extends Dialog implements PageGridView.OnPageChangeListe
                 if(positon == -1){
                     return;
                 }
-                --list.get(positon).giftNum ;
+
+                listener.onItemSelect(list.get(positon),giftAdapter.getClicknum());
+
+              /*
+               //以下是背包逻辑 固定礼物个数递减
+               --list.get(positon).giftNum ;
                 boolean b = list.get(positon).giftNum == 0;
                 if(b){
                     list.remove(list.get(positon));
                 }
 
-               /* for(int i = 0; i <list.size() ; i ++){
-                    if(i == positon){
-                        --list.get(i).giftNum ;
-                        if(list.get(i).giftNum == 0){
-                            list.remove(list.get(i));
-                        }
-                    }                }*/
                 giftAdapter.notifyDataSetChanged();
 //                giftAdapter.cancleSelect(pageGridView.getItemView(positon));
                 int pageCount = pageGridView.getPageCount();
@@ -254,12 +258,20 @@ public class GiftDialog extends Dialog implements PageGridView.OnPageChangeListe
                 pageMarkView.setPageInfo(pageCount, 0);
 
                 if(b){
-                    giftAdapter.cancleSelect(pageGridView.getItemView(positon));
+                    giftAdapter.cancleSelect(pageGridView.getItemView(positon), positon);
                 }else {
                     View child = pageGridView.getItemView(positon);
                     giftAdapter.updateSelect(child, positon, 1);
-                }
+                }*/
                 break;
         }
+    }
+
+    public void setOnClickListener(OnGiftClickListener listener){
+        this.listener = listener;
+    }
+
+    interface OnGiftClickListener{
+         void onItemSelect(GiftDialogBean bean ,int num) ;
     }
 }
