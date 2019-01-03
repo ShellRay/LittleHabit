@@ -8,8 +8,8 @@
         android:id="@+id/iv_login_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/ulquionna"
-        android:scaleType="fitXY" />
+        android:background="@drawable/moucher"
+        android:scaleType="fitCenter" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -101,7 +101,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="35dp"
                 android:layout_toRightOf="@+id/btn_login"
-                android:background="@color/colorAccent"
+                android:background="@drawable/button_cirle_shape"
                 android:layout_marginLeft="50dp"
                 android:text="register"
                 android:textColor="#fff" />
@@ -113,6 +113,7 @@
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:layout_marginLeft="50dp"
+            android:background="@drawable/button_cirle_shape"
             android:layout_marginTop="35dp"
             android:textColor="#fff" />
 

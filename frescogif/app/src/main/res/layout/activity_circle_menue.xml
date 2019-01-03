@@ -60,14 +60,14 @@
             android:id="@+id/main_myspace_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/icon_myspace"
+            android:src="@mipmap/icon_myspace1"
             circle:name="wordpress" />
 
         <com.example.frescogif.view.rotateMenu.CircleImageView
             android:id="@+id/main_myspace_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/icon_linkedin"
+            android:src="@mipmap/icon_linkedin1"
             circle:name="wordpress" />
 
     </com.example.frescogif.view.rotateMenu.CircleLayout>
@@ -81,7 +81,7 @@
         android:layout_marginBottom="50dp"
         android:gravity="center"
         android:textColor="@color/sienna"
-        android:background="@mipmap/item_up"
+        android:background="@color/green"
          />
 
     <Button
@@ -91,6 +91,6 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_margin="10dp"
-        android:background="@mipmap/icn_close"/>
+        android:background="@mipmap/icn_6"/>
 
 </RelativeLayout>

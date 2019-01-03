@@ -9,11 +9,13 @@ import java.io.Serializable;
 public class GiftDialogBean implements Serializable{
 
     public String path;
+    public String giftName;
     public int giftNum;
 
 
-    public GiftDialogBean(String path, int i) {
+    public GiftDialogBean(String path, int i ,String giftName) {
         this.path = path;
         this.giftNum = i;
+        this.giftName = giftName;
     }
 }

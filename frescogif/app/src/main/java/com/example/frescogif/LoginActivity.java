@@ -1,5 +1,6 @@
 package com.example.frescogif;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -171,6 +172,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
+    @SuppressLint("HandlerLeak")
     private Handler mHandler=new Handler()
     {
         @Override

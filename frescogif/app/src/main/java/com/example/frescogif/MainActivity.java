@@ -183,23 +183,23 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
 
 
-        list.add(new GiftDialogBean("http://res.img002.com/pic//7202_9.gif", 10));
-        list.add(new GiftDialogBean("http://res.img002.com/pic//7204_9.gif", 20));
-        list.add(new GiftDialogBean("http://res.img002.com/pic//7205_9.gif", 30));
-        list.add(new GiftDialogBean("http://res.img002.com/pic//7207_9.gif", 15));
-        list.add(new GiftDialogBean("http://res.img002.com/pic//6187_9.gif", 5));
-        list.add(new GiftDialogBean("http://res.img002.com/pic//6195_9.gif", 7));
-        list.add(new GiftDialogBean("http://res.img002.com/pic//6197_9.gif", 7));
-        list.add(new GiftDialogBean("http://res.img002.com/pic//6194_9.gif", 7));
-        list.add(new GiftDialogBean("http://res.img002.com/pic//9708.gif", 7));
-        list.add(new GiftDialogBean("http://res.img002.com/pic//8044.gif", 7));
-        list.add(new GiftDialogBean("http://res.img002.com/pic//8048.gif", 7));
-        list.add(new GiftDialogBean("http://res.img002.com/pic//8029.gif", 7));
-        list.add(new GiftDialogBean("http://res.img002.com/pic//8040.gif", 30));
-        list.add(new GiftDialogBean("http://res.img002.com/pic//8036.gif", 15));
-        list.add(new GiftDialogBean("http://res.img002.com/pic//9742.gif", 5));
-        list.add(new GiftDialogBean("http://res.img002.com/pic//9739.gif", 7));
-        list.add(new GiftDialogBean("http://res.img002.com/pic//9609.gif", 7));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//7202_9.gif", 10,"蜜桃"));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//7204_9.gif", 20,"口红"));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//7205_9.gif", 30,"轿车"));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//7207_9.gif", 15,"冰雕"));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//6187_9.gif", 5,"摇钱树"));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//6195_9.gif", 7,"内衣"));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//6197_9.gif", 7,"高跟鞋"));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//6194_9.gif", 7,"对影两人"));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//9708.gif", 7,"气球"));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//8044.gif", 7,"666"));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//8048.gif", 7,"冰淇淋"));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//8029.gif", 7,"啤酒"));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//8040.gif", 30,"蜜桃"));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//8036.gif", 15,"王冠"));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//9742.gif", 5,"汽车"));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//9739.gif", 7,"蜜桃"));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//9609.gif", 7,"天使"));
 
 
         giftDialog = new GiftDialog(this, list);
@@ -211,13 +211,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             }
 
         });
-      /*
-       这个是可以使用的
-       String url = "https://res.guagua.cn/pic//6897_9.gif";
-            Glide.with(MainActivity.this)
-                .load(url.toString())
-                .asGif()
-                .into(iv_gif);*/
 
         /*
         //进入设置界面

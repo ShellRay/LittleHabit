@@ -65,7 +65,9 @@ public class CircleSolidActivity extends BaseActivity {
 
 
     public void onClick(View v) {
-        initAnim();
+        if(setLast == null) {
+            initAnim();
+        }
 //        initBuAnim();
     }
 
@@ -165,10 +167,10 @@ public class CircleSolidActivity extends BaseActivity {
         alpha.setDuration(2000);
         alpha.setRepeatMode(ObjectAnimator.REVERSE);
 
-        set.play(scaleY).with(scaleX).with(alphaShow);
-        set.play(scaleY).before(alpha);
+        setLast.play(scaleY).with(scaleX).with(alphaShow);
+        setLast.play(scaleY).before(alpha);
 
-        set.addListener(new Animator.AnimatorListener() {
+        setLast.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
                 Log.e("shell", "onAnimationStart 一次");
@@ -193,7 +195,7 @@ public class CircleSolidActivity extends BaseActivity {
                 Log.e("shell", "onAnimationRepeat 一次");
             }
         });
-        set.start(); //开始播放动画
+        setLast.start(); //开始播放动画
     }
 
     @Override

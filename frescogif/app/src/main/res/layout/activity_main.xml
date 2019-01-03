@@ -91,8 +91,7 @@
 
             <Button
                 style="@style/button_style1"
-                android:layout_height="200dp"
-
+                android:layout_height="150dp"
                 android:text="5" />
             <!--android:background="@drawable/ripple_drawable"-->
             <Button

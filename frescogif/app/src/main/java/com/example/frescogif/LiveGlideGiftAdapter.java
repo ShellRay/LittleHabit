@@ -193,7 +193,7 @@ public class LiveGlideGiftAdapter extends BaseAdapter {
 //        }
 
         vieHolder.giftPrice.setText( "" +datalist.get(position).giftNum);
-        vieHolder.giftLable.setText("gif");
+        vieHolder.giftLable.setText(datalist.get(position).giftName);
 
         FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) vieHolder.giftCount.getLayoutParams();
 //        个位数=1831%10  获取个位数

@@ -49,7 +49,7 @@ public class SplashActivity extends AppCompatActivity {
         // start animation
         new Titanic().start(my_text);
 
-        String path1 = "asset:///b.gif";
+        String path1 = "asset:///mw.gif";
         DraweeController controller = Fresco.newDraweeControllerBuilder()
                 .setAutoPlayAnimations(true)
                 .setOldController(splashImage.getController())
