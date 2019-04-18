@@ -1,16 +1,13 @@
 package com.example.frescogif;
 
-import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
-import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.PixelFormat;
 import android.net.Uri;
 import android.os.Build;
@@ -19,13 +16,11 @@ import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationManagerCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -34,7 +29,6 @@ import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.example.frescogif.activity.AddSecretActivity;
@@ -55,6 +49,7 @@ import com.example.frescogif.activity.PullToRefreshActivity;
 import com.example.frescogif.activity.PullToRefreshPlantActivity;
 import com.example.frescogif.activity.RadioButtonActivity;
 import com.example.frescogif.activity.RecycleViewActivity;
+import com.example.frescogif.activity.ScrollVerfityActivity;
 import com.example.frescogif.activity.ShapeActivity;
 import com.example.frescogif.activity.SlidMenuActivity;
 import com.example.frescogif.activity.SomeAnimationActivity;
@@ -63,7 +58,6 @@ import com.example.frescogif.baseActvity.BaseActivity;
 import com.example.frescogif.bean.GiftDialogBean;
 import com.example.frescogif.utils.GlideLoadUtils;
 import com.example.frescogif.utils.PackUtils;
-import com.example.frescogif.utils.PermissionUtils;
 import com.example.frescogif.utils.ToastUtils;
 import com.example.frescogif.utils.Utils;
 import com.example.frescogif.view.GiftAnimView.CustomRoundView;
@@ -106,11 +100,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private Button radiobutton;
     private Button popWindow;
     private Button lastview;
+    private Button xunfei;
     private LinearLayout llgiftcontent;
     private TranslateAnimation inAnim;
     private TranslateAnimation outAnim;
     private NumAnim giftNumAnim;
     private Timer timer;
+    private Button btnScrollVerify;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -142,8 +138,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         radiobutton = (Button) findViewById(R.id.radiobutton);
         popWindow = (Button) findViewById(R.id.popWindow);
         lastview = (Button) findViewById(R.id.lastview);
-
+        xunfei = (Button) findViewById(R.id.xunfei);
         llgiftcontent = (LinearLayout) findViewById(R.id.llgiftcontent);
+        btnScrollVerify = (Button) findViewById(R.id.btn_scroll_verify);
 
         btn_bg.setOnClickListener(this);
         btn_login.setOnClickListener(this);
@@ -168,6 +165,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         radiobutton.setOnClickListener(this);
         popWindow.setOnClickListener(this);
         lastview.setOnClickListener(this);
+        xunfei.setOnClickListener(this);
+        btnScrollVerify.setOnClickListener(this);
 
         inAnim = (TranslateAnimation) AnimationUtils.loadAnimation(this, R.anim.gift_in);
         outAnim = (TranslateAnimation) AnimationUtils.loadAnimation(this, R.anim.gift_out);
@@ -355,7 +354,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.lastview:
                 startActivity(new Intent(this, HelpYourSelfActivity.class));
                 break;
-
+            case R.id.xunfei:
+//                startActivity(new Intent(this, KDSpeechActivity.class));
+                break;
+            case R.id.btn_scroll_verify:
+                startActivity(new Intent(this, ScrollVerfityActivity.class));
+                break;
 
         }
     }

@@ -143,4 +143,27 @@
             <enum name="round" value="2" />
         </attr>
     </declare-styleable>
+
+    <style name="dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.6</item>
+    </style>
+
+    <style name="textStyle">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="perference_set_activity">
+    <item name="android:windowBackground">@drawable/button_cirle_shape</item>  <!-- 窗口背景 -->
+    <item name="android:focusable">false</item>
+    <item name="android:textColor">#ff000000</item> <!-- 字体颜色 -->
+    <item name="android:colorBackgroundCacheHint">#00000000</item> <!-- 背景缓存色透明，避免拖动全黑 -->
+    <item name="android:windowNoTitle">false</item> <!-- 是否有标题 -->
+    </style>
 </resources>

@@ -12,7 +12,6 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.Window;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
@@ -25,39 +24,43 @@ import android.widget.TextView;
 import com.example.frescogif.activity.RotateMenuActivity;
 import com.example.frescogif.view.ProgressButton;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by GG on 2017/5/16.
  */
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText etUserName;
-    private EditText etPassword;
-    private ProgressButton btLogin;
-    private TextView tvAnimUsername;
-    private TextView tvAnimPsw;
+    @BindView(R.id.iv_login_bg)
+    ImageView ivLoginBg;
+    @BindView(R.id.et_username)
+    EditText etUserName;
+    @BindView(R.id.tv_anim_username)
+    TextView tvAnimUsername;
+    @BindView(R.id.et_pwd)
+    EditText etPassword;
+    @BindView(R.id.tv_anim_pwd)
+    TextView tvAnimPsw;
+    @BindView(R.id.btn_register)
+    Button btnRegister;
+    @BindView(R.id.btn_login)
+    ProgressButton btLogin;
     private boolean tagPhone = true;
     private boolean tagPsw = true;
-    private ImageView ivLoginBg;
     private ScaleAnimation scaleAnimation1;
-    private Button btnRegister;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        etUserName = (EditText) findViewById(R.id.et_username);
-        etPassword = (EditText) findViewById(R.id.et_pwd);
-        btLogin = (ProgressButton) findViewById(R.id.btn_login);
-        btnRegister = (Button) findViewById(R.id.btn_register);
-        tvAnimUsername = (TextView) findViewById(R.id.tv_anim_username);
-        tvAnimPsw = (TextView) findViewById(R.id.tv_anim_pwd);
-        ivLoginBg = (ImageView) findViewById(R.id.iv_login_bg);
+        ButterKnife.bind(this);
         initView();
         initAnim();
     }
 
     private void initAnim() {
-        if(ivLoginBg.getVisibility() == View.VISIBLE){
+        if (ivLoginBg.getVisibility() == View.VISIBLE) {
             scaleAnimation1 = new ScaleAnimation(1.0f, 1.3f, 1.0f, 1.3f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
             scaleAnimation1.setRepeatMode(Animation.REVERSE);
             scaleAnimation1.setRepeatCount(-1);
@@ -71,7 +74,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         btLogin.setBgColor(getResources().getColor(R.color.colorAccent));
         btLogin.setTextColor(Color.WHITE);
         btLogin.setProColor(Color.WHITE);
-        btLogin.setButtonText("Login in");
+        btLogin.setButtonText("LG");
 
         etUserName.addTextChangedListener(new TextWatcher() {
 
@@ -158,23 +161,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_login:
                 btLogin.startAnim();
-                Message m=mHandler.obtainMessage();
-                mHandler.sendMessageDelayed(m,1500);
+                Message m = mHandler.obtainMessage();
+                mHandler.sendMessageDelayed(m, 1500);
 
                 break;
             case R.id.btn_register:
-                startActivity(new Intent(this,RotateMenuActivity.class));
+                startActivity(new Intent(this, RotateMenuActivity.class));
                 break;
         }
 
     }
 
     @SuppressLint("HandlerLeak")
-    private Handler mHandler=new Handler()
-    {
+    private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -182,7 +184,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             btLogin.stopAnim(new ProgressButton.OnStopAnim() {
                 @Override
                 public void Stop() {
-                    startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     finish();
                 }
             });

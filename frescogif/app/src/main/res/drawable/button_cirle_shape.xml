@@ -3,7 +3,7 @@
     android:shape="rectangle">
     <!--四角都是圆角的button背景-->
     <gradient
-        android:startColor="@color/colorAccent"
+        android:startColor="@color/green"
         android:endColor="@color/colorAccent"
         android:angle="-90"/>
 

@@ -8,7 +8,7 @@
         android:id="@+id/iv_login_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/moucher"
+        android:background="@drawable/login_bg"
         android:scaleType="fitCenter" />
 
     <RelativeLayout
@@ -96,23 +96,23 @@
             <Button
                 android:id="@+id/btn_register"
                 android:layout_below="@+id/et_pwd"
-                android:layout_width="100dp"
+                android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="35dp"
-                android:layout_toRightOf="@+id/btn_login"
+                android:layout_alignParentRight="true"
                 android:background="@drawable/button_cirle_shape"
-                android:layout_marginLeft="50dp"
-                android:text="register"
+                android:layout_marginRight="90dp"
+                android:text="re"
                 android:textColor="#fff" />
 
 
         <com.example.frescogif.view.ProgressButton
             android:id="@+id/btn_login"
             android:layout_below="@+id/et_pwd"
-            android:layout_width="100dp"
+            android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="90dp"
             android:background="@drawable/button_cirle_shape"
             android:layout_marginTop="35dp"
             android:textColor="#fff" />
