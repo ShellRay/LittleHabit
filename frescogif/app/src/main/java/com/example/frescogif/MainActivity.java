@@ -32,6 +32,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.frescogif.activity.AddSecretActivity;
+import com.example.frescogif.activity.AnimationActivity;
 import com.example.frescogif.activity.AppBarActivity;
 import com.example.frescogif.activity.ChatGatherActivity;
 import com.example.frescogif.activity.CircleSolidActivity;
@@ -355,7 +356,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(new Intent(this, HelpYourSelfActivity.class));
                 break;
             case R.id.xunfei:
-//                startActivity(new Intent(this, KDSpeechActivity.class));
+                startActivity(new Intent(this, AnimationActivity.class));
                 break;
             case R.id.btn_scroll_verify:
                 startActivity(new Intent(this, ScrollVerfityActivity.class));

@@ -4,7 +4,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.text.Layout;
 import android.text.Spannable;
@@ -34,6 +33,7 @@ import java.io.InputStream;
 import java.net.URL;
 
 import kotlin.Unit;
+import kotlin.jvm.functions.Function0;
 import kotlin.jvm.functions.Function1;
 import kotlin.jvm.functions.Function2;
 import okhttp3.OkHttpClient;
@@ -58,30 +58,15 @@ public class HelpYourSelfActivity extends BaseActivity {
 
         loadAnimation();
 
-        /*
-        SVGAParser parser = new SVGAParser(this);
-        parser.parse("EmptyState.svga", new SVGAParser.ParseCompletion() {
-            @Override
-            public void onComplete(SVGAVideoEntity svgaVideoEntity) {
-                SVGADrawable drawable = new SVGADrawable(svgaVideoEntity, requestDynamicItemWithSpannableText());
-                scga.setImageDrawable(drawable);
-                scga.startAnimation();
-            }
-
-            @Override
-            public void onError() {
-                Log.e("shell", "asset加载失败");
-            }
-        });*/
-
         ResourceTask.intialize();
     }
 
     private void loadAnimation() {
-        SVGAParser parser = new SVGAParser(this);
-//        resetDownloader(parser);
+        final SVGAParser parser = new SVGAParser(this);
+
         try {
-            parser.parse(new URL("https://github.com/yyued/SVGA-Samples/blob/master/kingset.svga?raw=true"), new SVGAParser.ParseCompletion() {
+            URL url = new URL("https://github.com/yyued/SVGA-Samples/blob/master/kingset.svga?raw=true");
+            parser.decodeFromURL(url, new SVGAParser.ParseCompletion() {
                 @Override
                 public void onComplete(@NotNull SVGAVideoEntity videoItem) {
                     SVGADrawable drawable = new SVGADrawable(videoItem, requestDynamicItemWithSpannableText("Pony 送了一打风油精给主播"));
@@ -96,8 +81,6 @@ public class HelpYourSelfActivity extends BaseActivity {
             });
         } catch (Exception e) {
             System.out.print(true);
-            SystemClock.sleep(3000);
-            loadAnimation();
         }
     }
 
@@ -114,7 +97,7 @@ public class HelpYourSelfActivity extends BaseActivity {
         TextPaint textPaint = new TextPaint();
         textPaint.setColor(Color.GREEN);
         textPaint.setTextSize(28);
-        /*dynamicEntity.setDynamicText(new StaticLayout(
+        dynamicEntity.setDynamicText(new StaticLayout(
                 spannableStringBuilder,
                 0,
                 spannableStringBuilder.length(),
@@ -124,7 +107,7 @@ public class HelpYourSelfActivity extends BaseActivity {
                 1.0f,//间隔
                 0.0f,
                 false
-        ), "banner");*/
+        ), "banner");
         dynamicEntity.setDynamicImage("http://res.img002.com/pic//7202_9.gif", "99");
         dynamicEntity.setDynamicText(msg, textPaint,"banner");
 
@@ -142,36 +125,8 @@ public class HelpYourSelfActivity extends BaseActivity {
         return dynamicEntity;
     }
 
-    /**
-     * 设置下载器，这是一个可选的配置项。
-     *
-     * @param parser
-     */
-    private void resetDownloader(SVGAParser parser) {
-        parser.setFileDownloader(new SVGAParser.FileDownloader() {
-            @Override
-            public void resume(final URL url, final Function1<? super InputStream, Unit> complete, final Function1<? super Exception, Unit> failure) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        OkHttpClient client = new OkHttpClient();
-                        Request request = new Request.Builder().url(url).get().build();
-                        try {
-                            Response response = client.newCall(request).execute();
-                            complete.invoke(response.body().byteStream());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            failure.invoke(e);
-                        }
-                    }
-                }).start();
-            }
-        });
-    }
-
     public void onOpenFile(View view){
-        SVGAParser parser = new SVGAParser(this);
-
+        final SVGAParser parser = new SVGAParser(this);
         String  filePath= ResourceTask.getInstance().getFilePath("1");
         File file = new File(filePath);
         if(!file.exists()){
@@ -182,7 +137,7 @@ public class HelpYourSelfActivity extends BaseActivity {
         try {
             is = new FileInputStream(file);
 
-            parser.parse(is, "banner", new SVGAParser.ParseCompletion() {
+            parser.decodeFromInputStream(is, "banner", new SVGAParser.ParseCompletion() {
                 @Override
                 public void onComplete(@NotNull SVGAVideoEntity svgaVideoEntity) {
                     SVGADrawable drawable = new SVGADrawable(svgaVideoEntity, requestDynamicItemWithSpannableText("Pony 送了一打风油精给主播"));

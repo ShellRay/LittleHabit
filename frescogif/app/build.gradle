@@ -50,7 +50,7 @@ dependencies {
     //查看视图UItools
     debugCompile 'me.ele:uetool:1.0.15'
     compile 'com.yanzhenjie:permission:2.0.0-rc11'
-    api 'com.github.yyued:SVGAPlayer-Android:2.3.0'
+    implementation 'com.github.yyued:SVGAPlayer-Android:2.4.0'
     implementation 'com.squareup.okhttp3:okhttp:3.4.1'
 
     implementation "com.jakewharton:butterknife:8.8.1"

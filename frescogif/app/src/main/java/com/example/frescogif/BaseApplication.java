@@ -1,12 +1,14 @@
 package com.example.frescogif;
 
 import android.app.Application;
+import android.net.http.HttpResponseCache;
 import android.os.Environment;
 
 import com.bumptech.glide.Glide;
 import com.example.frescogif.utils.GlideLoadUtils;
 
 import java.io.File;
+import java.io.IOException;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
@@ -26,5 +28,12 @@ public class BaseApplication extends Application{
 //                .addCustomStyle(TextField.class, R.attr.textFieldStyle)
                 .build()
         );
+
+        try {
+            File cacheDir = new File(Environment.getExternalStorageDirectory() + "/frescogif/cache", "http");
+            HttpResponseCache.install(cacheDir, 1024 * 1024 * 128);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

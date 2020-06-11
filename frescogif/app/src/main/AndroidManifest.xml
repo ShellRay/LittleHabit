@@ -257,6 +257,11 @@
             android:theme="@style/Theme.AppCompat.Light"
             android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name=".activity.AnimationActivity"
+            android:theme="@style/Theme.AppCompat.Light"
+            android:screenOrientation="portrait">
+        </activity>
 
     </application>
 
