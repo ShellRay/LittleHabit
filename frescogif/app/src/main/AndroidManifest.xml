@@ -263,6 +263,12 @@
             android:screenOrientation="portrait">
         </activity>
 
+        <activity
+            android:name=".activity.SavePicActivity"
+            android:theme="@style/Theme.AppCompat.Light"
+            android:screenOrientation="portrait">
+        </activity>
+
     </application>
 
 </manifest>
