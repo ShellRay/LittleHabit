@@ -75,6 +75,9 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static android.app.Notification.EXTRA_CHANNEL_ID;
+import static android.provider.Settings.EXTRA_APP_PACKAGE;
+
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private GiftDialog giftDialog;
@@ -108,6 +111,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private NumAnim giftNumAnim;
     private Timer timer;
     private Button btnScrollVerify;
+    private Button constrict;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -142,6 +146,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         xunfei = (Button) findViewById(R.id.xunfei);
         llgiftcontent = (LinearLayout) findViewById(R.id.llgiftcontent);
         btnScrollVerify = (Button) findViewById(R.id.btn_scroll_verify);
+        constrict = (Button) findViewById(R.id.constrict);
 
         btn_bg.setOnClickListener(this);
         btn_login.setOnClickListener(this);
@@ -168,6 +173,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         lastview.setOnClickListener(this);
         xunfei.setOnClickListener(this);
         btnScrollVerify.setOnClickListener(this);
+        constrict.setOnClickListener(this);
 
         inAnim = (TranslateAnimation) AnimationUtils.loadAnimation(this, R.anim.gift_in);
         outAnim = (TranslateAnimation) AnimationUtils.loadAnimation(this, R.anim.gift_out);
@@ -182,24 +188,23 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         int path4 = R.drawable.e;//"asset:///e.gif";
 
 
-
-        list.add(new GiftDialogBean("http://res.img002.com/pic//7202_9.gif", 10,"蜜桃"));
-        list.add(new GiftDialogBean("http://res.img002.com/pic//7204_9.gif", 20,"口红"));
-        list.add(new GiftDialogBean("http://res.img002.com/pic//7205_9.gif", 30,"轿车"));
-        list.add(new GiftDialogBean("http://res.img002.com/pic//7207_9.gif", 15,"冰雕"));
-        list.add(new GiftDialogBean("http://res.img002.com/pic//6187_9.gif", 5,"摇钱树"));
-        list.add(new GiftDialogBean("http://res.img002.com/pic//6195_9.gif", 7,"内衣"));
-        list.add(new GiftDialogBean("http://res.img002.com/pic//6197_9.gif", 7,"高跟鞋"));
-        list.add(new GiftDialogBean("http://res.img002.com/pic//6194_9.gif", 7,"对影两人"));
-        list.add(new GiftDialogBean("http://res.img002.com/pic//9708.gif", 7,"气球"));
-        list.add(new GiftDialogBean("http://res.img002.com/pic//8044.gif", 7,"666"));
-        list.add(new GiftDialogBean("http://res.img002.com/pic//8048.gif", 7,"冰淇淋"));
-        list.add(new GiftDialogBean("http://res.img002.com/pic//8029.gif", 7,"啤酒"));
-        list.add(new GiftDialogBean("http://res.img002.com/pic//8040.gif", 30,"蜜桃"));
-        list.add(new GiftDialogBean("http://res.img002.com/pic//8036.gif", 15,"王冠"));
-        list.add(new GiftDialogBean("http://res.img002.com/pic//9742.gif", 5,"汽车"));
-        list.add(new GiftDialogBean("http://res.img002.com/pic//9739.gif", 7,"蜜桃"));
-        list.add(new GiftDialogBean("http://res.img002.com/pic//9609.gif", 7,"天使"));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//7202_9.gif", 10, "蜜桃"));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//7204_9.gif", 20, "口红"));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//7205_9.gif", 30, "轿车"));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//7207_9.gif", 15, "冰雕"));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//6187_9.gif", 5, "摇钱树"));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//6195_9.gif", 7, "内衣"));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//6197_9.gif", 7, "高跟鞋"));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//6194_9.gif", 7, "对影两人"));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//9708.gif", 7, "气球"));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//8044.gif", 7, "666"));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//8048.gif", 7, "冰淇淋"));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//8029.gif", 7, "啤酒"));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//8040.gif", 30, "蜜桃"));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//8036.gif", 15, "王冠"));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//9742.gif", 5, "汽车"));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//9739.gif", 7, "蜜桃"));
+        list.add(new GiftDialogBean("http://res.img002.com/pic//9609.gif", 7, "天使"));
 
 
         giftDialog = new GiftDialog(this, list);
@@ -226,7 +231,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
         startActivity(localIntent);*/
 
-        new Handler().postDelayed(new Runnable() {
+       /* new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 NotificationManagerCompat manager = NotificationManagerCompat.from(MainActivity.this);
@@ -236,7 +241,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 }
             }
         }, 5000);
-
+*/
         if (Build.VERSION.SDK_INT >= 23) {
             AndPermission.with(this)
                     .runtime()
@@ -360,6 +365,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.btn_scroll_verify:
                 startActivity(new Intent(this, ScrollVerfityActivity.class));
+                break;
+            case R.id.constrict:
+//                startActivity(new Intent(this, ScrollVerfityActivity.class));
                 break;
 
         }
@@ -533,23 +541,35 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     public void getNotificationPermission() {
         //android 8.0引导
-        Intent intent = new Intent();
-        if (Build.VERSION.SDK_INT >= 26) {
+        try {
+
+            Intent intent = new Intent();
+            if (Build.VERSION.SDK_INT >= 26) {
+                intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                //这种方案适用于 API 26, 即8.0（含8.0）以上可以用
+                intent.putExtra(EXTRA_APP_PACKAGE, getApplication().getPackageName());
+                intent.putExtra(EXTRA_CHANNEL_ID, getApplication().getApplicationInfo().uid);
+            }
+
+            if (Build.VERSION.SDK_INT >= 21 && Build.VERSION.SDK_INT < 26) {
+                intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
+                intent.putExtra("app_package", getApplication().getPackageName());
+                intent.putExtra("app_uid", getApplication().getApplicationInfo().uid);
+            }
+            if (Build.VERSION.SDK_INT < 21) {
+                intent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
+                intent.setData(Uri.fromParts("package", getApplication().getPackageName(), null));
+            }
+            startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+            // 出现异常则跳转到应用设置界面：锤子坚果3——OC105 API25
+            Intent intent = new Intent();
             intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
             Uri uri = Uri.fromParts("package", getApplication().getPackageName(), null);
             intent.setData(uri);
+            startActivity(intent);
         }
-
-        if (Build.VERSION.SDK_INT >= 21 && Build.VERSION.SDK_INT < 26) {
-            intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
-            intent.putExtra("app_package", getApplication().getPackageName());
-            intent.putExtra("app_uid", getApplication().getApplicationInfo().uid);
-        }
-        if (Build.VERSION.SDK_INT < 21) {
-            intent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
-            intent.setData(Uri.fromParts("package", getApplication().getPackageName(), null));
-        }
-        startActivity(intent);
     }
 
     /**
