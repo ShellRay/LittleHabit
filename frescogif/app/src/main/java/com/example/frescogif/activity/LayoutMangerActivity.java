@@ -11,6 +11,7 @@ import android.widget.RadioGroup;
 import com.example.frescogif.R;
 import com.example.frescogif.adapter.SignAdapter;
 import com.example.frescogif.baseActvity.BaseActivity;
+import com.example.frescogif.view.RecycleViewForAnimation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +22,8 @@ import java.util.List;
 public class LayoutMangerActivity extends BaseActivity{
 
     private RadioGroup rg_btn;
-    private RecyclerView rv_recycle;
-    private int type;
+    private RecycleViewForAnimation rv_recycle;
+    private int type = 2;
     private SignAdapter adapter;
     private GridLayoutManager layoutManager;
     private int allHeight;
@@ -36,7 +37,7 @@ public class LayoutMangerActivity extends BaseActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_layout_manager);
         rg_btn = (RadioGroup) findViewById(R.id.rg_btn);
-        rv_recycle = (RecyclerView) findViewById(R.id.rv_recycle);
+        rv_recycle = (RecycleViewForAnimation) findViewById(R.id.rv_recycle);
 
         list = new ArrayList();
         for(int x =0;x < 10;x++){
@@ -58,10 +59,11 @@ public class LayoutMangerActivity extends BaseActivity{
     }
 
     private void initData() {
-        rg_btn.check(R.id.rn_normal);
+        rg_btn.check(R.id.rn_three);
         rg_btn.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+                rv_recycle.scheduleLayoutAnimation();
                 switch (checkedId){
                     case R.id.rn_normal:
                         type = 0;
@@ -81,8 +83,8 @@ public class LayoutMangerActivity extends BaseActivity{
     }
     int spanCount = 6;
     private void initView() {
-
-        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+        //此方法会使recycleview的layoutannimation动画不运行
+    layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
 

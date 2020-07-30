@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff" >
+    android:background="#fff">
 
     <ImageView
         android:id="@+id/iv_login_bg"
@@ -13,108 +13,108 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="90dp"
-        >
+        android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/et_username"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginTop="60dp"
-        android:paddingLeft="20dp"
-        android:background="#fff"
-        android:gravity="center_vertical"
-        android:hint="账号输入"
-        android:inputType="number"
-        android:textColor="#000000"
-        android:textColorHint="#cccccc"
-        android:textSize="16sp" />
+        <EditText
+            android:id="@+id/et_username"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="150dp"
+            android:background="#fff"
+            android:gravity="center_vertical"
+            android:hint="账号输入"
+            android:inputType="number"
+            android:paddingLeft="20dp"
+            android:textColor="#000000"
+            android:textColorHint="#cccccc"
+            android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/tv_anim_username"
-        android:layout_width="wrap_content"
-        android:layout_height="45dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginTop="50dp"
-        android:gravity="center_vertical"
-        android:text="输入账号"
-        android:textColor="#cccccc"
-        android:textSize="16sp"
-        android:visibility="gone" />
+        <TextView
+            android:id="@+id/tv_anim_username"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="50dp"
+            android:gravity="center_vertical"
+            android:text="输入账号"
+            android:textColor="#cccccc"
+            android:textSize="16sp"
+            android:visibility="gone" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_below="@id/et_username"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:background="#cccccc" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@id/et_username"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:background="#cccccc" />
 
 
-    <EditText
-        android:id="@+id/et_pwd"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_below="@id/et_username"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginTop="28dp"
-        android:background="#fff"
-        android:gravity="center_vertical"
-        android:hint="输入密码"
-        android:paddingLeft="20dp"
-        android:inputType="textPassword"
-        android:textColor="#000000"
-        android:textColorHint="#cccccc"
-        android:textSize="16sp" />
-    <TextView
-        android:id="@+id/tv_anim_pwd"
-        android:layout_width="wrap_content"
-        android:layout_height="45dp"
-        android:layout_below="@id/et_username"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginTop="18dp"
-        android:gravity="center_vertical"
-        android:text="输入密码"
-        android:textColor="#cccccc"
-        android:textSize="16sp"
-        android:visibility="gone" />
+        <EditText
+            android:id="@+id/et_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_below="@id/et_username"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="28dp"
+            android:background="#fff"
+            android:gravity="center_vertical"
+            android:hint="输入密码"
+            android:inputType="textPassword"
+            android:paddingLeft="20dp"
+            android:textColor="#000000"
+            android:textColorHint="#cccccc"
+            android:textSize="16sp" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_below="@id/et_pwd"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:background="#cccccc" />
+        <TextView
+            android:id="@+id/tv_anim_pwd"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_below="@id/et_username"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="18dp"
+            android:gravity="center_vertical"
+            android:text="输入密码"
+            android:textColor="#cccccc"
+            android:textSize="16sp"
+            android:visibility="gone" />
 
-            <Button
-                android:id="@+id/btn_register"
-                android:layout_below="@+id/et_pwd"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="35dp"
-                android:layout_alignParentRight="true"
-                android:background="@drawable/button_cirle_shape"
-                android:layout_marginRight="90dp"
-                android:text="re"
-                android:textColor="#fff" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@id/et_pwd"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:background="#cccccc" />
+
+        <!-- button 默认展示到最上层 stateListAnimator="@null" -->
+        <Button
+            android:id="@+id/btn_register"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/et_pwd"
+            android:layout_marginRight="90dp"
+            android:layout_marginTop="35dp"
+            android:stateListAnimator="@null"
+            android:background="@drawable/button_cirle_shape"
+            android:text="注册"
+            android:textColor="#fff" />
 
 
         <com.example.frescogif.view.ProgressButton
             android:id="@+id/btn_login"
-            android:layout_below="@+id/et_pwd"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_below="@+id/et_pwd"
             android:layout_marginLeft="90dp"
-            android:background="@drawable/button_cirle_shape"
             android:layout_marginTop="35dp"
+            android:background="@drawable/button_cirle_shape"
             android:textColor="#fff" />
 
     </RelativeLayout>

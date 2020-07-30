@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark">
 
-    <android.support.v7.widget.RecyclerView
+    <com.example.frescogif.view.RecycleViewForAnimation
         android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -13,6 +13,8 @@
         android:scrollbars="vertical"
         android:scrollbarStyle="insideOverlay"
         android:orientation="vertical"
+        android:layoutAnimation="@anim/layout_animation_slide_right"
         />
+    <!--layout_animation_grid_recycle-->
 
 </LinearLayout>

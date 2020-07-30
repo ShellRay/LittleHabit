@@ -30,7 +30,7 @@ import butterknife.ButterKnife;
 /**
  * Created by GG on 2017/5/16.
  */
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener, ProgressButton.OnAllAnimalState {
 
     @BindView(R.id.iv_login_bg)
     ImageView ivLoginBg;
@@ -71,10 +71,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void initView() {
 
-        btLogin.setBgColor(getResources().getColor(R.color.colorAccent));
         btLogin.setTextColor(Color.WHITE);
         btLogin.setProColor(Color.WHITE);
-        btLogin.setButtonText("LG");
+        btLogin.setButtonText("登录");
 
         etUserName.addTextChangedListener(new TextWatcher() {
 
@@ -157,6 +156,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         btLogin.setOnClickListener(this);
         btnRegister.setOnClickListener(this);
+        btLogin.setOnAllAnimalState(this);
     }
 
     @Override
@@ -164,9 +164,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         switch (v.getId()) {
             case R.id.btn_login:
                 btLogin.startAnim();
-                Message m = mHandler.obtainMessage();
-                mHandler.sendMessageDelayed(m, 1500);
-
                 break;
             case R.id.btn_register:
                 startActivity(new Intent(this, RotateMenuActivity.class));
@@ -175,20 +172,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
-    @SuppressLint("HandlerLeak")
-    private Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-
-            btLogin.stopAnim(new ProgressButton.OnStopAnim() {
-                @Override
-                public void Stop() {
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                    finish();
-                }
-            });
-
-        }
-    };
+    @Override
+    public void Stop() {
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        finish();
+    }
 }

@@ -69,14 +69,7 @@ public class RecycleViewActivity extends BaseActivity implements SwipeRefreshLay
 
     @Override
     public void onRefresh() {
-        new Thread(
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        mySwipeRefreshLayout.setRefreshing(false);
-                    }
-                }
-        ).start();
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

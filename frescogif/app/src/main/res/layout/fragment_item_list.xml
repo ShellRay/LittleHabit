@@ -9,6 +9,7 @@
     android:layout_height="match_parent"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
+    android:layoutAnimation="@anim/layout_animation_recycle"
     app:layoutManager="LinearLayoutManager"
     tools:context="com.example.frescogif.fragment.TopGradualFragment"
     tools:listitem="@layout/fragment_item"/>

@@ -38,10 +38,11 @@
             android:text="waterfall"/>
     </RadioGroup>
 
-    <android.support.v7.widget.RecyclerView
+    <com.example.frescogif.view.RecycleViewForAnimation
         android:id="@+id/rv_recycle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layoutAnimation="@anim/layout_animation_grid_recycle"
         android:layout_marginTop="5dp"/>
 
 

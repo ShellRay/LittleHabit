@@ -9,8 +9,8 @@
                 0 ：从左往右开始渐变
          -->
     <gradient
-        android:startColor="#FF4081"
-        android:centerColor="#FF4090"
+        android:startColor="@color/blue"
+        android:centerColor="@color/blue"
         android:endColor="#99ceb361"
         android:angle="-90"
         />

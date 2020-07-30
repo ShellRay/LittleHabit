@@ -15,10 +15,10 @@ import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.Transformation;
 
+import com.example.frescogif.LoginActivity;
 import com.example.frescogif.R;
 
 /**
- * Created by lumingmin on 6/3/16.
  */
 public class ProgressButton extends View {
     private int progerssButtonDuration = 200;
@@ -49,7 +49,9 @@ public class ProgressButton extends View {
 
     private String text = "";
 
-    private int bgColor = getResources().getColor(R.color.colorAccent);
+    private int bgColor = getResources().getColor(R.color.saffron);
+    private OnAllAnimalState onAllAnimalState;
+
     public void setBgColor(int color)
     {
         this.bgColor=color;
@@ -94,7 +96,7 @@ public class ProgressButton extends View {
         mProgerssButtonAnim = new ProgerssButtonAnim();
         mProgerssRotateAnim = new RotateAnimation(0f, 360f, Animation.RELATIVE_TO_SELF,
                 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        mProgerssRotateAnim.setRepeatCount(-1);
+        mProgerssRotateAnim.setRepeatCount(3);
         mProgerssRotateAnim.setInterpolator(new LinearInterpolator());//不停顿
         mProgerssRotateAnim.setFillAfter(true);//停在最后
         paintRectF = new Paint();
@@ -112,6 +114,22 @@ public class ProgressButton extends View {
         paintPro.setStyle(Paint.Style.STROKE);
         paintPro.setStrokeWidth(mStrokeWidth / 2);
 
+        mProgerssRotateAnim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                stopAnim(null);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
     }
 
 
@@ -191,6 +209,7 @@ public class ProgressButton extends View {
         }
         mProgerssScaleAnim.setDuration(scaleAnimationDuration);
         startAnimation(mProgerssScaleAnim);
+        mProgerssScaleAnim.setFillAfter(true);
         mProgerssScaleAnim.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -199,9 +218,13 @@ public class ProgressButton extends View {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-
-                clearAnimation();
-                mOnStopAnim.Stop();
+                if(onAllAnimalState != null){
+                    onAllAnimalState.Stop();
+                }
+//                clearAnimation();
+                if(mOnStopAnim != null) {
+                    mOnStopAnim.Stop();
+                }
                 mSpac = 0;
                 invalidate();
 
@@ -215,6 +238,13 @@ public class ProgressButton extends View {
         });
     }
 
+    public void setOnAllAnimalState(OnAllAnimalState onAllAnimalState) {
+        this.onAllAnimalState = onAllAnimalState;
+    }
+
+    public interface OnAllAnimalState {
+        void Stop();
+    }
 
     private class ProgerssButtonAnim extends Animation {
         @Override

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="300dp">
+    android:orientation="vertical" android:layout_width="50dp"
+    android:layout_height="50dp">
 
     <TextView
         android:id="@+id/tv_item"
@@ -11,7 +11,7 @@
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="hao"
+        android:text="H"
         />
     <ImageView
         android:id="@+id/iv_gif"
@@ -19,7 +19,7 @@
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
         android:layout_marginRight="30dp"
-        android:src="@mipmap/ic_launcher"/>
+        android:src="@drawable/heart"/>
 
 
 </RelativeLayout>
