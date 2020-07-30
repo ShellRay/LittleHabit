@@ -367,7 +367,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(new Intent(this, ScrollVerfityActivity.class));
                 break;
             case R.id.constrict:
-//                startActivity(new Intent(this, ScrollVerfityActivity.class));
+
                 break;
 
         }
