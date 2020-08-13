@@ -267,6 +267,16 @@
             android:screenOrientation="portrait">
         </activity>
 
+        <activity
+            android:name=".activity.GuideImageActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name=".activity.VideoCompressActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
     </application>
 
 </manifest>

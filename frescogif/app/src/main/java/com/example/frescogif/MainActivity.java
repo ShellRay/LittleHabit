@@ -40,6 +40,7 @@ import com.example.frescogif.activity.CityActivity;
 import com.example.frescogif.activity.CustomPhotoActivity;
 import com.example.frescogif.activity.DesignActivity;
 import com.example.frescogif.activity.EmojiActivity;
+import com.example.frescogif.activity.GuideImageActivity;
 import com.example.frescogif.activity.HelpYourSelfActivity;
 import com.example.frescogif.activity.LayoutMangerActivity;
 import com.example.frescogif.activity.LoadingActivity;
@@ -55,6 +56,7 @@ import com.example.frescogif.activity.ShapeActivity;
 import com.example.frescogif.activity.SlidMenuActivity;
 import com.example.frescogif.activity.SomeAnimationActivity;
 import com.example.frescogif.activity.StickinessActivity;
+import com.example.frescogif.activity.VideoCompressActivity;
 import com.example.frescogif.baseActvity.BaseActivity;
 import com.example.frescogif.bean.GiftDialogBean;
 import com.example.frescogif.utils.GlideLoadUtils;
@@ -112,6 +114,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private Timer timer;
     private Button btnScrollVerify;
     private Button constrict;
+    private Button compress;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -147,6 +150,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         llgiftcontent = (LinearLayout) findViewById(R.id.llgiftcontent);
         btnScrollVerify = (Button) findViewById(R.id.btn_scroll_verify);
         constrict = (Button) findViewById(R.id.constrict);
+        compress = (Button) findViewById(R.id.compress);
 
         btn_bg.setOnClickListener(this);
         btn_login.setOnClickListener(this);
@@ -174,6 +178,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         xunfei.setOnClickListener(this);
         btnScrollVerify.setOnClickListener(this);
         constrict.setOnClickListener(this);
+        compress.setOnClickListener(this);
 
         inAnim = (TranslateAnimation) AnimationUtils.loadAnimation(this, R.anim.gift_in);
         outAnim = (TranslateAnimation) AnimationUtils.loadAnimation(this, R.anim.gift_out);
@@ -367,7 +372,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(new Intent(this, ScrollVerfityActivity.class));
                 break;
             case R.id.constrict:
-
+                startActivity(new Intent(this, GuideImageActivity.class));
+                break;
+            case R.id.compress:
+                startActivity(new Intent(this, VideoCompressActivity.class));
                 break;
 
         }

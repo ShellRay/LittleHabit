@@ -11,7 +11,7 @@ import android.widget.ScrollView;
 
 
 /**
- * Created by Liujinhua on 2016/3/25.
+ *  on 2016/3/25.
  * 下拉放大scrollView
  */
 public class DropZoomScrollView extends ScrollView implements View.OnTouchListener {

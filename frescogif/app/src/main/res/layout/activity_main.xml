@@ -204,7 +204,13 @@
                     android:id="@+id/constrict"
                     style="@style/button_style2"
                     android:background="@drawable/cirle_shape"
-                    android:text="!" />
+                    android:text="guide" />
+
+                <Button
+                    android:id="@+id/compress"
+                    style="@style/button_style2"
+                    android:background="@drawable/cirle_shape"
+                    android:text="compress" />
             </LinearLayout>
         </ScrollView>
 
