@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 28
@@ -37,47 +38,62 @@ android {
         checkReleaseBuilds false
         abortOnError false
     }
+
+    //指定jdk版本
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:28.0.0'
-    compile 'com.facebook.fresco:fresco:1.2.0'
-    compile 'com.facebook.fresco:animated-gif:1.2.0'
-    compile 'com.github.bumptech.glide:glide:4.5.0'
-    annotationProcessor  'com.github.bumptech.glide:compiler:4.5.0'
-    compile 'com.android.support:design:28.0.0'
-    compile 'com.android.support:cardview-v7:28.0.0'
-    compile 'com.android.support:recyclerview-v7:28.0.0'
-    compile 'com.android.support:support-v4:28.0.0'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'com.facebook.fresco:fresco:1.2.0'
+    implementation 'com.facebook.fresco:animated-gif:1.2.0'
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    annotationProcessor  'com.github.bumptech.glide:compiler:4.8.0'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     compile files('libs/barlibrary-2.2.2.jar')
     compile files('libs/isoparser-1.0.6.jar')
     compile files('libs/aspectjrt-1.7.3.jar')//服务于isoparser主要，本身可以做登录状态问题
-    compile 'com.google.code.gson:gson:2.4'
-    compile 'com.google.android:flexbox:0.3.2'
-    compile project(':calligraphy')
-    compile 'com.github.ctiao:DanmakuFlameMaster:0.5.3'
+    implementation 'com.google.code.gson:gson:2.4'
+    implementation 'com.google.android:flexbox:0.3.2'
+    implementation project(':calligraphy')
+    implementation 'com.github.ctiao:DanmakuFlameMaster:0.5.3'
 //    https://mp.weixin.qq.com/s?__biz=MzAxMTI4MTkwNQ==&mid=2650825704&idx=1&sn=f1d039ac625e9d39441c12ebb2b3b780&chksm=80b7b776b7c03e602a4aad48e9955b08eb3fdca8b67ca51c16d70261cb8896337b45917f7394&mpshare=1&scene=23&srcid=06264zSn3uMZrAqnplndKR4S#rd
     //ip得看手机无线的ip地址
-    debugCompile   'com.amitshekhar.android:debug-db:1.0.4'
+    debugImplementation   'com.amitshekhar.android:debug-db:1.0.4'
     //查看视图UItools
-    debugCompile 'me.ele:uetool:1.0.15'
-    compile 'com.yanzhenjie:permission:2.0.0-rc11'
+    debugImplementation 'me.ele:uetool:1.0.15'
+    implementation 'com.yanzhenjie:permission:2.0.0-rc11'
     implementation 'com.github.yyued:SVGAPlayer-Android:2.4.0'
     implementation 'com.squareup.okhttp3:okhttp:3.12.0'
-    implementation "com.jakewharton:butterknife:8.8.1"
-    annotationProcessor "com.jakewharton:butterknife-compiler:8.8.1"
+    implementation "com.jakewharton:butterknife:10.0.0"
+    annotationProcessor "com.jakewharton:butterknife-compiler:10.0.0"
+
+//    兼容androidx
+    implementation 'androidx.annotation:annotation:1.0.0'
+    annotationProcessor 'androidx.annotation:annotation:1.1.0'
+    implementation "androidx.core:core-ktx:+"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
-configurations.all {
-
-    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
-        def requested = details.requested
-        if (requested.group == 'com.android.support') {
-            if (!requested.name.startsWith("multidex")) {
-                details.useVersion '25.4.0'//默认使用的版本
-            }
-        }
-    }
+//configurations.all {
+//
+//    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+//        def requested = details.requested
+//        if (requested.group == 'com.android.support') {
+//            if (!requested.name.startsWith("multidex")) {
+//                details.useVersion '25.4.0'//默认使用的版本
+//            }
+//        }
+//    }
+//}
+repositories {
+    mavenCentral()
 }

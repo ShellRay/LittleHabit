@@ -5,16 +5,11 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.StateListDrawable;
-import android.os.Build;
 import android.os.Handler;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 
@@ -22,10 +17,11 @@ import com.example.frescogif.R;
 import com.example.frescogif.bean.AnchorImpressionBean;
 import com.example.frescogif.bean.TagBean;
 import com.example.frescogif.utils.Utils;
-import com.example.frescogif.view.loadingview.Typefaces;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by GG on 2017/5/26.

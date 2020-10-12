@@ -4,7 +4,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.text.Layout;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -23,22 +22,14 @@ import com.opensource.svgaplayer.SVGAImageView;
 import com.opensource.svgaplayer.SVGAParser;
 import com.opensource.svgaplayer.SVGAVideoEntity;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
-import kotlin.Unit;
-import kotlin.jvm.functions.Function0;
-import kotlin.jvm.functions.Function1;
+import androidx.annotation.Nullable;
 import kotlin.jvm.functions.Function2;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 /**
  * Created by GG on 2018/12/3.
@@ -68,7 +59,7 @@ public class HelpYourSelfActivity extends BaseActivity {
             URL url = new URL("https://github.com/yyued/SVGA-Samples/blob/master/kingset.svga?raw=true");
             parser.decodeFromURL(url, new SVGAParser.ParseCompletion() {
                 @Override
-                public void onComplete(@NotNull SVGAVideoEntity videoItem) {
+                public void onComplete( SVGAVideoEntity videoItem) {
                     SVGADrawable drawable = new SVGADrawable(videoItem, requestDynamicItemWithSpannableText("Pony 送了一打风油精给主播"));
                     scga.setImageDrawable(drawable);
                     scga.startAnimation();
@@ -139,7 +130,7 @@ public class HelpYourSelfActivity extends BaseActivity {
 
             parser.decodeFromInputStream(is, "banner", new SVGAParser.ParseCompletion() {
                 @Override
-                public void onComplete(@NotNull SVGAVideoEntity svgaVideoEntity) {
+                public void onComplete( SVGAVideoEntity svgaVideoEntity) {
                     SVGADrawable drawable = new SVGADrawable(svgaVideoEntity, requestDynamicItemWithSpannableText("Pony 送了一打风油精给主播"));
                     scgaFile.getClearsAfterStop();
                     scgaFile.setImageDrawable(drawable);

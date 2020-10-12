@@ -2,7 +2,7 @@ package com.example.frescogif.activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.widget.CompoundButtonCompat;
+import androidx.core.widget.CompoundButtonCompat;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;

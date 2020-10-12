@@ -3,15 +3,12 @@ package com.example.frescogif.activity;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
@@ -19,10 +16,7 @@ import android.view.animation.ScaleAnimation;
 
 import com.example.frescogif.R;
 import com.example.frescogif.baseActvity.BaseActivity;
-import com.example.frescogif.utils.Utils;
 import com.facebook.drawee.view.SimpleDraweeView;
-
-import java.util.ArrayList;
 
 /**
  * Created by GG on 2017/8/8.

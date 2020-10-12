@@ -1,33 +1,19 @@
 package com.example.frescogif.activity;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+
 import android.view.View;
-import android.widget.DatePicker;
-import android.widget.TextView;
 
 import com.example.frescogif.R;
-import com.example.frescogif.adapter.NormalAdapter;
 import com.example.frescogif.adapter.UserTagAdapter;
 import com.example.frescogif.bean.AnchorImpressionBean;
-import com.example.frescogif.constant.Constant;
-import com.example.frescogif.layoutmanager.SignLayoutManager;
 import com.example.frescogif.utils.Utils;
-import com.example.frescogif.view.citychocie.CustomerAddressDialog;
-import com.example.frescogif.view.citychocie.CustomerTimeDialog;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 /**

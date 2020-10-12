@@ -1,10 +1,9 @@
 package com.example.frescogif.activity;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.frescogif.R;
 import com.example.frescogif.baseActvity.BaseActivity;

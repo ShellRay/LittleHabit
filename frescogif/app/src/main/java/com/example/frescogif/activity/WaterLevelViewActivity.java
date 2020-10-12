@@ -1,20 +1,15 @@
 package com.example.frescogif.activity;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.example.frescogif.R;
 import com.example.frescogif.baseActvity.BaseActivity;
-import com.example.frescogif.view.BeatingWaveView;
 import com.example.frescogif.view.WaterLevel.RealWaveLevelView;
 import com.example.frescogif.view.WaterLevel.WaterLevelView;
 import com.example.frescogif.view.WaterLevel.WaveCircleView;
-import com.example.frescogif.view.loadingview.Titanic;
-
-import org.w3c.dom.Text;
 
 /**
  * 水位图的自定义

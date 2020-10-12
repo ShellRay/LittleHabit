@@ -19,7 +19,6 @@ import android.graphics.drawable.Drawable;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.util.Pair;
-import android.widget.TextView;
 
 
 import com.example.frescogif.R;
@@ -39,7 +38,7 @@ import java.util.WeakHashMap;
  * AuthorPhone：nothing
  * Created by 2016/9/22.
  */
-public class MagicTextView extends android.support.v7.widget.AppCompatTextView {
+public class MagicTextView extends androidx.appcompat.widget.AppCompatTextView {
 
     private ArrayList<Shadow> outerShadows;
     private ArrayList<Shadow> innerShadows;

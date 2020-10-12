@@ -3,10 +3,11 @@ package com.example.frescogif.view.guide.util;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.HorizontalScrollView;
 import android.widget.ScrollView;
+
+import androidx.viewpager.widget.ViewPager;
 
 /**
  *  on 15/10/8.

@@ -5,22 +5,13 @@ import android.animation.AnimatorInflater;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.util.Log;
+import androidx.annotation.Nullable;
+
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.TextView;
 
 import com.example.frescogif.R;
 import com.example.frescogif.baseActvity.BaseActivity;
-import com.example.frescogif.utils.PackOutput;
-import com.example.frescogif.utils.StringCodeUtil;
-
-import java.nio.ByteBuffer;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by GG on 2017/12/14.

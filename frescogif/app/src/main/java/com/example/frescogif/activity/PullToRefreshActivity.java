@@ -1,17 +1,18 @@
 package com.example.frescogif.activity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.frescogif.R;
 import com.example.frescogif.fragment.ListViewFragment;
 import com.example.frescogif.fragment.RecyclerViewFragment;
+import com.google.android.material.tabs.TabLayout;
 
 /**
  * Created by Oleksii Shliama.
@@ -24,7 +25,7 @@ public class PullToRefreshActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pull_to_refresh);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        @SuppressLint("WrongViewCast") TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
 
         if (toolbar != null) {

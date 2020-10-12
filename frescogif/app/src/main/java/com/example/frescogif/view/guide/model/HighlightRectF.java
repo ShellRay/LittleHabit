@@ -1,8 +1,8 @@
 package com.example.frescogif.view.guide.model;
 
 import android.graphics.RectF;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+
 import android.view.View;
 
 /**

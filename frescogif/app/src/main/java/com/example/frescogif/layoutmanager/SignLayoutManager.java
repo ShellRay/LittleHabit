@@ -1,7 +1,6 @@
 package com.example.frescogif.layoutmanager;
 
 import android.graphics.Rect;
-import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +8,10 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 /**
- * @author chenkun
+ * @author
  * @version 1.0, 17/5/17 下午4:45
  */
 public class SignLayoutManager extends RecyclerView.LayoutManager {

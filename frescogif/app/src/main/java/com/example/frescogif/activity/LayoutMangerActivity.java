@@ -3,8 +3,6 @@ package com.example.frescogif.activity;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.RadioGroup;
 
@@ -15,6 +13,9 @@ import com.example.frescogif.view.RecycleViewForAnimation;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by GG on 2017/6/9.

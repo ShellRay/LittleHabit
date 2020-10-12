@@ -70,6 +70,6 @@
         android:textStyle="bold"
         app:strokeColor="@android:color/white"
         app:strokeJoinStyle="miter"
-        app:strokeWidth="2" />
+        app:strokeWidth="2dp" />
 
 </RelativeLayout>

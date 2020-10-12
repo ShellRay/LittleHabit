@@ -32,7 +32,7 @@ import com.example.frescogif.R;
  * AuthorPhone：nothing
  * Created by 2016/9/21.
  */
-public class CustomRoundView extends android.support.v7.widget.AppCompatImageView {
+public class CustomRoundView extends androidx.appcompat.widget.AppCompatImageView {
 
 	private static final ScaleType SCALE_TYPE = ScaleType.CENTER_CROP;
 	private static final Bitmap.Config BITMAP_CONFIG = Bitmap.Config.ARGB_8888;

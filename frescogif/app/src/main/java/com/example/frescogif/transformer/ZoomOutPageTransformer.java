@@ -1,7 +1,8 @@
 package com.example.frescogif.transformer;
 
-import android.support.v4.view.ViewPager;
 import android.view.View;
+
+import androidx.viewpager.widget.ViewPager;
 
 /**
  * Created by GG on 2017/11/24.
