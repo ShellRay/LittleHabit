@@ -62,10 +62,10 @@ public class DropZoomScrollView extends ScrollView implements View.OnTouchListen
         setOverScrollMode(OVER_SCROLL_NEVER);
         if (getChildAt(0) != null) {
             ViewGroup vg = (ViewGroup) getChildAt(0);
-            if (vg.getChildAt(0) != null) {
-                dropZoomView = vg.getChildAt(0);
+            View viewById = vg.findViewById(R.id.dropView);
+            if (viewById != null) {
+                dropZoomView = viewById;
                 setOnTouchListener(this);
-
 
             }
         }
