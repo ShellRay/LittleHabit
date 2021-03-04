@@ -22,13 +22,18 @@ import android.widget.Toast;
 
 import com.example.frescogif.R;
 import com.example.frescogif.baseActvity.BaseActivity;
+import com.example.frescogif.utils.PermissionUtils;
 import com.example.frescogif.utils.Utils;
 import com.example.frescogif.videocompressor.VideoCompress;
+import com.yanzhenjie.permission.Action;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.Permission;
 
 import java.io.File;
 import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -65,11 +70,22 @@ public class VideoCompressActivity extends BaseActivity {
         btn_transcribe_video.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-                intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 0);
-                intent.putExtra(MediaStore.EXTRA_SIZE_LIMIT, 1);
-                intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 10);
-                startActivityForResult(intent, 3);
+
+                AndPermission.with(VideoCompressActivity.this)
+                        .runtime()
+                        .permission(Permission.CAMERA)
+                        .onGranted(new Action<List<String>>() {
+                            @Override
+                            public void onAction(List<String> strings) {
+
+                                Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+                                intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 0);
+                                intent.putExtra(MediaStore.EXTRA_SIZE_LIMIT, 1);
+                                intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 10);
+                                startActivityForResult(intent, 3);
+                            }
+                        })
+                        .start();
             }
         });
         Button btn_select = (Button) findViewById(R.id.btn_select);

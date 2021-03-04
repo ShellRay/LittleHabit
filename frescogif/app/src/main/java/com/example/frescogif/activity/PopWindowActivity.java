@@ -2,14 +2,15 @@ package com.example.frescogif.activity;
 
 import android.os.Bundle;
 import androidx.annotation.Nullable;
-import android.support.annotation.Nullable;
-import android.support.transition.AutoTransition;
-import android.support.transition.TransitionManager;
+import androidx.transition.AutoTransition;
+import androidx.transition.TransitionManager;
+
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -33,9 +34,9 @@ import static android.widget.RelativeLayout.ALIGN_PARENT_RIGHT;
 
 public class PopWindowActivity extends BaseActivity{
 
-    private TextView aView;
-    private TextView bView;
-    private TextView cView;
+    private FrameLayout aView;
+    private FrameLayout bView;
+    private FrameLayout cView;
     private ChoseGiftPopWindow choseGiftCountPopWindow;
     private String[] chooseNames = new String[]{"一生一世", "我爱你", "长长久久", "三生有幸", "全心全意", "想你...", "一心一意"};
     private String[] chooseCounts = new String[]{"1314", "520", "99", "33", "11", "3", "1"};
@@ -46,9 +47,9 @@ public class PopWindowActivity extends BaseActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_popwindow);
-        aView = (TextView) findViewById(R.id.a);
-        bView = (TextView) findViewById(R.id.b);
-        cView = (TextView) findViewById(R.id.c);
+        aView = (FrameLayout) findViewById(R.id.a);
+        bView = (FrameLayout) findViewById(R.id.b);
+        cView = (FrameLayout) findViewById(R.id.c);
 
         showpop = (Button) findViewById(R.id.showpop);
 

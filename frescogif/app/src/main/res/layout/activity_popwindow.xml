@@ -7,41 +7,30 @@
         android:layout_width="match_parent"
         android:layout_height="300dp">
 
-        <TextView
+        <FrameLayout
             android:id="@+id/a"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/green"
-            android:text="A"
-            android:textSize="30sp"
             android:gravity="center"
-            android:textColor="@color/white"
             />
 
-        <TextView
+        <FrameLayout
             android:id="@+id/b"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:background="@color/red"
             android:layout_alignParentRight="true"
             android:layout_above="@+id/c"
-            android:text="B"
-            android:textSize="30sp"
-            android:gravity="center"
-            android:textColor="@color/white"
             />
 
-        <TextView
+        <FrameLayout
             android:id="@+id/c"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:background="@color/blue"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:text="C"
-            android:textSize="30sp"
-            android:gravity="center"
-            android:textColor="@color/white"
             />
 
     </RelativeLayout>

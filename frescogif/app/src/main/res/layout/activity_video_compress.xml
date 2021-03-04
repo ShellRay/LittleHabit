@@ -17,7 +17,7 @@
             android:id="@+id/btn_transcribe_video"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select File"
+            android:text="Start Video"
             android:textAllCaps="false" />
 
         <Button
