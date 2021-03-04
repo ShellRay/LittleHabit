@@ -2,6 +2,9 @@ package com.example.frescogif.activity;
 
 import android.os.Bundle;
 import androidx.annotation.Nullable;
+import android.support.annotation.Nullable;
+import android.support.transition.AutoTransition;
+import android.support.transition.TransitionManager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,6 +69,8 @@ public class PopWindowActivity extends BaseActivity{
 
             aView.bringToFront();
 
+            beginDelayedTransition(aView);
+            beginDelayedTransition(bView);
             showA = false;
         }else {
             RelativeLayout.LayoutParams aLayoutParams = (RelativeLayout.LayoutParams) bView.getLayoutParams();
@@ -80,6 +85,8 @@ public class PopWindowActivity extends BaseActivity{
 
             bView.bringToFront();
             showA = true;
+            beginDelayedTransition(aView);
+            beginDelayedTransition(bView);
         }
 
         cView.bringToFront();
@@ -216,5 +223,12 @@ public class PopWindowActivity extends BaseActivity{
         public String getName() {
             return name;
         }
+    }
+
+    //过渡动画 视图变化的效果
+    public void beginDelayedTransition(ViewGroup viewGroup){
+        AutoTransition autoTransition = new AutoTransition();
+        autoTransition.setDuration(500);
+        TransitionManager.beginDelayedTransition(viewGroup,autoTransition);
     }
 }
