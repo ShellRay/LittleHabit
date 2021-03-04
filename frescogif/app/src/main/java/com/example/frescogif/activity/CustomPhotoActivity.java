@@ -1,13 +1,12 @@
 package com.example.frescogif.activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -16,11 +15,9 @@ import android.widget.Toast;
 import com.example.frescogif.R;
 import com.example.frescogif.baseActvity.BaseActivity;
 import com.example.frescogif.utils.MediaUtils;
-import com.example.frescogif.utils.Utils;
 import com.example.frescogif.view.NbPhotoCropView.UCrop;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**

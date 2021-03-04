@@ -1,13 +1,13 @@
 package com.example.frescogif.activity;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -22,9 +22,7 @@ import com.example.frescogif.utils.MediaUtils;
 import com.example.frescogif.view.CircleIndicatorView;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by GG on 2017/11/24.
@@ -146,7 +144,7 @@ public class ViewPagerTransformerActivity extends BaseActivity{
         }
     }
 
-    class FragmentAdapter extends FragmentPagerAdapter{
+    class FragmentAdapter extends FragmentPagerAdapter {
 
         private List<Fragment> mFragments = new ArrayList<>();
 

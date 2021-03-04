@@ -1,16 +1,13 @@
 package com.example.frescogif.activity;
 
 import android.annotation.SuppressLint;
-import android.content.ContentResolver;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -29,11 +26,8 @@ import com.example.frescogif.view.NbPhotoCropView.TransformImageView;
 import com.example.frescogif.view.NbPhotoCropView.UCrop;
 import com.example.frescogif.view.NbPhotoCropView.UCropView;
 import com.example.frescogif.view.NbPhotoCropView.utils.BitmapLoadUtils;
-import com.example.frescogif.view.camera.ClipImageLayout;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 
 /**

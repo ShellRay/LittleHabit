@@ -2,7 +2,6 @@ package com.example.frescogif.view.WaterLevel;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -10,7 +9,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Matrix;
 import android.graphics.Paint;
@@ -21,7 +19,6 @@ import android.os.Message;
 import android.util.AttributeSet;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
-import android.widget.ImageView;
 
 import com.example.frescogif.R;
 import com.example.frescogif.utils.MediaUtils;
@@ -37,7 +34,7 @@ import java.util.TimerTask;
  * Created by GG on 2017/12/8.
  */
 
-public class WaveCircleView extends android.support.v7.widget.AppCompatImageView {
+public class WaveCircleView extends androidx.appcompat.widget.AppCompatImageView {
 
     private static final String TAG = "WaveLevelView";
     private AnimatorSet animatorSet;

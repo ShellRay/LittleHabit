@@ -9,7 +9,6 @@ import android.graphics.Matrix;
 import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.widget.TextView;
 
 import com.example.frescogif.R;
 
@@ -18,7 +17,7 @@ import com.example.frescogif.R;
  * romainpiel
  * 13/03/2014
  */
-public class TitanicTextView extends android.support.v7.widget.AppCompatTextView {
+public class TitanicTextView extends androidx.appcompat.widget.AppCompatTextView {
 
     public interface AnimationSetupCallback {
         public void onSetupAnimation(TitanicTextView titanicTextView);

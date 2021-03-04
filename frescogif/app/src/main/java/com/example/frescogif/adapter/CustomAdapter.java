@@ -1,20 +1,19 @@
 package com.example.frescogif.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.example.frescogif.GlideApp;
 import com.example.frescogif.R;
 import com.example.frescogif.utils.GlideLoadUtils;
-import com.example.frescogif.utils.MediaUtils;
 
 import java.util.List;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by GG on 2017/5/26.

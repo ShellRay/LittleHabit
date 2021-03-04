@@ -14,15 +14,13 @@ import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.widget.ImageView;
 
 import com.example.frescogif.R;
 
 /**
  * Created by taofangxin on 16/3/21.
  */
-public class AnyshapeImageView extends android.support.v7.widget.AppCompatImageView {
+public class AnyshapeImageView extends androidx.appcompat.widget.AppCompatImageView {
 
     Context context;
     Path originMaskPath = null;

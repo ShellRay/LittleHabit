@@ -1,8 +1,7 @@
 package com.example.frescogif.activity;
 
-import android.nfc.Tag;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;

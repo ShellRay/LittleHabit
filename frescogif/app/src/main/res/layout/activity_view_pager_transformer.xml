@@ -5,14 +5,14 @@
     android:clipChildren="false"
     android:layout_height="match_parent">
 
-    <android.support.v4.view.ViewPager
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginTop="50dp"
         />
 
-    <android.support.v4.view.ViewPager
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPagerZoom"
         android:layout_width="match_parent"
         android:layout_height="100dp"
@@ -21,7 +21,7 @@
         android:background="@color/colorPrimaryDark"
         />
 
-    <android.support.v4.view.ViewPager
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPagerFragment"
         android:layout_width="match_parent"
         android:layout_height="200dp"

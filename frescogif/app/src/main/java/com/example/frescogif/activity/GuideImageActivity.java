@@ -1,15 +1,11 @@
 package com.example.frescogif.activity;
 
-import android.Manifest;
-import android.content.Intent;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
+
+import androidx.annotation.Nullable;
+
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.EditText;
@@ -25,7 +21,6 @@ import com.example.frescogif.view.guide.listener.OnLayoutInflatedListener;
 import com.example.frescogif.view.guide.listener.OnPageChangedListener;
 import com.example.frescogif.view.guide.model.GuidePage;
 import com.example.frescogif.view.guide.model.HighLight;
-import com.example.frescogif.view.guide.model.RelativeGuide;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

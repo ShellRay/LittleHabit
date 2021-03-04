@@ -4,11 +4,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 
 import com.example.frescogif.LoginActivity;
-import com.example.frescogif.MainActivity;
 import com.example.frescogif.R;
 import com.example.frescogif.view.loadingview.Titanic;
 import com.example.frescogif.view.loadingview.TitanicTextView;
@@ -16,7 +15,6 @@ import com.example.frescogif.view.loadingview.Typefaces;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.gyf.barlibrary.ImmersionBar;
 
 /**
  * Created by GG on 2017/6/5.

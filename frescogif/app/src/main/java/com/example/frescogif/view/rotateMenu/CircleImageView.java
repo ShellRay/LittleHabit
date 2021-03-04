@@ -19,7 +19,6 @@ package com.example.frescogif.view.rotateMenu;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.widget.ImageView;
 
 import com.example.frescogif.R;
 
@@ -31,7 +30,7 @@ import com.example.frescogif.R;
  * Makes it possible for the image to have an angle, position and a name.
  * Angle is used for the positioning in the circle menu.
  */
-public class CircleImageView extends android.support.v7.widget.AppCompatImageView {
+public class CircleImageView extends androidx.appcompat.widget.AppCompatImageView {
 
 	private float angle = 0;
 	private int position = 0;

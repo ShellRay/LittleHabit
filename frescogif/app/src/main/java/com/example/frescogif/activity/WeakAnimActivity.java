@@ -1,14 +1,13 @@
 package com.example.frescogif.activity;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.SeekBar;
 
 import com.example.frescogif.R;
-import com.example.frescogif.baseActvity.BaseActivity;
 import com.example.frescogif.view.weekanim.MetaballDebugView;
 import com.example.frescogif.view.weekanim.MetaballView;
 

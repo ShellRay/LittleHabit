@@ -2,7 +2,6 @@ package com.example.frescogif.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.AbsoluteSizeSpan;
@@ -21,6 +20,8 @@ import com.example.frescogif.holder.RecyclerViewHolder;
 import com.example.frescogif.utils.FullSpanUtil;
 
 import java.util.List;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by GG on 2018/2/5.

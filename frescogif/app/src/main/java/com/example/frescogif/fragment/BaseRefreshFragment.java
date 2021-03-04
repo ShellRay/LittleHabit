@@ -1,7 +1,6 @@
 package com.example.frescogif.fragment;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 
 import com.example.frescogif.R;
 
@@ -9,6 +8,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import androidx.fragment.app.Fragment;
 
 /**
  * Created by Oleksii Shliama.

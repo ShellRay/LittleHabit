@@ -1,20 +1,12 @@
 package com.example.frescogif.view.radomLovew;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
-import android.support.v7.content.res.AppCompatResources;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 
-
-import com.example.frescogif.R;
 
 import java.util.ArrayList;
 import java.util.Random;

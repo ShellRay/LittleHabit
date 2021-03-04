@@ -14,21 +14,16 @@ import android.graphics.LinearGradient;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.RectF;
 import android.graphics.Shader;
-import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
-import android.widget.Toast;
 
 import com.example.frescogif.R;
 import com.example.frescogif.utils.MediaUtils;
-import com.example.frescogif.view.BeatingWaveView;
 import com.example.frescogif.view.anyshape.PathInfo;
 import com.example.frescogif.view.anyshape.PathManager;
 
@@ -41,7 +36,7 @@ import java.util.TimerTask;
  * Created by GG on 2017/11/29.
  */
 
-public class RealWaveLevelView extends android.support.v7.widget.AppCompatImageView  {
+public class RealWaveLevelView extends androidx.appcompat.widget.AppCompatImageView  {
 
     private static final String TAG = "RealWaveLevelView";
     private Timer timer;

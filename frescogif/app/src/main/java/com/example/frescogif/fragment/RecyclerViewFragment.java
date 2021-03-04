@@ -1,8 +1,6 @@
 package com.example.frescogif.fragment;
 
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +11,9 @@ import com.example.frescogif.R;
 import com.example.frescogif.view.pullRefresh.refresh_sun.PullToRefreshView;
 
 import java.util.Map;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by Oleksii Shliama.

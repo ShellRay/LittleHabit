@@ -1,8 +1,7 @@
 package com.example.frescogif.activity;
 
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.view.View;
 
 import com.example.frescogif.R;
@@ -15,7 +14,6 @@ import com.example.frescogif.view.runwaylaout.RunnerLinkLayout;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import static com.example.frescogif.view.runwaylaout.FlyItemLinkLayout.FLY_SCREEN;
 

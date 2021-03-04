@@ -7,7 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.graphics.drawable.DrawableCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.animation.Animation;
@@ -25,9 +25,7 @@ import java.util.Set;
 
 import static com.example.frescogif.view.danmu.BarrageTools.getScreenWidth;
 
-/**
- * Created by shiwei on 2017/8/2.
- */
+
 
 public class BarrageViewSimple extends RelativeLayout {
     private Set<Integer> existMarginValues = new HashSet<>();

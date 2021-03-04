@@ -9,12 +9,14 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.ColorInt;
-import android.support.annotation.FloatRange;
-import android.support.annotation.IntDef;
-import android.support.annotation.IntRange;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.os.Parcelable;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.FloatRange;
+import androidx.annotation.IntDef;
+import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.example.frescogif.BuildConfig;
 
@@ -155,7 +157,7 @@ public class UCrop {
      *
      * @param fragment Fragment to receive result
      */
-    public void start(@NonNull Context context, @NonNull android.support.v4.app.Fragment fragment) {
+    public void start(@NonNull Context context, @NonNull androidx.fragment.app.Fragment fragment) {
         start(context, fragment, REQUEST_CROP);
     }
 
@@ -176,7 +178,7 @@ public class UCrop {
      * @param fragment    Fragment to receive result
      * @param requestCode requestCode for result
      */
-    public void start(@NonNull Context context, @NonNull android.support.v4.app.Fragment fragment, int requestCode) {
+    public void start(@NonNull Context context, @NonNull androidx.fragment.app.Fragment fragment, int requestCode) {
         fragment.startActivityForResult(getIntent(context), requestCode);
     }
 
@@ -217,7 +219,7 @@ public class UCrop {
      * @param intent crop result intent
      * @return aspect ratio as a floating point value (x:y) - so it will be 1 for 1:1 or 4/3 for 4:3
      */
-    public static float getOutputCropAspectRatio(@NonNull Intent intent) {
+    public static Parcelable getOutputCropAspectRatio(@NonNull Intent intent) {
         return intent.getParcelableExtra(EXTRA_OUTPUT_CROP_ASPECT_RATIO);
     }
 

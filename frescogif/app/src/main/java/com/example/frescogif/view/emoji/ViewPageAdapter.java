@@ -9,11 +9,13 @@ package com.example.frescogif.view.emoji;
  * @modify 
  * @version 1.0.0 
 */
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
+
 import android.view.View;
 
 import java.util.ArrayList;
+
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 public class ViewPageAdapter extends PagerAdapter {
 	private ArrayList<? extends View> pageViews;

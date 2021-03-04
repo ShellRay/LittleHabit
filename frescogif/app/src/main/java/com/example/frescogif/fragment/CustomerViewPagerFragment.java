@@ -3,15 +3,15 @@ package com.example.frescogif.fragment;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.frescogif.R;
-import com.example.frescogif.utils.MediaUtils;
 
 /**
  * Created by GG on 2017/11/24.

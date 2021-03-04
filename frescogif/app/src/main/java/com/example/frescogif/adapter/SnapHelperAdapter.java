@@ -2,19 +2,19 @@ package com.example.frescogif.adapter;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.example.frescogif.R;
 import com.example.frescogif.utils.GlideLoadUtils;
 
 import java.util.List;
+
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by GG on 2017/5/26.
