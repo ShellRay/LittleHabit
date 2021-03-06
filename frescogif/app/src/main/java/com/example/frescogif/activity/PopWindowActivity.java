@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.example.frescogif.R;
 import com.example.frescogif.baseActvity.BaseActivity;
 import com.example.frescogif.utils.Utils;
+import com.example.frescogif.view.SimpleAnimater;
 import com.example.frescogif.view.popwindow.ChoseGiftPopWindow;
 
 import java.util.ArrayList;
@@ -42,6 +43,7 @@ public class PopWindowActivity extends BaseActivity{
     private String[] chooseCounts = new String[]{"1314", "520", "99", "33", "11", "3", "1"};
     private Button showpop;
     private boolean showA = true;
+    private TextView tvAnimateView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,6 +54,7 @@ public class PopWindowActivity extends BaseActivity{
         cView = (FrameLayout) findViewById(R.id.c);
 
         showpop = (Button) findViewById(R.id.showpop);
+        tvAnimateView = (TextView) findViewById(R.id.tvAnimateView);
 
     }
 
@@ -136,52 +139,12 @@ public class PopWindowActivity extends BaseActivity{
     }
 
     static CopyOnWriteArrayList<Integer> list = new CopyOnWriteArrayList<Integer>();
+
     public void hashmapChange(View view){
 
-        list.add(1);
-        list.add(2);
-        list.add(3);
-        list.add(4);
-        list.add(5);
-        final Iterator<Integer> iterator = list.iterator();
-        final Thread thread1 = new Thread(){
-            public void run() {
-
-                synchronized(iterator) {
-                    while (iterator.hasNext()) {
-
-                            Integer integer = iterator.next();
-//                            System.out.println(integer);
-                        Log.e("shell","thread1 + hashmapChange"+integer);
-                            try {
-                                Thread.sleep(2*1000);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-
-                }
-            }
-            };
-        };
-        final Thread thread2 = new Thread(){
-            public void run() {
-//                Iterator<Integer> iterator = list.iterator();
-                synchronized(iterator) {
-                    while (iterator.hasNext()) {
-
-                            Integer integer = iterator.next();
-//                            if (integer == 2) {
-//                                iterator.remove();
-//                            }
-                        Log.e("shell","thread2 + hashmapChange"+integer);
-
-                    }
-
-                }
-            };
-        };
-        thread1.start();
-        thread2.start();
+        SimpleAnimater simpleAnimater = new SimpleAnimater();
+        simpleAnimater.setDuration(1000);
+        tvAnimateView.startAnimation(simpleAnimater);
     }
 
     public void showpop(View view){

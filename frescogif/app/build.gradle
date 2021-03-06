@@ -10,6 +10,8 @@ android {
         targetSdkVersion 28
         versionCode 2
         versionName "2.0"
+
+        multiDexEnabled true
     }
 
 
@@ -81,6 +83,18 @@ dependencies {
     annotationProcessor 'androidx.annotation:annotation:1.1.0'
     implementation "androidx.core:core-ktx:+"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    //stetho是Facebook推出的安卓APP网络诊断和数据监控的工具，接入方便，功能强大，是开发者必备的好工具。
+    //
+    //主要功能包括：
+    //
+    //查看App的布局
+    //网络请求抓包
+    //数据库、sp文件查看
+    //自定义dumpapp插件
+    //对于JavaScript的支持
+    implementation 'com.facebook.stetho:stetho:1.5.1'
+    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.1'
+
 }
 
 //configurations.all {
