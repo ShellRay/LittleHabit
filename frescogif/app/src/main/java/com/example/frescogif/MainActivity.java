@@ -32,6 +32,7 @@ import android.widget.TextView;
 import com.example.frescogif.activity.AddSecretActivity;
 import com.example.frescogif.activity.AnimationActivity;
 import com.example.frescogif.activity.AppBarActivity;
+import com.example.frescogif.activity.CallOneKeyBackActivity;
 import com.example.frescogif.activity.ChatGatherActivity;
 import com.example.frescogif.activity.CircleSolidActivity;
 import com.example.frescogif.activity.CityActivity;
@@ -113,6 +114,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private Button btnScrollVerify;
     private Button constrict;
     private Button compress;
+    private Button callOne;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -149,6 +151,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         btnScrollVerify = (Button) findViewById(R.id.btn_scroll_verify);
         constrict = (Button) findViewById(R.id.constrict);
         compress = (Button) findViewById(R.id.compress);
+        callOne = (Button) findViewById(R.id.callOne);
 
         btn_bg.setOnClickListener(this);
         btn_login.setOnClickListener(this);
@@ -177,7 +180,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         btnScrollVerify.setOnClickListener(this);
         constrict.setOnClickListener(this);
         compress.setOnClickListener(this);
-
+        callOne.setOnClickListener(this);
         inAnim = (TranslateAnimation) AnimationUtils.loadAnimation(this, R.anim.gift_in);
         outAnim = (TranslateAnimation) AnimationUtils.loadAnimation(this, R.anim.gift_out);
         giftNumAnim = new NumAnim();
@@ -375,6 +378,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.compress:
                 startActivity(new Intent(this, VideoCompressActivity.class));
                 break;
+
+            case R.id.callOne:
+                startActivity(new Intent(this, CallOneKeyBackActivity.class));
+                break;
+
+
 
         }
     }

@@ -277,6 +277,15 @@
             android:screenOrientation="portrait">
         </activity>
 
+        <activity
+            android:name=".activity.CallOneKeyBackActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            >
+        </activity>
+
     </application>
 
 </manifest>
