@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/calligraphy/calligraphy.iml" filepath="$PROJECT_DIR$/calligraphy/calligraphy.iml" />
-      <module fileurl="file://$PROJECT_DIR$/frescogif.iml" filepath="$PROJECT_DIR$/frescogif.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/frescogif.iml" filepath="$PROJECT_DIR$/.idea/modules/frescogif.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/frescogif.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/frescogif.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/calligraphy/frescogif.calligraphy.iml" filepath="$PROJECT_DIR$/.idea/modules/calligraphy/frescogif.calligraphy.iml" />
     </modules>
   </component>
 </project>
