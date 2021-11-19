@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.frescogif.R;
 import com.gyf.barlibrary.ImmersionBar;
 
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * Created by GG on 2017/6/12.
@@ -27,11 +26,6 @@ public class BaseActivity extends AppCompatActivity {
 
         //查看器展示
 //        UETool.showUETMenu();
-    }
-
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     @Override

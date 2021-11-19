@@ -54,6 +54,7 @@ import com.example.frescogif.activity.ScrollVerfityActivity;
 import com.example.frescogif.activity.ShapeActivity;
 import com.example.frescogif.activity.SlidMenuActivity;
 import com.example.frescogif.activity.SomeAnimationActivity;
+import com.example.frescogif.activity.SportlightActivity;
 import com.example.frescogif.activity.StickinessActivity;
 import com.example.frescogif.activity.VideoCompressActivity;
 import com.example.frescogif.baseActvity.BaseActivity;
@@ -115,6 +116,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private Button constrict;
     private Button compress;
     private Button callOne;
+    private Button spotlight;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -152,6 +154,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         constrict = (Button) findViewById(R.id.constrict);
         compress = (Button) findViewById(R.id.compress);
         callOne = (Button) findViewById(R.id.callOne);
+        spotlight = (Button) findViewById(R.id.spotlight);
+
 
         btn_bg.setOnClickListener(this);
         btn_login.setOnClickListener(this);
@@ -181,6 +185,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         constrict.setOnClickListener(this);
         compress.setOnClickListener(this);
         callOne.setOnClickListener(this);
+        spotlight.setOnClickListener(this);
         inAnim = (TranslateAnimation) AnimationUtils.loadAnimation(this, R.anim.gift_in);
         outAnim = (TranslateAnimation) AnimationUtils.loadAnimation(this, R.anim.gift_out);
         giftNumAnim = new NumAnim();
@@ -381,6 +386,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
             case R.id.callOne:
                 startActivity(new Intent(this, CallOneKeyBackActivity.class));
+                break;
+
+            case R.id.spotlight:
+                startActivity(new Intent(this, SportlightActivity.class));
                 break;
 
 
