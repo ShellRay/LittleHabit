@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
+        app:layout_behavior="com.example.frescogif.view.behavior.FixAppBarLayoutBehavior"
         android:theme="@style/AppTheme">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout

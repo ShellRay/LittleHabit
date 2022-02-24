@@ -2,12 +2,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 31
 
     defaultConfig {
         applicationId "com.example.frescogif"
         minSdkVersion 19
-        targetSdkVersion 28
+        targetSdkVersion 31
         versionCode 2
         versionName "2.0"
 
@@ -65,13 +65,13 @@ dependencies {
     compile files('libs/aspectjrt-1.7.3.jar')//服务于isoparser主要，本身可以做登录状态问题
     implementation 'com.google.code.gson:gson:2.4'
     implementation 'com.google.android:flexbox:0.3.2'
-    implementation project(':calligraphy')
+
     implementation 'com.github.ctiao:DanmakuFlameMaster:0.5.3'
 //    https://mp.weixin.qq.com/s?__biz=MzAxMTI4MTkwNQ==&mid=2650825704&idx=1&sn=f1d039ac625e9d39441c12ebb2b3b780&chksm=80b7b776b7c03e602a4aad48e9955b08eb3fdca8b67ca51c16d70261cb8896337b45917f7394&mpshare=1&scene=23&srcid=06264zSn3uMZrAqnplndKR4S#rd
     //ip得看手机无线的ip地址
-    debugImplementation   'com.amitshekhar.android:debug-db:1.0.4'
+//    debugImplementation   'com.amitshekhar.android:debug-db:1.0.4'
     //查看视图UItools
-    debugImplementation 'me.ele:uetool:1.0.15'
+//    debugImplementation 'me.ele:uetool:1.0.15'
     implementation 'com.yanzhenjie:permission:2.0.0-rc11'
     implementation 'com.github.yyued:SVGAPlayer-Android:2.4.0'
     implementation 'com.squareup.okhttp3:okhttp:3.12.0'
